@@ -51,6 +51,15 @@ class LookupAccessorConstructor:
                 print('Using provided lookup_array for accessor.')
             return lookup_array
         
+        # Check for pre-attached lookup array (set by MultiSource), which allows sharing lookup arrays across multiple DataArrays without redundant construction.
+        # Does not require lookup_array to be passed in constructor, allowing simple accessor usage like da.ulookup.sel(...) while still benefiting from lookup array construction 
+        # and reuse when used within a MultiSource context.
+
+        if '_lookup_array_ref' in self._da.attrs:
+            self.lookup_array = self._da.attrs['_lookup_array_ref']
+            if verbose:
+                print('Using pre-attached lookup array from MultiSource.')
+            return self.lookup_array
         # Validate dict_of parameter
         if dict_of is None:
             if verbose:
@@ -162,8 +171,15 @@ class LookupAccessorConstructor:
             verbose: bool= False,
             **selectors
             ):
+        '''Alias for select().'''
+        return self.select(verbose= verbose, **selectors)
+
+    def select(self,
+               verbose: bool= False,
+               **selectors
+               ):
         '''
-        Alias for __call__ to allow selection using .sel() syntax.
+        Return the DataArray sliced to matching global coordinates.
         -------------------------------        
         
         Parameters:
@@ -173,12 +189,14 @@ class LookupAccessorConstructor:
                 Selection criteria
         
         Returns:
-            list: Global coordinates matching the criteria
+            xr.DataArray: DataArray sliced to matching coordinates
         
         Examples:
-            da.ulookup.sel(device='Behavior1')
-            da.ulookup.sel(device='Behavior1', localID='DIPort0')
+            da.ulookup.select(device='Behavior1')
+            da.ulookup.select(device='Behavior1', localID='DIPort0')
         '''
-        return self.__call__(verbose= verbose, **selectors)
+        coords = self.__call__(verbose= verbose, **selectors)
+        global_coord_name = [dim for dim in self._da.dims if dim.lower() != 'time'][0]
+        return self._da.sel({global_coord_name: coords})
 
 ################################################################################

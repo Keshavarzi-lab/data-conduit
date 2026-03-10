@@ -25,6 +25,8 @@ import pandas as pd
 import xarray as xr
 
 from data_conduit.io import collect_dfs
+from data_conduit.utils import _apply_level_selectors, _flatten_nested_dict, _parse_selectors
+
 
 ################################################################################
 
@@ -122,6 +124,64 @@ def _obtain_dfs_dict(
 
 
 
+# #===============================================================================
+# # 2| Build data_arrays from datasource_data_arrays 
+# #===============================================================================
+
+# def _build_data_arrays(
+#     dfs_dict: dict,
+#     datasource_data_arrays: dict,
+#     verbose: bool = False,
+# ) -> dict[str, xr.DataArray]:
+#     """
+#     Build named xarray objects from a nested dfs_dict.
+
+#     Parameters
+#     ----------
+#     dfs_dict : dict
+#         Nested dictionary of DataFrames/DataArrays.
+#     datasource_data_arrays : dict
+#         Mapping of {friendly_name: path_tuple_or_str}.
+#         Example:
+#             {'PlaySoundFreq': ('SoundCard', '32')}
+#     verbose : bool
+#         If True, print warnings for missing or invalid paths.
+
+#     Returns
+#     -------
+#     dict[str, xr.DataArray]
+#         Named DataArrays built from datasource_data_arrays.
+#     """
+#     data_arrays: dict[str, xr.DataArray] = {}
+
+#     for name, path in datasource_data_arrays.items():
+#         if isinstance(path, str):
+#             path = (path,)
+
+#         try:
+#             current = dfs_dict
+#             for key in path:
+#                 current = current[key]
+
+#             if isinstance(current, pd.DataFrame):
+#                 data_arrays[name] = current.to_xarray()
+#             elif isinstance(current, xr.DataArray):
+#                 data_arrays[name] = current
+#             else:
+#                 if verbose:
+#                     print(
+#                         f"Warning: '{name}' at {path} is "
+#                         f"{type(current).__name__}, not DataFrame/DataArray."
+#                     )
+
+#         except KeyError as e:
+#             if verbose:
+#                 print(f"Warning: '{name}' not found at {path}: {e}")
+
+#     return data_arrays
+# #===============================================================================
+
+
 #===============================================================================
 # 2| Build data_arrays from datasource_data_arrays 
 #===============================================================================
@@ -132,49 +192,49 @@ def _build_data_arrays(
     verbose: bool = False,
 ) -> dict[str, xr.DataArray]:
     """
-    Build named xarray objects from a nested dfs_dict.
+    Build named xarray objects from a nested dfs_dict using level selectors.
+
+    Each entry in datasource_data_arrays maps a friendly name to a dict of
+    level selectors, using the same ``l{n}_selector`` format as collect_dfs.
 
     Parameters
     ----------
     dfs_dict : dict
         Nested dictionary of DataFrames/DataArrays.
     datasource_data_arrays : dict
-        Mapping of {friendly_name: path_tuple_or_str}.
-        Example:
-            {'PlaySoundFreq': ('SoundCard', '32')}
+        Mapping of {friendly_name: selector_dict}.
+        
+        Examples:
+            {'PlaySoundFreq': {'l0_selector': 'SoundCard', 'l1_selector': '32'}}
+            {'Everything': {}}
     verbose : bool
         If True, print warnings for missing or invalid paths.
 
     Returns
     -------
     dict[str, xr.DataArray]
-        Named DataArrays built from datasource_data_arrays.
+        Named DataArrays. Single matches are stored under the friendly name.
+        Multiple matches are stored as '{name}:{flattened_key}'.
     """
     data_arrays: dict[str, xr.DataArray] = {}
 
-    for name, path in datasource_data_arrays.items():
-        if isinstance(path, str):
-            path = (path,)
+    for name, selectors in datasource_data_arrays.items():
+        level_selectors = _parse_selectors(selectors)
+        filtered = _apply_level_selectors(dfs_dict, level_selectors)
+        flat = _flatten_nested_dict(filtered)
 
-        try:
-            current = dfs_dict
-            for key in path:
-                current = current[key]
+        if len(flat) == 0 and verbose:
+            print(f"Warning: '{name}' matched nothing in dfs_dict.")
+            continue
 
-            if isinstance(current, pd.DataFrame):
-                data_arrays[name] = current.to_xarray()
-            elif isinstance(current, xr.DataArray):
-                data_arrays[name] = current
-            else:
-                if verbose:
-                    print(
-                        f"Warning: '{name}' at {path} is "
-                        f"{type(current).__name__}, not DataFrame/DataArray."
-                    )
-
-        except KeyError as e:
-            if verbose:
-                print(f"Warning: '{name}' not found at {path}: {e}")
+        for flat_key, leaf in flat.items():
+            array_name = name if len(flat) == 1 else f"{name}:{flat_key}"
+            if isinstance(leaf, pd.DataFrame):
+                data_arrays[array_name] = leaf.to_xarray()
+            elif isinstance(leaf, xr.DataArray):
+                data_arrays[array_name] = leaf
+            elif verbose:
+                print(f"Warning: '{array_name}' is {type(leaf).__name__}, not DataFrame/DataArray.")
 
     return data_arrays
 #===============================================================================

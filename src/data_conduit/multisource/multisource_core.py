@@ -464,3 +464,8 @@ class MultiSource:
             fill_value=self.fill_value,
             verbose=self.verbose,
         )
+        # Attach lookup arrays onto data arrays so the .ulookup accessor
+        # can reuse them without rebuilding.
+        for data_key in self.data_keys:
+            if data_key in self.data_arrays and data_key in self.lookup_arrays:
+                self.data_arrays[data_key].attrs['_lookup_array_ref'] = self.lookup_arrays[data_key]

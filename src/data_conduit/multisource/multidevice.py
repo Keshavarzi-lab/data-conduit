@@ -23,219 +23,11 @@ Contents:
 
 from pathlib import Path
 
-from data_conduit.datasource.datasource_core import _obtain_dfs_dict
-from data_conduit.harptools import read_harp_bin
+from data_conduit.harptools import collect_harp_dfs
 from data_conduit.multisource.multisource_core import MultiSource
-from data_conduit.utils import starts_with
 
 ################################################################################
 
-
-def _collapse_device_folder_level(dfs_dict: dict) -> dict:
-    '''Collapse duplicated device folder levels in loaded HARP trees.'''
-    collapsed = {}
-    for device_name, value in dfs_dict.items():
-        if isinstance(value, dict) and list(value.keys()) == [device_name]:
-            collapsed[device_name] = value[device_name]
-        else:
-            collapsed[device_name] = value
-    return collapsed
-
-
-def _rekey_harp_registers(dfs_dict: dict) -> dict:
-    '''Rekey HARP file stems (e.g. Behavior0_32_timestamp) to register keys.'''
-    rekeyed = {}
-    for device_name, value in dfs_dict.items():
-        if not isinstance(value, dict):
-            rekeyed[device_name] = value
-            continue
-
-        register_dict = {}
-        for key, item in value.items():
-            parts = key.split('_')
-            register_key = parts[1] if len(parts) > 1 else key
-            if register_key in register_dict:
-                raise ValueError(
-                    f"Rekeying would overwrite data for device '{device_name}' at "
-                    f"register '{register_key}'."
-                )
-            register_dict[register_key] = item
-
-        rekeyed[device_name] = register_dict
-
-    return rekeyed
-
-
-def _filter_device_registers(dfs_dict: dict, device_registers: dict | None) -> dict:
-    '''Keep only requested registers for devices listed in device_registers.'''
-    if device_registers is None:
-        return dfs_dict
-
-    filtered = {}
-    for device_name, registers in dfs_dict.items():
-        if device_name not in device_registers:
-            filtered[device_name] = registers
-            continue
-
-        allowed = {str(register) for register in device_registers[device_name]}
-        if isinstance(registers, dict):
-            filtered[device_name] = {
-                register_name: item
-                for register_name, item in registers.items()
-                if register_name in allowed
-            }
-        else:
-            filtered[device_name] = registers
-
-    return filtered
-
-
-def _warn_missing_expected_devices(
-    dfs_dict: dict,
-    device_list: list[str] | None,
-    verbose: bool,
-) -> None:
-    '''Warn for expected devices that are missing from loaded data.'''
-    if not verbose or not device_list:
-        return
-
-    missing = [device_name for device_name in device_list if device_name not in dfs_dict]
-    for device_name in missing:
-        print(f"Warning: expected device '{device_name}' was not found in loaded data.")
-
-
-def _warn_missing_expected_registers(
-    dfs_dict: dict,
-    device_registers: dict | None,
-    verbose: bool,
-) -> None:
-    '''Warn for expected registers that are missing from loaded data.'''
-    if not verbose or not device_registers:
-        return
-
-    for device_name, expected_registers in device_registers.items():
-        if device_name not in dfs_dict:
-            print(f"Warning: expected device '{device_name}' was not found in loaded data.")
-            continue
-
-        loaded = dfs_dict[device_name]
-        if not isinstance(loaded, dict):
-            continue
-
-        missing = [str(register) for register in expected_registers if str(register) not in loaded]
-        for register in missing:
-            print(f"Warning: expected register '{register}' was not found for device '{device_name}'.")
-
-
-def _obtain_multidevice_dfs_dict(
-    dfs_dict: dict | None,
-    experiment_directory_path: str | Path | None,
-    harp_device_yaml_path: str | Path,
-    device_type: str,
-    device_list: list[str] | None,
-    device_IDs: dict | None,
-    device_registers: dict | None,
-    verbose: bool,
-    **kwargs,
-) -> dict:
-    '''Resolve dfs_dict for MultiDevice without depending on Device class internals.'''
-    if dfs_dict is not None:
-        if not isinstance(dfs_dict, dict):
-            raise TypeError(
-                f"dfs_dict must be a dict if provided, got {type(dfs_dict).__name__}."
-            )
-        return dfs_dict
-
-    if experiment_directory_path is None:
-        raise ValueError(
-            'Provide either dfs_dict or experiment_directory_path for MultiDevice.'
-        )
-
-    loaded = _obtain_dfs_dict(
-        dfs_dict=None,
-        experiment_directory_path=experiment_directory_path,
-        readers={'.bin': read_harp_bin},
-        reader_kwargs={'.bin': {'harp_device_yaml_path': harp_device_yaml_path}},
-        keep_empty=False,
-        flatten=False,
-        separator=':',
-        verbose=verbose,
-        l0_selector=starts_with(device_type),
-        **kwargs,
-    )
-
-    loaded = _collapse_device_folder_level(loaded)
-    loaded = _rekey_harp_registers(loaded)
-    loaded = _filter_device_registers(loaded, device_registers)
-
-    _warn_missing_expected_devices(loaded, device_list, verbose)
-    _warn_missing_expected_registers(loaded, device_registers, verbose)
-
-    return loaded
-
-
-def _build_virtual_maps(
-    channel_list: list[str],
-    data_registerIDs: dict[str, dict[str, str]],
-    device_list: list[str],
-    channel_localIDs: dict[str, list[str]] | None = None,
-) -> dict[str, dict[str, dict[str, str]]]:
-    '''Build dict-style virtual maps from channel/device/register inputs.'''
-    if not channel_list:
-        raise ValueError('channel_list must be a non-empty list.')
-    if not data_registerIDs:
-        raise ValueError('data_registerIDs must be provided and non-empty.')
-    if not device_list:
-        raise ValueError('device_list must be provided when building virtual maps.')
-
-    virtual_maps: dict[str, dict[str, dict[str, str]]] = {}
-
-    for data_key, register_map in data_registerIDs.items():
-        if not register_map:
-            raise ValueError(f"data_registerIDs['{data_key}'] is empty.")
-
-        local_ids = (
-            channel_localIDs[data_key]
-            if channel_localIDs is not None and data_key in channel_localIDs
-            else list(register_map.keys())
-        )
-
-        n_local = len(local_ids)
-        if n_local == 0:
-            raise ValueError(f"No local_ids for data_key '{data_key}'.")
-
-        if len(channel_list) % n_local != 0:
-            raise ValueError(
-                f'len(channel_list)={len(channel_list)} is not a multiple of '
-                f"len(localIDs)={n_local} for data_key '{data_key}'."
-            )
-
-        n_required_devices = len(channel_list) // n_local
-        if n_required_devices > len(device_list):
-            raise ValueError(
-                f"data_key '{data_key}' requires {n_required_devices} devices "
-                f'from channel_list/localIDs, but only {len(device_list)} were provided.'
-            )
-
-        vmap: dict[str, dict[str, str]] = {}
-        for idx, channel in enumerate(channel_list):
-            dev_idx = idx // n_local
-            local_id = local_ids[idx % n_local]
-
-            if local_id not in register_map:
-                raise KeyError(
-                    f"localID '{local_id}' missing from data_registerIDs['{data_key}']."
-                )
-
-            vmap[channel] = {
-                'device': device_list[dev_idx],
-                'register': str(register_map[local_id]),
-                'localID': str(local_id),
-            }
-
-        virtual_maps[data_key] = vmap
-
-    return virtual_maps
 
 
 ################################################################################
@@ -250,6 +42,65 @@ class MultiDevice(MultiSource):
     Like Device, this class focuses on obtaining the right dfs_dict shape.
     Unlike Device, it then delegates to MultiSource to construct virtual-map
     aligned outputs (data_arrays, lookup_arrays, lookup_virtual_coords).
+
+    Parameters 
+    ----------
+    experiment_directory_path : str or Path
+        Root directory to walk for HARP data.
+    harp_device_yaml_path : str or Path
+        Path to HARP device YAML for parsing device/register metadata.
+    device_type : str
+        Device type to filter for in the HARP device YAML.
+    device_list : list of str
+        List of device names to include. If None, include all devices of the specified type.
+    device_IDs : dict
+        Optional mapping of device names to device IDs for filtering.
+    device_registers : dict
+        Optional mapping of device names to lists of register IDs to include.
+    virtual_maps : dict or None
+        Optional mapping of virtual map names to virtual maps for lookup construction.
+    data_keys : list or None
+        Optional list of keys in virtual_maps to use for data array construction. If None, use all keys.
+    global_coord_name : str
+        Name of the global coordinate dimension in the lookup array.
+    virtual_coord_names : list of str
+        Names of the virtual coordinate dimensions in the lookup array.
+    dict_of : str
+        Format for virtual_map input: 'dicts' for dict-of-dicts, 'tuples' for dict-of-tuples.
+    data_array_names : dict or None
+        Optional custom names for data arrays keyed by data_key.
+        e.g. {'Activations': 'my_activations_data'}
+    data_array_attrs : dict or None
+        Optional dict of attributes to set on constructed data arrays.
+    rekey : bool
+        If True, rekey the dfs_dict to use device names instead of IDs for easier navigation. If False, keep original keys. Default is True.
+    lookup_array_names : dict or None
+        Optional custom names for lookup arrays keyed by data_key.
+        e.g. {'Activations': 'my_activations_lookup'}
+    lookup_array_attrs : dict or None
+        Optional dict of attributes to set on constructed lookup arrays.
+    test_values : bool
+        If True, populate arrays with human-readable debug strings instead of NaNs.
+    fill_value : any
+        Value to use for filling missing entries in the lookup array. Default is None.
+    verbose : bool
+        If True, print detailed information during loading and construction.
+    **kwargs
+        Additional keyword arguments passed to collect_harp_dfs and MultiSource.
+        e.g. l0_selector, l1_selector for collect_harp_dfs; any MultiSource kwargs for output construction.
+    
+    Attributes
+    ----------
+    dfs_dict : dict
+        Nested dictionary of DataFrames from collect_harp_dfs.
+    data_arrays : dict[str, xr.DataArray]
+        Named DataArrays built from virtual maps.
+    lookup_arrays : dict[str, xr.DataArray]
+        Named lookup DataArrays built from virtual maps.
+    lookup_virtual_coords : dict[str, list]
+        Virtual coordinate names for each lookup array.
+
+
     '''
 
     def __init__(
@@ -266,12 +117,10 @@ class MultiDevice(MultiSource):
         #== virtual map setup ==#
         virtual_maps: dict | None = None,
         data_keys: list[str] | None = None,
-        data_registerIDs: dict[str, dict[str, str]] | None = None,
-        channel_list: list[str] | None = None,
-        channel_localIDs: dict[str, list[str]] | None = None,
+        rekey: bool = True,
         #== multisource config ==#
         global_coord_name: str = 'global_coord',
-        virtual_coord_names: list[str] | None = None,
+        virtual_coord_names: list[str] | None = ['device', 'register', 'localID'],
         dict_of: str = 'dicts',
         data_array_names: dict | None = None,
         data_array_attrs: dict | None = None,
@@ -290,38 +139,20 @@ class MultiDevice(MultiSource):
         self.device_IDs = device_IDs
         self.device_registers = device_registers
 
-        resolved_dfs_dict = _obtain_multidevice_dfs_dict(
-            dfs_dict=dfs_dict,
-            experiment_directory_path=experiment_directory_path,
-            harp_device_yaml_path=harp_device_yaml_path,
-            device_type=device_type,
-            device_list=device_list,
-            device_IDs=device_IDs,
-            device_registers=device_registers,
-            verbose=verbose,
-            **kwargs,
-        )
-
-        resolved_virtual_maps = virtual_maps
-        if (
-            resolved_virtual_maps is None
-            and data_registerIDs is not None
-            and channel_list is not None
-            and device_list is not None
-        ):
-            resolved_virtual_maps = _build_virtual_maps(
-                channel_list=channel_list,
-                data_registerIDs=data_registerIDs,
+        if dfs_dict is None and experiment_directory_path is not None:
+            dfs_dict = collect_harp_dfs(
+                base_path=experiment_directory_path,
+                harp_device_yaml_path=harp_device_yaml_path,
+                device_type=device_type,
+                device_registers=device_registers,
                 device_list=device_list,
-                channel_localIDs=channel_localIDs,
+                rekey=rekey,
+                verbose=verbose,
             )
 
-        if virtual_coord_names is None and dict_of == 'dicts':
-            virtual_coord_names = ['device', 'register', 'localID']
-
         super().__init__(
-            dfs_dict=resolved_dfs_dict,
-            virtual_maps=resolved_virtual_maps,
+            dfs_dict=dfs_dict,
+            virtual_maps=virtual_maps,
             data_keys=data_keys,
             global_coord_name=global_coord_name,
             virtual_coord_names=virtual_coord_names,
@@ -339,96 +170,87 @@ class MultiDevice(MultiSource):
 ################################################################################
 # Nosepoke Preset
 ################################################################################
-
-
 class Nosepoke(MultiDevice):
-    '''Preset MultiDevice for common nosepoke peripheral data configuration.'''
+    '''
+    Preset MultiDevice for common nosepoke peripheral data configuration.
+
+    Pre-configures a 6-board, 18-nosepoke layout with 4 data types
+    (Activations, LEDs, Valves, Rewards). Each board has 3 nosepokes.
+    All defaults can be overridden.
+
+    Parameters
+    ----------
+    experiment_directory_path : str or Path or None
+        Root path for loading from disk.
+    harp_device_yaml_path : str or Path
+        Path to HARP device YAML schema.
+    device_list : list[str]
+        Device names. Default: ['Behavior0', ..., 'Behavior5'].
+    device_registers : dict
+        Registers per device. Default: {'Behavior0': ['32', '34'], ...}.
+    virtual_maps : dict
+        Virtual maps for all data keys. Default maps NP_0..NP_17 across
+        6 Behavior boards with 3 ports each per data key.
+    data_keys : list[str]
+        Data keys to construct. Default: ['Activations', 'LEDs', 'Valves', 'Rewards'].
+    global_coord_name : str
+        Name of the global coordinate dimension. Default: 'peripherals'.
+    virtual_coord_names : list[str]
+        Virtual coordinate names. Default: ['device', 'register', 'localID'].
+    rekey : bool
+        If True, rekey HARP file stems to register addresses. Default: True.
+    verbose : bool
+        If True, print progress during loading and construction.
+    **kwargs
+        Passed through to MultiDevice/MultiSource (data_array_names,
+        data_array_attrs, lookup_array_names, lookup_array_attrs,
+        test_values, fill_value, dict_of).
+
+    Attributes
+    ----------
+    dfs_dict : dict
+        Nested dictionary of DataFrames from collect_harp_dfs.
+    data_arrays : dict[str, xr.DataArray]
+        One DataArray per data key (Activations, LEDs, Valves, Rewards),
+        each with dims [Time × peripherals] and virtual coords attached.
+        Queryable via da.ulookup.select(device='Behavior0').
+    lookup_arrays : dict[str, xr.DataArray]
+        One lookup array per data key.
+    lookup_virtual_coords : dict[str, dict]
+        Unique virtual coordinate values for each data key.
+    '''
 
     def __init__(
         self,
         experiment_directory_path: str | Path | None = None,
         harp_device_yaml_path: str | Path = './device.yml',
-        device_type: str = 'Behavior',
-        device_list: list[str] | None = None,
-        channel_list: list[str] | None = None,
-        data_registerIDs: dict[str, dict[str, str]] | None = None,
-        data_keys: list[str] | None = None,
+        device_list: list[str] = [f'Behavior{i}' for i in range(6)],
+        device_registers: dict = {f'Behavior{i}': ['32', '34'] for i in range(6)},
+        virtual_maps: dict = {
+            'Activations': {f'NP_{i}': {'device': f'Behavior{i//3}', 'register': '32', 'localID': ['DIPort0','DIPort1','DIPort2'][i%3]} for i in range(18)},
+            'LEDs':        {f'NP_{i}': {'device': f'Behavior{i//3}', 'register': '34', 'localID': ['DOPort0','DOPort1','DOPort2'][i%3]} for i in range(18)},
+            'Valves':      {f'NP_{i}': {'device': f'Behavior{i//3}', 'register': '34', 'localID': ['DOPort3','DOPort4','DOPort5'][i%3]} for i in range(18)},
+            'Rewards':     {f'NP_{i}': {'device': f'Behavior{i//3}', 'register': '32', 'localID': ['DIPort3','DIPort4','DIPort5'][i%3]} for i in range(18)},
+        },
+        data_keys: list[str] = ['Activations', 'LEDs', 'Valves', 'Rewards'],
         global_coord_name: str = 'peripherals',
-        virtual_coord_names: list[str] | None = None,
-        dict_of: str = 'dicts',
-        data_array_names: dict | None = None,
-        data_array_attrs: dict | None = None,
-        lookup_array_names: dict | None = None,
-        lookup_array_attrs: dict | None = None,
-        test_values: bool = False,
-        fill_value=None,
+        virtual_coord_names: list[str] = ['device', 'register', 'localID'],
+        rekey: bool = True,
         verbose: bool = False,
         **kwargs,
     ):
         '''Initialise Nosepoke preset and delegate to MultiDevice.'''
-        if device_list is None:
-            device_list = [f'Behavior{i}' for i in range(6)]
-
-        if channel_list is None:
-            channel_list = [f'NP_{i}' for i in range(18)]
-
-        if data_registerIDs is None:
-            data_registerIDs = {
-                'Activations': {
-                    'DIPort0': '32',
-                    'DIPort1': '32',
-                    'DIPort2': '32',
-                },
-                'LEDs': {
-                    'DOPort0': '34',
-                    'DOPort1': '34',
-                    'DOPort2': '34',
-                },
-                'Valves': {
-                    'DOPort3': '34',
-                    'DOPort4': '34',
-                    'DOPort5': '34',
-                },
-                'Rewards': {
-                    'DIPort3': '32',
-                    'DIPort4': '32',
-                    'DIPort5': '32',
-                },
-            }
-
-        if data_keys is None:
-            data_keys = list(data_registerIDs.keys())
-
-        device_registers = {
-            device_name: sorted(
-                {
-                    str(register)
-                    for key in data_keys
-                    for register in data_registerIDs[key].values()
-                }
-            )
-            for device_name in device_list
-        }
-
         super().__init__(
             experiment_directory_path=experiment_directory_path,
             harp_device_yaml_path=harp_device_yaml_path,
-            device_type=device_type,
+            device_type='Behavior',
             device_list=device_list,
             device_registers=device_registers,
-            virtual_maps=None,
+            rekey=rekey,
+            virtual_maps=virtual_maps,
             data_keys=data_keys,
-            data_registerIDs={key: data_registerIDs[key] for key in data_keys},
-            channel_list=channel_list,
             global_coord_name=global_coord_name,
             virtual_coord_names=virtual_coord_names,
-            dict_of=dict_of,
-            data_array_names=data_array_names,
-            data_array_attrs=data_array_attrs,
-            lookup_array_names=lookup_array_names,
-            lookup_array_attrs=lookup_array_attrs,
-            test_values=test_values,
-            fill_value=fill_value,
             verbose=verbose,
             **kwargs,
         )

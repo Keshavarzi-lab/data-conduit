@@ -40,7 +40,7 @@ import numpy as np
 import pandas as pd
 
 from data_conduit.datasource.datasource_core import DataSource, _build_data_arrays
-from data_conduit.io import collect_dfs, read_csv, read_json, split_jsonl, split_yaml
+from data_conduit.io import read_csv, read_json, split_jsonl, split_yaml
 from data_conduit.utils import starts_with
 
 ################################################################################
@@ -96,10 +96,8 @@ class FileTypeData(DataSource):
         If str, renames the index to that name (e.g. 'Time').
         If dict, passed to df.index.rename().
     filetype_data_arrays : dict or None
-        Mapping of friendly names to level selectors for extracting
-        named DataArrays from dfs_dict. Uses the same l{n}_selector
-        format as collect_dfs.
-        e.g. {'events': {'l0_selector': 'ExperimentEvents'}}
+        Mapping of friendly names to paths in dfs_dict.
+        e.g. {'trials': ('ExperimentEvents', 'events')}
     keep_empty : bool
         If True, preserve empty subdirectories as empty dicts.
     flatten : bool
@@ -118,11 +116,6 @@ class FileTypeData(DataSource):
         Nested dictionary of DataFrames from collect_dfs or provided directly.
     data_arrays : dict[str, xr.DataArray]
         Named DataArrays built from filetype_data_arrays.
-    df : pd.DataFrame or dict
-        Backward-compatible convenience property. Returns the single leaf
-        DataFrame from dfs_dict when there is only one file. For split
-        types (JSONL/YAML), returns {'metadata': df, 'trials': df}.
-        If multiple leaves exist, returns the full nested dict.
     '''
 
     #===========================================================================
@@ -154,9 +147,10 @@ class FileTypeData(DataSource):
         '''
         Initialise FileTypeData.
 
-        Resolves file_type to a reader, loads via collect_dfs, applies
-        post-processing (double-folder collapse, split handling, renaming),
-        then passes the clean dfs_dict to DataSource.
+        Resolves file_type to a reader, maps device_type to an l0_selector,
+        then delegates to DataSource for directory walking and file reading.
+        Applies post-processing (double-folder collapse, renaming, split
+        handling) after loading.
         '''
         self.device_type = device_type
         self.file_type = file_type
@@ -165,66 +159,42 @@ class FileTypeData(DataSource):
         self.filetype_data_arrays = filetype_data_arrays
         self.verbose = verbose
 
-        # Build dfs_dict if not provided
-        if dfs_dict is None and experiment_directory_path is not None:
-            readers, mapped_reader_kwargs, self._split_fn = self._resolve_readers(
-                file_type, reader_kwargs
-            )
+        #=== i| Resolve file_type -> reader
+        readers, mapped_reader_kwargs, split_fn = self._resolve_readers(
+            file_type, reader_kwargs
+        )
+        self._split_fn = split_fn
 
-            if device_type is not None and 'l0_selector' not in kwargs:
-                kwargs['l0_selector'] = starts_with(device_type)
+        #=== ii| Map device_type -> l0_selector
+        if device_type is not None and 'l0_selector' not in kwargs:
+            kwargs['l0_selector'] = starts_with(device_type)
 
-            dfs_dict = collect_dfs(
-                base_path=experiment_directory_path,
-                readers=readers,
-                reader_kwargs=mapped_reader_kwargs,
-                keep_empty=keep_empty,
-                flatten=flatten,
-                separator=separator,
-                verbose=verbose,
-                **kwargs,
-            )
-
-            # Post-process
-            dfs_dict = self._collapse_double_folders_dict(dfs_dict)
-            if self._split_fn is not None:
-                dfs_dict = self._apply_split_to_leaves(dfs_dict, self._split_fn, verbose)
-            dfs_dict = self._rename_leaves(dfs_dict, rename_columns_dict, rename_index_dict)
-        else:
-            self._split_fn = None
-
-        # Pass clean dfs_dict to DataSource
+        #=== iii| Load via DataSource (defer filetype_data_arrays until after post-processing)
         super().__init__(
             dfs_dict=dfs_dict,
             experiment_directory_path=experiment_directory_path,
-            datasource_data_arrays=filetype_data_arrays,
+            readers=readers,
+            reader_kwargs=mapped_reader_kwargs,
+            datasource_data_arrays=None,
+            keep_empty=keep_empty,
+            flatten=flatten,
+            separator=separator,
             verbose=verbose,
+            **kwargs,
         )
 
-    #===========================================================================
-    # Backward-compatible .df property
-    #===========================================================================
+        #=== iv| Post-process
+        self._collapse_double_folders()
+        self._handle_split_types()
+        self._apply_renames()
 
-    @property
-    def df(self):
-        '''
-        Backward-compatible access to the loaded data.
-
-        Walks dfs_dict and returns the single leaf DataFrame (or dict
-        for split types like JSONL/YAML). If multiple leaves exist,
-        returns the full nested dict so nothing silently drops data.
-        '''
-        def _find_leaf(d):
-            if not isinstance(d, dict):
-                return d
-            if len(d) == 1:
-                return _find_leaf(next(iter(d.values())))
-            return d
-        return _find_leaf(self.dfs_dict)
-
-    #===========================================================================
-    # Reader resolution
-    #===========================================================================
+        #=== v| Build named DataArrays now that dfs_dict is in final shape
+        if filetype_data_arrays is not None:
+            self.data_arrays = _build_data_arrays(
+                dfs_dict=self.dfs_dict,
+                datasource_data_arrays=filetype_data_arrays,
+                verbose=verbose,
+            )
 
     @classmethod
     def _resolve_readers(cls,
@@ -259,25 +229,37 @@ class FileTypeData(DataSource):
         mapped_kwargs = {extension: reader_kwargs} if reader_kwargs else None
         return readers, mapped_kwargs, split_fn
 
-    #===========================================================================
-    # Post-processing helpers (all static, operate on dicts)
-    #===========================================================================
-
-    @staticmethod
-    def _collapse_double_folders_dict(dfs_dict: dict) -> dict:
+    def _collapse_double_folders(self):
         '''
         Collapse double folders in dfs_dict.
 
         Bonsai often creates {DeviceType: {DeviceType: {files...}}}
         structures. This collapses them to {DeviceType: {files...}}.
+        Same logic as Device.
         '''
-        collapsed = {}
-        for key, value in dfs_dict.items():
+        for key in list(self.dfs_dict.keys()):
+            value = self.dfs_dict[key]
             if isinstance(value, dict) and list(value.keys()) == [key]:
-                collapsed[key] = value[key]
-            else:
-                collapsed[key] = value
-        return collapsed
+                self.dfs_dict[key] = value[key]
+
+    def _handle_split_types(self):
+        '''
+        Handle split file types (JSONL/YAML -> metadata+trials).
+
+        For jsonl/yml/yaml file_types, leaf values in dfs_dict are Paths
+        (since a path-preserving reader was passed to collect_dfs). This
+        method walks dfs_dict, finds Path leaves, and replaces them with
+        {'metadata': df, 'trials': df} dicts produced by split_jsonl or
+        split_yaml.
+        '''
+        if self._split_fn is None:
+            return
+
+        self.dfs_dict = self._apply_split_to_leaves(
+            self.dfs_dict,
+            self._split_fn,
+            self.verbose,
+        )
 
     @staticmethod
     def _apply_split_to_leaves(d: dict,
@@ -319,6 +301,20 @@ class FileTypeData(DataSource):
                 result[key] = value
         return result
 
+    def _apply_renames(self):
+        '''
+        Apply rename_columns_dict and rename_index_dict to all leaf
+        DataFrames in dfs_dict.
+        '''
+        if self.rename_columns_dict is None and self.rename_index_dict is None:
+            return
+
+        self.dfs_dict = self._rename_leaves(
+            self.dfs_dict,
+            self.rename_columns_dict,
+            self.rename_index_dict,
+        )
+
     @staticmethod
     def _rename_leaves(d: dict,
                        columns_dict: dict | None,
@@ -343,9 +339,6 @@ class FileTypeData(DataSource):
         dict
             Same structure with renamed DataFrames.
         '''
-        if columns_dict is None and index_rename is None:
-            return d
-
         result = {}
         for key, value in d.items():
             if isinstance(value, dict):
@@ -384,7 +377,7 @@ class ExperimentEvents(FileTypeData):
 
     Parameters
     ----------
-    experiment_directory_path : str or Path or None
+    experiment_directory_path : str or Path
         Path to the experiment directory.
     device_type : str
         Folder prefix. Default 'ExperimentEvents'.
@@ -394,37 +387,27 @@ class ExperimentEvents(FileTypeData):
         Column renaming. Default {'Value': 'Event'}.
     rename_index_dict : str
         Index name. Default 'Time'.
-    filetype_data_arrays : dict
-        Mapping of friendly names to level selectors.
-        Default: {'events': {'l0_selector': 'ExperimentEvents'}}
+    filetype_data_arrays : dict or None
+        Mapping of friendly names to paths in dfs_dict.
     verbose : bool
         If True, print warnings during processing.
     **kwargs
         Additional level selectors passed to collect_dfs.
-
-    Attributes
-    ----------
-    data_arrays : dict[str, xr.DataArray]
-        Named DataArrays built from filetype_data_arrays.
-        Default ExperimentEvents data_arrays:
-        {
-            'events': xr.DataArray for ExperimentEvents CSV data,
-        }
-    df : pd.DataFrame
-        Backward-compatible access to the single loaded DataFrame.
     '''
 
     def __init__(self,
                  experiment_directory_path: str | Path | None = None,
                  device_type: str = 'ExperimentEvents',
                  reader_kwargs: dict | None = None,
-                 rename_columns_dict: dict = {'Value': 'Event'},
+                 rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = 'Time',
-                 filetype_data_arrays: dict = {'events': {'l0_selector': 'ExperimentEvents'}},
+                 filetype_data_arrays: dict | None = None,
                  verbose: bool = False,
                  **kwargs,
                  ):
         '''Initialise ExperimentEvents with CSV preset.'''
+        if rename_columns_dict is None:
+            rename_columns_dict = {'Value': 'Event'}
 
         super().__init__(
             experiment_directory_path=experiment_directory_path,
@@ -454,10 +437,10 @@ class RotationData(FileTypeData):
 
     Parameters
     ----------
-    experiment_directory_path : str or Path or None
+    experiment_directory_path : str or Path
         Path to the experiment directory.
     device_type : str or None
-        Folder prefix. Typically one of 'InnerRotation',
+        Folder prefix. Must be one of 'InnerRotation',
         'OuterRotation', or 'NosepokeRotation'.
     reader_kwargs : dict or None
         Custom kwargs for read_csv.
@@ -473,26 +456,22 @@ class RotationData(FileTypeData):
         e.g. [0, 360], [-180, 180], [0, 2*pi].
         If None, no wrapping is applied.
     filetype_data_arrays : dict or None
-        Mapping of friendly names to level selectors.
-        No default — device_type varies per instantiation.
+        Mapping of friendly names to paths in dfs_dict.
     verbose : bool
         If True, print warnings during processing.
     **kwargs
         Additional level selectors passed to collect_dfs.
-
-    Attributes
-    ----------
-    data_arrays : dict[str, xr.DataArray]
-        Named DataArrays built from filetype_data_arrays (if provided).
-    df : pd.DataFrame
-        Backward-compatible access to the single loaded DataFrame.
     '''
+
+    _VALID_DEVICE_TYPES = [
+        'InnerRotation', 'OuterRotation', 'NosepokeRotation',
+    ]
 
     def __init__(self,
                  experiment_directory_path: str | Path | None = None,
                  device_type: str | None = None,
                  reader_kwargs: dict | None = None,
-                 rename_columns_dict: dict = {'Value': 'Rotation'},
+                 rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = 'Time',
                  angular_unit_conversion: str | None = None,
                  angular_range: list | None = None,
@@ -501,6 +480,14 @@ class RotationData(FileTypeData):
                  **kwargs,
                  ):
         '''Initialise RotationData with CSV preset and angular processing.'''
+        if device_type is not None and device_type not in self._VALID_DEVICE_TYPES:
+            raise ValueError(
+                f"RotationData device_type must be one of "
+                f"{self._VALID_DEVICE_TYPES}. Got: '{device_type}'."
+            )
+
+        if rename_columns_dict is None:
+            rename_columns_dict = {'Value': 'Rotation'}
 
         self.angular_unit_conversion = angular_unit_conversion
         self.angular_range = angular_range
@@ -517,10 +504,9 @@ class RotationData(FileTypeData):
             **kwargs,
         )
 
-        # Apply angular transforms after all base post-processing
+        #=== Apply angular transforms after all base post-processing
         if self.angular_unit_conversion is not None or self.angular_range is not None:
             self._apply_angular_transforms()
-            # Rebuild data_arrays since dfs_dict changed
             if self.filetype_data_arrays is not None:
                 self.data_arrays = _build_data_arrays(
                     dfs_dict=self.dfs_dict,
@@ -615,7 +601,7 @@ class VideoData(FileTypeData):
 
     Parameters
     ----------
-    experiment_directory_path : str or Path or None
+    experiment_directory_path : str or Path
         Path to the experiment directory.
     device_type : str
         Folder prefix. Default 'VideoData'.
@@ -625,40 +611,30 @@ class VideoData(FileTypeData):
         Column renaming. Default maps ChunkData fields.
     rename_index_dict : str
         Index name. Default 'Time'.
-    filetype_data_arrays : dict
-        Mapping of friendly names to level selectors.
-        Default: {'video': {'l0_selector': 'VideoData'}}
+    filetype_data_arrays : dict or None
+        Mapping of friendly names to paths in dfs_dict.
     verbose : bool
         If True, print warnings during processing.
     **kwargs
         Additional level selectors passed to collect_dfs.
-
-    Attributes
-    ----------
-    data_arrays : dict[str, xr.DataArray]
-        Named DataArrays built from filetype_data_arrays.
-        Default VideoData data_arrays:
-        {
-            'video': xr.DataArray for VideoData CSV data,
-        }
-    df : pd.DataFrame
-        Backward-compatible access to the single loaded DataFrame.
     '''
 
     def __init__(self,
                  experiment_directory_path: str | Path | None = None,
                  device_type: str = 'VideoData',
                  reader_kwargs: dict | None = None,
-                 rename_columns_dict: dict = {
-                     'Value.ChunkData.FrameID': 'FrameID',
-                     'Value.ChunkData.Timestamp': 'Timestamp',
-                 },
+                 rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = 'Time',
-                 filetype_data_arrays: dict = {'video': {'l0_selector': 'VideoData'}},
+                 filetype_data_arrays: dict | None = None,
                  verbose: bool = False,
                  **kwargs,
                  ):
         '''Initialise VideoData with CSV preset.'''
+        if rename_columns_dict is None:
+            rename_columns_dict = {
+                'Value.ChunkData.FrameID': 'FrameID',
+                'Value.ChunkData.Timestamp': 'Timestamp',
+            }
 
         super().__init__(
             experiment_directory_path=experiment_directory_path,
@@ -687,7 +663,7 @@ class VisualEnvironment(FileTypeData):
 
     Parameters
     ----------
-    experiment_directory_path : str or Path or None
+    experiment_directory_path : str or Path
         Path to the experiment directory.
     device_type : str
         Folder prefix. Default 'VisualEnvironment'.
@@ -698,46 +674,36 @@ class VisualEnvironment(FileTypeData):
         Column renaming. Default None (names set via reader_kwargs).
     rename_index_dict : str
         Index name. Default 'Time'.
-    filetype_data_arrays : dict
-        Mapping of friendly names to level selectors.
-        Default: {'visual_environment': {'l0_selector': 'VisualEnvironment'}}
+    filetype_data_arrays : dict or None
+        Mapping of friendly names to paths in dfs_dict.
     verbose : bool
         If True, print warnings during processing.
     **kwargs
         Additional level selectors passed to collect_dfs.
-
-    Attributes
-    ----------
-    data_arrays : dict[str, xr.DataArray]
-        Named DataArrays built from filetype_data_arrays.
-        Default VisualEnvironment data_arrays:
-        {
-            'visual_environment': xr.DataArray for VisualEnvironment CSV data,
-        }
-    df : pd.DataFrame
-        Backward-compatible access to the single loaded DataFrame.
     '''
 
     def __init__(self,
                  experiment_directory_path: str | Path | None = None,
                  device_type: str = 'VisualEnvironment',
-                 reader_kwargs: dict = {
-                     'names': [
-                         'Time', 'Value', 'Landmark', 'Landmark_Proximal',
-                         'Gratings', 'Firefly',
-                     ],
-                     'skiprows': 1,
-                     'header': None,
-                     'engine': 'python',
-                     'index_col': 0,
-                 },
+                 reader_kwargs: dict | None = None,
                  rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = 'Time',
-                 filetype_data_arrays: dict = {'visual_environment': {'l0_selector': 'VisualEnvironment'}},
+                 filetype_data_arrays: dict | None = None,
                  verbose: bool = False,
                  **kwargs,
                  ):
         '''Initialise VisualEnvironment with CSV preset and custom column names.'''
+        if reader_kwargs is None:
+            reader_kwargs = {
+                'names': [
+                    'Time', 'Value', 'Landmark', 'Landmark_Proximal',
+                    'Gratings', 'Firefly',
+                ],
+                'skiprows': 1,
+                'header': None,
+                'engine': 'python',
+                'index_col': 0,
+            }
 
         super().__init__(
             experiment_directory_path=experiment_directory_path,
@@ -768,7 +734,7 @@ class RingDebugData(FileTypeData):
 
     Parameters
     ----------
-    experiment_directory_path : str or Path or None
+    experiment_directory_path : str or Path
         Path to the experiment directory.
     device_type : str
         Folder prefix. Default 'ring-debug'.
@@ -776,24 +742,12 @@ class RingDebugData(FileTypeData):
         Column renaming. Default None.
     rename_index_dict : str
         Index name. Default 'Time'.
-    filetype_data_arrays : dict
-        Mapping of friendly names to level selectors.
-        Default: {'ring_debug': {'l0_selector': 'ring-debug'}}
+    filetype_data_arrays : dict or None
+        Mapping of friendly names to paths in dfs_dict.
     verbose : bool
         If True, print warnings during processing.
     **kwargs
         Additional level selectors passed to collect_dfs.
-
-    Attributes
-    ----------
-    data_arrays : dict[str, xr.DataArray]
-        Named DataArrays built from filetype_data_arrays.
-        Default RingDebugData data_arrays:
-        {
-            'ring_debug': xr.DataArray for ring-debug YAML data,
-        }
-    df : dict
-        Backward-compatible access. Returns {'metadata': df, 'trials': df}.
     '''
 
     def __init__(self,
@@ -801,7 +755,7 @@ class RingDebugData(FileTypeData):
                  device_type: str = 'ring-debug',
                  rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = 'Time',
-                 filetype_data_arrays: dict = {'ring_debug': {'l0_selector': 'ring-debug'}},
+                 filetype_data_arrays: dict | None = None,
                  verbose: bool = False,
                  **kwargs,
                  ):

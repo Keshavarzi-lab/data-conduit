@@ -15,6 +15,7 @@ Contents:
 ################################################################################
 
 from collections.abc import Callable
+import selectors
 
 import pandas as pd
 import xarray as xr
@@ -97,7 +98,7 @@ def _apply_level_selectors(
     """Return a filtered copy of `d`, keeping only keys listed in `selectors[depth]` at each depth."""
     result = {}
     for key, value in d.items():
-        if current_depth in selectors and key not in selectors[current_depth]:
+        if current_depth in selectors and not _matches_selector(key, selectors[current_depth]):
             continue
         if isinstance(value, dict):
             filtered = _apply_level_selectors(value, selectors, current_depth + 1)
