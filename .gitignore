@@ -14,6 +14,7 @@ wheels/
 /JPVA191B_23102025_run1_g0/
 /device.yml
 /soundcard.yml
+/src/data_conduit/deprecated/
 # Ignore everything outside src by default.
 # /*
 # !/.gitignore

@@ -70,17 +70,27 @@ def collect_folders(
     list[Path]
         A list of Path objects representing the collected folders.
     """
-    base_path = Path(base_path)
+    base_path = Path(base_path).resolve()
+    if not base_path.exists():
+        raise FileNotFoundError(
+            f"The specified base path does not exist: {base_path}"
+        )
     if not base_path.is_dir():
         raise NotADirectoryError(
             f"The specified base path is not a directory: {base_path}"
         )
 
     pattern = f"{folder_prefix}*" if folder_prefix is not None else "*"
-    return sorted(
+    folders = sorted(
         [f for f in base_path.glob(pattern) if f.is_dir()],
         key=lambda p: p.name,
     )
+    if not folders:
+        raise FileNotFoundError(
+            f"No subfolders found in {base_path}"
+            + (f" matching prefix '{folder_prefix}'" if folder_prefix else "")
+        )
+    return folders
 
 ################################################################################
 
