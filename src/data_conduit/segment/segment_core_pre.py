@@ -3,10 +3,14 @@ Segment module core.
 ---------------------
 
 Description:
-	Generic segmentation utilities for time-indexed data:
-	- run-length segmentation from boolean/state series
-	- event-window slicing for pandas DataFrames
-	- event-window slicing for xarray DataArrays
+	Generic segmentation utilities for time-indexed data.
+
+	The module provides two families of helpers:
+	1) run-length segmentation from boolean/state series
+	2) event-window slicing around timestamps for pandas/xarray objects
+
+	These functions are designed as lightweight primitives that can be reused
+	across datasource, multisource, and analysis layers.
 '''
 
 
@@ -34,21 +38,27 @@ def segment_boolean_series(
 	drop_inactive: bool = False,
 ) -> pd.DataFrame:
 	'''
-	Build run-length segments from a time-indexed boolean/int series.
+	Build run-length state segments from a time-indexed boolean/int series.
 
 	Parameters
 	----------
 	series : pd.Series
-		Time-indexed input. Values are coerced to bool state.
+		Time-indexed input. Values are coerced to boolean state (0/1).
 	min_duration : float
-		Minimum duration filter.
+		Minimum segment duration. Segments shorter than this are dropped.
 	drop_inactive : bool
-		If True, only keep active (state==1) segments.
+		If True, keep only active segments (`State == 1`).
 
 	Returns
 	-------
 	pd.DataFrame
-		Columns: ['Start', 'End', 'Duration', 'State']
+		Segment table with columns `Start`, `End`, `Duration`, `State`.
+
+	Raises
+	------
+	TypeError
+		If `series` is not a pandas Series.
+		If `series` has no index object representing time.
 	'''
 	if not isinstance(series, pd.Series):
 		raise TypeError('series must be a pandas Series.')
@@ -104,12 +114,35 @@ def slice_event_windows(
 	post: float,
 ) -> dict[float, pd.DataFrame]:
 	'''
-	Slice a DataFrame into windows centered on each event time.
+	Slice a DataFrame into event-centered windows.
 
-	Notes
-	-----
-	- Expects a numeric time index.
-	- Returned windows are reindexed to event-relative time (t=0 at event).
+	For each event time `ev`, a window is built from `[ev - pre, ev + post]`.
+	The returned DataFrame index is shifted to event-relative time, so the event
+	occurs at index 0.
+
+	Parameters
+	----------
+	df : pd.DataFrame
+		Input DataFrame with a numeric time index.
+	event_times : array-like
+		Event timestamps around which windows are extracted.
+	pre : float
+		Window length before each event.
+	post : float
+		Window length after each event.
+
+	Returns
+	-------
+	dict[float, pd.DataFrame]
+		Dictionary keyed by original event timestamp.
+		Each value is the sliced DataFrame for that event.
+
+	Raises
+	------
+	TypeError
+		If `df` is not a pandas DataFrame.
+	ValueError
+		If `pre` or `post` is negative.
 	'''
 	if not isinstance(df, pd.DataFrame):
 		raise TypeError('df must be a pandas DataFrame.')
@@ -143,7 +176,36 @@ def slice_dataarray_windows(
 	time_dim: str = 'Time',
 ) -> dict[float, xr.DataArray]:
 	'''
-	Slice a DataArray into event-centered windows along `time_dim`.
+	Slice an xarray DataArray into event-centered windows along `time_dim`.
+
+	For each event time `ev`, a slice is extracted from `[ev - pre, ev + post]`.
+	The selected coordinate values are then shifted so that `ev` maps to 0.
+
+	Parameters
+	----------
+	da : xr.DataArray
+		Input DataArray containing a time dimension.
+	event_times : array-like
+		Event timestamps around which windows are extracted.
+	pre : float
+		Window length before each event.
+	post : float
+		Window length after each event.
+	time_dim : str
+		Name of the time dimension to slice (default: `Time`).
+
+	Returns
+	-------
+	dict[float, xr.DataArray]
+		Dictionary keyed by original event timestamp.
+		Each value is a sliced DataArray for that event.
+
+	Raises
+	------
+	TypeError
+		If `da` is not an xarray DataArray.
+	ValueError
+		If `time_dim` is missing or `pre`/`post` is negative.
 	'''
 	if not isinstance(da, xr.DataArray):
 		raise TypeError('da must be an xarray DataArray.')

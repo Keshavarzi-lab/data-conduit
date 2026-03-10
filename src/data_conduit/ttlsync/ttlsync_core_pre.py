@@ -7,8 +7,11 @@ Description:
 	different clocks, and fitting/applying a linear conversion model between
 	timebases.
 
-	These functions are lightweight building blocks intended to be composed
-	with higher-level loaders in `datasource` and orchestrators in `multisource`.
+	The module is intentionally split into small, composable functions:
+	1) segment extraction from a raw TTL-like signal
+	2) pulse-table alignment across clock domains
+	3) linear model fitting and transform application
+	4) convenience wrappers that bundle the end-to-end conversion flow
 '''
 
 
@@ -42,24 +45,26 @@ def extract_ttl_segments(
 	align_to_zero: bool = True,
 ) -> tuple[pd.DataFrame, float]:
 	'''
-	Extract run-length pulse segments from TTL-like waveform data.
+	Extract run-length TTL pulse segments from a sampled waveform.
 
 	Parameters
 	----------
 	times : array-like
-		Monotonic timestamps.
+		Monotonic timestamps corresponding to `values`.
 	values : array-like
-		Signal values used to determine active/inactive states.
+		Signal values used to infer active/inactive TTL state.
 	threshold : float
-		Threshold for state binarisation.
+		Threshold used to binarize the signal into state 0/1.
 	active_high : bool
-		If True, state=1 means value >= threshold. Otherwise inverse.
+		If True, active state is `value >= threshold`.
+		If False, active state is `value < threshold`.
 	min_duration : float
-		Minimum segment duration (seconds/time-units). Shorter segments are dropped.
+		Minimum segment duration. Segments shorter than this are dropped.
 	drop_inactive : bool
-		If True, keep only active segments (state == 1).
+		If True, keep only active segments (`State == 1`).
 	align_to_zero : bool
-		If True, subtract first kept segment start from Start/End.
+		If True, subtract the first kept segment start from Start/End,
+		so the first segment starts at 0.
 
 	Returns
 	-------
@@ -67,6 +72,11 @@ def extract_ttl_segments(
 		(`segments`, `offset`) where `segments` has columns
 		['Start', 'End', 'Duration', 'State'] and `offset` is the original
 		start value used for alignment.
+
+	Raises
+	------
+	ValueError
+		If `times` or `values` are not 1D or do not share the same length.
 	'''
 	t = np.asarray(times, dtype=float)
 	v = np.asarray(values, dtype=float)
@@ -135,9 +145,31 @@ def align_pulse_tables(
 	normalise_start: bool = True,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
 	'''
-	Align two pulse tables by count and optional first-start normalisation.
+	Align reference and target pulse tables for one-to-one model fitting.
 
-	Both inputs must contain at least 'Start' and 'End'.
+	The function truncates both tables to equal length (`min(len(ref), len(target))`)
+	so each row index corresponds to the same pulse ordinal in both clocks.
+
+	Parameters
+	----------
+	reference_df : pd.DataFrame
+		Pulse table in reference clock units. Must contain `Start` and `End`.
+	target_df : pd.DataFrame
+		Pulse table in target clock units. Must contain `Start` and `End`.
+	normalise_start : bool
+		If True, subtract each table's first Start value from Start/End.
+
+	Returns
+	-------
+	tuple[pd.DataFrame, pd.DataFrame]
+		Aligned copies of `(reference_df, target_df)` with matching row counts.
+
+	Raises
+	------
+	TypeError
+		If either input is not a pandas DataFrame.
+	ValueError
+		If required `Start`/`End` columns are missing.
 	'''
 	for name, df in (('reference_df', reference_df), ('target_df', target_df)):
 		if not isinstance(df, pd.DataFrame):
@@ -165,9 +197,30 @@ def fit_linear_timebase(
 	use: str = 'start',
 ) -> dict[str, float]:
 	'''
-	Fit a linear model mapping target clock to reference clock.
+	Fit a linear model that maps target clock values into reference clock values.
 
-	Model: `reference ~= slope * target + intercept`
+	Model
+	-----
+	`reference ~= slope * target + intercept`
+
+	Parameters
+	----------
+	reference_df : pd.DataFrame
+		Reference-clock pulse table.
+	target_df : pd.DataFrame
+		Target-clock pulse table.
+	use : str
+		Edge used for fitting: `'start'` or `'end'` (case-insensitive).
+
+	Returns
+	-------
+	dict[str, float]
+		Dictionary with keys `slope`, `intercept`, and `r2`.
+
+	Raises
+	------
+	ValueError
+		If aligned inputs are empty.
 	'''
 	ref, tgt = align_pulse_tables(reference_df, target_df, normalise_start=False)
 	if ref.empty or tgt.empty:
@@ -196,9 +249,7 @@ def convert_timebase(
 	slope: float,
 	intercept: float,
 ) -> np.ndarray:
-	'''
-	Convert values from target clock to reference clock.
-	'''
+	'''Apply a linear timebase transform (`slope * value + intercept`).'''
 	arr = np.asarray(values, dtype=float)
 	return slope * arr + intercept
 
@@ -216,9 +267,9 @@ def get_ttl_timebase_conversion(
 	return_details: bool = False,
 ) -> tuple[pd.DataFrame, float] | tuple[pd.DataFrame, float, 'TTLSyncModel', dict[str, float]]:
 	'''
-	Generic convenience wrapper for converting one TTL timebase to another.
+	Convert a target pulse table into a reference clock domain.
 
-	This helper:
+	This helper performs:
 	1) aligning pulse tables,
 	2) fitting a linear target->reference model,
 	3) returning converted target pulse timestamps + conversion ratio.
@@ -246,10 +297,15 @@ def get_ttl_timebase_conversion(
 
 	Returns
 	-------
-	(tuple)
+	tuple
 		Default: (`converted_target_df`, `conversion_ratio`)
 		If `return_details=True`:
 		(`converted_target_df`, `conversion_ratio`, `model`, `fit_stats`)
+
+	Notes
+	-----
+	`conversion_ratio` is the fitted linear slope (`target -> reference`).
+	A value near 1.0 indicates similar clock rate; deviations indicate drift/scaling.
 	'''
 	ref_aligned, tgt_aligned = align_pulse_tables(
 		reference_df=reference_pulses,
@@ -305,7 +361,10 @@ def get_npx_to_bonsai_time_conversion(
 	return_details: bool = False,
 ) -> tuple[pd.DataFrame, float] | tuple[pd.DataFrame, float, 'TTLSyncModel', dict[str, float]]:
 	'''
-	Backward-compatible alias for `get_ttl_timebase_conversion`.
+	Convert NPX pulse times into Bonsai time using TTL pulse alignment.
+
+	This is a semantic convenience wrapper over `get_ttl_timebase_conversion`
+	with labels prefilled for NPX/Bonsai workflows.
 	'''
 	return get_ttl_timebase_conversion(
 		reference_pulses=reference_pulses,
@@ -324,6 +383,15 @@ def get_npx_to_bonsai_time_conversion(
 class TTLSyncModel:
 	'''
 	Simple linear TTL synchronisation model.
+
+	Attributes
+	----------
+	slope : float
+		Scale factor mapping target clock units to reference units.
+	intercept : float
+		Offset term in reference units.
+	r2 : float
+		Coefficient of determination from fit.
 	'''
 
 	slope: float
@@ -338,7 +406,23 @@ class TTLSyncModel:
 		*,
 		use: str = 'start',
 	) -> 'TTLSyncModel':
-		'''Fit from two pulse tables.'''
+		'''
+		Fit a `TTLSyncModel` directly from reference/target pulse tables.
+
+		Parameters
+		----------
+		reference_df : pd.DataFrame
+			Reference-clock pulse table.
+		target_df : pd.DataFrame
+			Target-clock pulse table.
+		use : str
+			Edge used for fitting: `'start'` or `'end'`.
+
+		Returns
+		-------
+		TTLSyncModel
+			Fitted model instance.
+		'''
 		stats = fit_linear_timebase(reference_df=reference_df, target_df=target_df, use=use)
 		return cls(
 			slope=stats['slope'],
@@ -347,7 +431,19 @@ class TTLSyncModel:
 		)
 
 	def transform(self, values: np.ndarray | pd.Series | list[float]) -> np.ndarray:
-		'''Apply the fitted linear transform.'''
+		'''
+		Transform target-clock values into reference-clock values.
+
+		Parameters
+		----------
+		values : array-like
+			Values in target clock units.
+
+		Returns
+		-------
+		np.ndarray
+			Converted values in reference clock units.
+		'''
 		return convert_timebase(values, slope=self.slope, intercept=self.intercept)
 
 

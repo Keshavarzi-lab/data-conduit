@@ -1,19 +1,18 @@
 '''
 DataSource Base Class.
---------------------------------
+-----------------------
 
 Description:
     Base class for all data sources in data-conduit. Wraps collect_dfs 
     to load data from a directory tree into a nested dictionary of 
-    DataFrames, with optional named DataArray access via name_map.
+    DataFrames, with optional named DataArray access via datasource_data_arrays.
 
 Contents:
---------------------------------
+-----------------------
 - DataSource
     Base class. Calls collect_dfs, stores dfs_dict, builds data_arrays 
-    from name_map.
+    from datasource_data_arrays.
 '''
-
 
 ################################################################################
 # Imports
@@ -32,6 +31,159 @@ from data_conduit.io import collect_dfs
 
 
 
+
+
+#===============================================================================
+# 1| Obtain dfs_dict 
+#===============================================================================
+
+def _obtain_dfs_dict(
+    dfs_dict: dict | None,
+    experiment_directory_path: str | Path | None,
+    readers: dict[str, Callable] | None,
+    reader_kwargs: dict[str, dict] | None,
+    keep_empty: bool,
+    flatten: bool,
+    separator: str,
+    verbose: bool,
+    **kwargs,
+) -> dict:
+    '''
+    Obtain dfs_dict for DataSource/MultiSource.
+
+    If dfs_dict is provided, validate it and return it directly.
+    If dfs_dict is not provided, check that experiment_directory_path and other
+    required arguments are provided, then call collect_dfs with the provided
+    args to build dfs_dict.
+
+    Parameters
+    ----------
+    dfs_dict : dict or None
+        Optional pre-built nested dictionary of DataFrames. If provided, 
+        collect_dfs is not called and this dict is used directly.
+    experiment_directory_path : str or Path
+        Root directory to walk.
+    readers : dict[str, Callable] or None
+        Mapping of file extensions to reader functions.
+        e.g. {'.bin': read_harp_bin, '.csv': read_csv}
+    reader_kwargs : dict[str, dict] or None
+        Mapping of file extensions to kwargs for each reader.
+        e.g. {'.bin': {'harp_device_yaml_path': 'device.yml'}}
+    keep_empty: bool
+        If True, preserve empty subdirectories in dfs_dict as empty dicts. 
+        If False, skip them.
+    flatten: bool
+        If True, flatten the output dict from collect_dfs. If False, keep the
+        nested structure.
+        e.g. flatten=True turns {'a': {'b': df}} into {'a/b': df}.
+    separator: str
+        If flatten=True, the separator to use when joining nested keys.
+        e.g. separator='/' turns {'a': {'b': df}} into {'a/b': df}.
+    verbose : bool
+        If True, print verbose output during collect_dfs.
+    **kwargs
+        Level selectors passed directly to collect_dfs. 
+        e.g. l0_selector=['Behavior0'], l2_selector=lambda k: ...   
+
+    Returns
+    -------
+    dict
+        Nested dictionary of DataFrames from collect_dfs or provided directly.
+    '''
+
+    if dfs_dict is not None:
+        if not isinstance(dfs_dict, dict):
+            raise TypeError(
+                f"dfs_dict must be a dict if provided, got {type(dfs_dict).__name__}."
+            )
+        return dfs_dict
+
+    if experiment_directory_path is None:
+        raise ValueError(
+            "Provide either dfs_dict or experiment_directory_path so collect_dfs can build one."
+        )
+
+    return collect_dfs(
+        base_path =experiment_directory_path,
+        readers=readers,
+        reader_kwargs=reader_kwargs,
+        keep_empty=keep_empty,
+        flatten=flatten,
+        separator=separator,
+        verbose=verbose,
+        **kwargs,
+    )
+
+
+#===============================================================================
+
+
+
+
+
+
+#===============================================================================
+# 2| Build data_arrays from datasource_data_arrays 
+#===============================================================================
+
+def _build_data_arrays(
+    dfs_dict: dict,
+    datasource_data_arrays: dict,
+    verbose: bool = False,
+) -> dict[str, xr.DataArray]:
+    """
+    Build named xarray objects from a nested dfs_dict.
+
+    Parameters
+    ----------
+    dfs_dict : dict
+        Nested dictionary of DataFrames/DataArrays.
+    datasource_data_arrays : dict
+        Mapping of {friendly_name: path_tuple_or_str}.
+        Example:
+            {'PlaySoundFreq': ('SoundCard', '32')}
+    verbose : bool
+        If True, print warnings for missing or invalid paths.
+
+    Returns
+    -------
+    dict[str, xr.DataArray]
+        Named DataArrays built from datasource_data_arrays.
+    """
+    data_arrays: dict[str, xr.DataArray] = {}
+
+    for name, path in datasource_data_arrays.items():
+        if isinstance(path, str):
+            path = (path,)
+
+        try:
+            current = dfs_dict
+            for key in path:
+                current = current[key]
+
+            if isinstance(current, pd.DataFrame):
+                data_arrays[name] = current.to_xarray()
+            elif isinstance(current, xr.DataArray):
+                data_arrays[name] = current
+            else:
+                if verbose:
+                    print(
+                        f"Warning: '{name}' at {path} is "
+                        f"{type(current).__name__}, not DataFrame/DataArray."
+                    )
+
+        except KeyError as e:
+            if verbose:
+                print(f"Warning: '{name}' not found at {path}: {e}")
+
+    return data_arrays
+#===============================================================================
+
+
+
+
+
+
 ################################################################################
 # DataSource Base Class
 ################################################################################
@@ -41,14 +193,18 @@ class DataSource:
     Base class for data sources in data-conduit.
 
     Calls collect_dfs to load data, then optionally builds named 
-    DataArrays by navigating dfs_dict using name_map.
+    DataArrays by navigating dfs_dict using datasource_data_arrays. If
+    dfs_dict is provided, it is used directly and collect_dfs is not called.
 
     Subclasses configure what to load by setting readers, reader_kwargs,
-    and level selectors. For example, HarpDevice sets readers={'.bin': 
+    and level selectors. For example, HarpDevice sets readers={'.bin':
     read_harp_bin} and FileTypeData sets readers={'.csv': read_csv}.
 
     Parameters
     ----------
+    dfs_dict : dict or None
+        Optional pre-built nested dictionary of DataFrames. If provided, 
+        collect_dfs is not called and this dict is used directly.
     experiment_directory_path : str or Path
         Root directory to walk.
     readers : dict[str, Callable] or None
@@ -57,53 +213,131 @@ class DataSource:
     reader_kwargs : dict[str, dict] or None
         Mapping of file extensions to kwargs for each reader.
         e.g. {'.bin': {'harp_device_yaml_path': 'device.yml'}}
-    name_map : dict or None
-        Mapping of friendly names to paths in dfs_dict.
-        Each value is a tuple of keys navigating the nested dict.
-        The DataFrame found there is converted to xr.DataArray.
-        e.g. {'PlaySoundFreq': ('SoundCard', '32')}
-    keep_empty : bool
-        If True, preserve empty subdirectories as empty dicts.
-    flatten : bool
-        If True, flatten the output dict.
-    separator : str
-        Separator for flattened keys.
+    keep_empty: bool
+        If True, preserve empty subdirectories in dfs_dict as empty dicts. 
+        If False, skip them.
+    flatten: bool
+        If True, flatten the output dict from collect_dfs. If False, keep the
+        nested structure.
+        e.g. flatten=True turns {'a': {'b': df}} into {'a/b': df}.
+    separator: str
+        If flatten=True, the separator to use when joining nested keys.
+        e.g. separator='/' turns {'a': {'b': df}} into {'a/b': df}.
+    datasource_data_arrays : dict or None
+        Optional mapping of DataArray names to paths in dfs_dict. If provided,
+        these DataArrays are built from dfs_dict and stored as attributes for
+        easy access. 
+        Each value is a tuple of keys navigating the nested dict to find the
+        DataFrame to convert to a DataArray.
+        e.g. {'PlaySoundFreq': ('SoundCard', '32')} for 
+        dfs_dict['SoundCard']['32'] -> DataFrame -> DataArray named 'PlaySoundFreq'
     verbose : bool
-        If True, print warnings during processing.
+        If True, print verbose output during collect_dfs.
     **kwargs
-        Level selectors passed directly to collect_dfs.
+        Level selectors passed directly to collect_dfs. 
         e.g. l0_selector=['Behavior0'], l2_selector=lambda k: ...
-
+    
     Attributes
     ----------
     dfs_dict : dict
-        Nested dictionary of DataFrames from collect_dfs.
+        Nested dictionary of DataFrames from collect_dfs or provided directly.
     data_arrays : dict[str, xr.DataArray]
-        Named DataArrays built from name_map.
+        Named DataArrays built from datasource_data_arrays.
     '''
 
-    def __init__(self,
-                 experiment_directory_path: str | Path,
-                 readers: dict[str, Callable] | None = None,
-                 reader_kwargs: dict[str, dict] | None = None,
-                 name_map: dict | None = None,
-                 keep_empty: bool = False,
-                 flatten: bool = False,
-                 separator: str = ':',
-                 verbose: bool = False,
-                 **kwargs,
-                 ):
+    def __init__(
+            self,
+            dfs_dict: dict | None = None,
+            #=== collect_dfs args ===#
+            experiment_directory_path: str | Path | None = None,
+            readers: dict[str, Callable] | None = None,
+            reader_kwargs: dict[str, dict] | None = None,
+            keep_empty: bool = False,
+            flatten: bool = False,
+            separator: str = ':',
+            verbose: bool = True,
+            #=== datasource_data_arrays args ===#
+            datasource_data_arrays: dict | None = None,
+            #=== collect_dfs level selectors passed as kwargs ===#
+            **kwargs,
+    ):
         '''
         Initialise DataSource.
-        Calls collect_dfs to load data, then optionally builds named 
-        DataArrays by navigating dfs_dict using name_map. Subclasses configure what to load by setting readers, reader_kwargs, and level selectors.
-        '''
-        self.experiment_directory_path = Path(experiment_directory_path)
-        self.verbose = verbose
 
-        #=== i| Load Data
-        self.dfs_dict = collect_dfs(
-            base_path=experiment_directory_path,
+        Calls collect_dfs to load data, then optionally builds named 
+        DataArrays by navigating dfs_dict using datasource_data_arrays. If
+        dfs_dict is provided, it is used directly and collect_dfs is not called.
+
+        Subclasses configure what to load by setting readers, reader_kwargs,
+        and level selectors. For example, HarpDevice sets readers={'.bin':
+        read_harp_bin} and FileTypeData sets readers={'.csv': read_csv}.
+
+        Parameters
+        ----------
+        dfs_dict : dict or None
+            Optional pre-built nested dictionary of DataFrames. If provided, 
+            collect_dfs is not called and this dict is used directly.
+        experiment_directory_path : str or Path
+            Root directory to walk.
+        readers : dict[str, Callable] or None
+            Mapping of file extensions to reader functions.
+            e.g. {'.bin': read_harp_bin, '.csv': read_csv}
+        reader_kwargs : dict[str, dict] or None
+            Mapping of file extensions to kwargs for each reader.
+            e.g. {'.bin': {'harp_device_yaml_path': 'device.yml'}}
+        keep_empty: bool
+            If True, preserve empty subdirectories in dfs_dict as empty dicts. 
+            If False, skip them.
+        flatten: bool
+            If True, flatten the output dict from collect_dfs. If False, keep the
+            nested structure.
+            e.g. flatten=True turns {'a': {'b': df}} into {'a/b': df}.
+        separator: str
+            If flatten=True, the separator to use when joining nested keys.
+            e.g. separator='/' turns {'a': {'b': df}} into {'a/b': df}.
+        datasource_data_arrays : dict or None
+            Optional mapping of DataArray names to paths in dfs_dict. If provided,
+            these DataArrays are built from dfs_dict and stored as attributes for
+            easy access. 
+            Each value is a tuple of keys navigating the nested dict to find the
+            DataFrame to convert to a DataArray.
+            e.g. {'PlaySoundFreq': ('SoundCard', '32')} for 
+            dfs_dict['SoundCard']['32'] -> DataFrame -> DataArray named 'PlaySoundFreq'
+        verbose : bool
+            If True, print verbose output during collect_dfs.
+        **kwargs
+            Level selectors passed directly to collect_dfs. 
+            e.g. l0_selector=['Behavior0'], l2_selector=lambda k: ...   
+        '''
+
+        ''' 
+        Components:
+
+        1. Check if dfs_dict is provided.
+            - If yes, validate it and use it directly.
+            - If no, check that experiment_directory_path and other required arguments are provided, then call
+              collect_dfs with the provided args to build dfs_dict.
+        2. If datasource_data_arrays is provided, build each DataArray by navigating dfs_dict using the provided paths.
+            - If any path is invalid, raise warning and skip that DataArray.
+        3. Store dfs_dict and data_arrays as attributes.
+        '''
+
+        super(DataSource, self).__init__()  # noqa
+
+        self.verbose = verbose
+        if self.verbose is False:
+            print(f'''
+                  Warning: verbose output disabled for {self.__class__.__name__}. 
+                  If any files/paths are missing or invalid for the datasource_data_arrays you specified, 
+                  you may not see warnings about them. Set verbose=True to enable warnings.
+                  ''')
+        
+     
+        #=== 1. Obtain dfs_dict 
+
+        self.dfs_dict = _obtain_dfs_dict(
+            dfs_dict=dfs_dict,
+            experiment_directory_path=experiment_directory_path,
             readers=readers,
             reader_kwargs=reader_kwargs,
             keep_empty=keep_empty,
@@ -113,41 +347,14 @@ class DataSource:
             **kwargs,
         )
 
-        #=== ii| Build Named DataArrays
+        #== 2. Build data_arrays from datasource_data_arrays
         self.data_arrays = {}
-        if name_map is not None:
-            self._build_data_arrays(name_map)
+        if datasource_data_arrays is not None:
+            self.data_arrays = _build_data_arrays(
+                dfs_dict=self.dfs_dict,
+                datasource_data_arrays=datasource_data_arrays,
+                verbose= self.verbose,
+            )
 
 
-    def _build_data_arrays(self, name_map: dict):
-        '''
-        Navigate dfs_dict using name_map and convert to DataArrays.
 
-        Parameters
-        ----------
-        name_map : dict
-            Mapping of {friendly_name: (key1, key2, ...)} where the 
-            keys navigate the nested dfs_dict to a DataFrame.
-            e.g. {'PlaySoundFreq': ('SoundCard', '32')}
-        '''
-        for name, path in name_map.items():
-            if isinstance(path, str):
-                path = (path,)
-            try:
-                current = self.dfs_dict
-                for key in path:
-                    current = current[key]
-                if isinstance(current, pd.DataFrame):
-                    self.data_arrays[name] = current.to_xarray()
-                elif isinstance(current, xr.DataArray):
-                    self.data_arrays[name] = current
-                else:
-                    if self.verbose:
-                        print(f"Warning: '{name}' at {path} is "
-                              f"{type(current).__name__}, not DataFrame.")
-            except KeyError as e:
-                if self.verbose:
-                    print(f"Warning: '{name}' not found at {path}: {e}")
-
-
-################################################################################

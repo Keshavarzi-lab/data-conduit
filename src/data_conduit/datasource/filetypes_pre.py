@@ -4,12 +4,12 @@ FileTypeData and preset subclasses.
 
 Description:
     FileTypeData extends DataSource for common file-type data (CSV, JSON,
-    JSONL, YAML). Analogous to Device but for flat-file formats.
+    JSONL, YAML). Analogous to HarpDevice but for flat-file formats.
     Handles device_type folder filtering, reader resolution from file_type
     strings, and post-load column/index renaming.
 
     Subclasses provide preset configurations for specific data sources
-    (ExperimentEvents, RotationData, VideoData, etc.), each setting
+    (ExperimentEvents, RotationData, VideoData, etc.), each setting 
     defaults for device_type, file_type, renaming, and validation.
 
 Contents:
@@ -33,48 +33,36 @@ Contents:
 # Imports
 ################################################################################
 
-from collections.abc import Callable
 from pathlib import Path
+from collections.abc import Callable
 
 import numpy as np
 import pandas as pd
 
-from data_conduit.datasource.datasource_core import DataSource, _build_data_arrays
+from data_conduit.datasource import DataSource
 from data_conduit.io import read_csv, read_json, split_jsonl, split_yaml
 from data_conduit.utils import starts_with
 
 ################################################################################
 
 
-def _read_path(path: str | Path, **kwargs) -> Path:
-    '''
-    Return a Path unchanged.
-
-    Used for split file types so collect_dfs only keeps matching files as
-    Path leaves, which are then post-processed by FileTypeData.
-    '''
-    return Path(path)
 
 
 ################################################################################
 # FileTypeData
 ################################################################################
 
-
 class FileTypeData(DataSource):
     '''
     DataSource for common file-type data (CSV, JSON, JSONL, YAML).
 
     Extends DataSource to simplify loading directories of flat files.
-    Analogous to Device: maps a file_type string to the appropriate
-    reader, uses device_type to filter folders via l0_selector, and
+    Analogous to HarpDevice: maps a file_type string to the appropriate
+    reader, uses device_type to filter folders via l0_selector, and 
     applies post-load column/index renaming.
 
     Parameters
     ----------
-    dfs_dict : dict or None
-        Optional pre-built nested dictionary of DataFrames. If provided,
-        collect_dfs is not called and this dict is used directly.
     experiment_directory_path : str or Path
         Root directory to walk.
     device_type : str or None
@@ -95,7 +83,7 @@ class FileTypeData(DataSource):
         Index renaming applied to all leaf DataFrames after loading.
         If str, renames the index to that name (e.g. 'Time').
         If dict, passed to df.index.rename().
-    filetype_data_arrays : dict or None
+    name_map : dict or None
         Mapping of friendly names to paths in dfs_dict.
         e.g. {'trials': ('ExperimentEvents', 'events')}
     keep_empty : bool
@@ -113,31 +101,31 @@ class FileTypeData(DataSource):
     Attributes
     ----------
     dfs_dict : dict
-        Nested dictionary of DataFrames from collect_dfs or provided directly.
+        Nested dictionary of DataFrames from collect_dfs.
     data_arrays : dict[str, xr.DataArray]
-        Named DataArrays built from filetype_data_arrays.
+        Named DataArrays built from name_map.
     '''
 
     #===========================================================================
-    # File-type -> (extension, reader, split_fn) mapping
+    # File-type → (extension, reader) mapping
     #===========================================================================
     _FILETYPE_MAP = {
-        'csv': ('.csv', read_csv, None),
-        'json': ('.json', read_json, None),
-        'jsonl': ('.jsonl', _read_path, split_jsonl),
-        'yml': ('.yml', _read_path, split_yaml),
-        'yaml': ('.yaml', _read_path, split_yaml),
+        'csv':   ('.csv',   read_csv),
+        'json':  ('.json',  read_json),
+        'jsonl': ('.jsonl', read_json),
+        'yml':   ('.yml',   None),       # Split types: stored as Paths, 
+        'yaml':  ('.yaml',  None),       # then processed in _handle_split_types.
     }
 
+
     def __init__(self,
-                 dfs_dict: dict | None = None,
-                 experiment_directory_path: str | Path | None = None,
+                 experiment_directory_path: str | Path,
                  device_type: str | None = None,
                  file_type: str = 'csv',
                  reader_kwargs: dict | None = None,
                  rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = None,
-                 filetype_data_arrays: dict | None = None,
+                 name_map: dict | None = None,
                  keep_empty: bool = False,
                  flatten: bool = False,
                  separator: str = ':',
@@ -149,33 +137,29 @@ class FileTypeData(DataSource):
 
         Resolves file_type to a reader, maps device_type to an l0_selector,
         then delegates to DataSource for directory walking and file reading.
-        Applies post-processing (double-folder collapse, renaming, split
+        Applies post-processing (double-folder collapse, renaming, split 
         handling) after loading.
         '''
         self.device_type = device_type
         self.file_type = file_type
         self.rename_columns_dict = rename_columns_dict
         self.rename_index_dict = rename_index_dict
-        self.filetype_data_arrays = filetype_data_arrays
-        self.verbose = verbose
 
-        #=== i| Resolve file_type -> reader
-        readers, mapped_reader_kwargs, split_fn = self._resolve_readers(
+        #=== i| Resolve file_type → reader
+        readers, mapped_reader_kwargs = self._resolve_readers(
             file_type, reader_kwargs
         )
-        self._split_fn = split_fn
 
-        #=== ii| Map device_type -> l0_selector
+        #=== ii| Map device_type → l0_selector
         if device_type is not None and 'l0_selector' not in kwargs:
             kwargs['l0_selector'] = starts_with(device_type)
 
-        #=== iii| Load via DataSource (defer filetype_data_arrays until after post-processing)
+        #=== iii| Load via DataSource (defer name_map until after post-processing)
         super().__init__(
-            dfs_dict=dfs_dict,
             experiment_directory_path=experiment_directory_path,
             readers=readers,
             reader_kwargs=mapped_reader_kwargs,
-            datasource_data_arrays=None,
+            name_map=None,
             keep_empty=keep_empty,
             flatten=flatten,
             separator=separator,
@@ -189,20 +173,17 @@ class FileTypeData(DataSource):
         self._apply_renames()
 
         #=== v| Build named DataArrays now that dfs_dict is in final shape
-        if filetype_data_arrays is not None:
-            self.data_arrays = _build_data_arrays(
-                dfs_dict=self.dfs_dict,
-                datasource_data_arrays=filetype_data_arrays,
-                verbose=verbose,
-            )
+        if name_map is not None:
+            self._build_data_arrays(name_map)
+
 
     @classmethod
     def _resolve_readers(cls,
                          file_type: str,
                          reader_kwargs: dict | None,
-                         ) -> tuple[dict | None, dict | None, Callable | None]:
+                         ) -> tuple[dict | None, dict | None]:
         '''
-        Map a file_type string to readers and reader_kwargs dicts
+        Map a file_type string to readers and reader_kwargs dicts 
         suitable for collect_dfs.
 
         Parameters
@@ -214,8 +195,8 @@ class FileTypeData(DataSource):
 
         Returns
         -------
-        tuple[dict | None, dict | None, Callable | None]
-            (readers, mapped_reader_kwargs, split_fn) for collect_dfs.
+        tuple[dict | None, dict | None]
+            (readers, mapped_reader_kwargs) for collect_dfs.
         '''
         if file_type not in cls._FILETYPE_MAP:
             raise ValueError(
@@ -224,42 +205,49 @@ class FileTypeData(DataSource):
                 f"For custom formats, pass readers directly to DataSource."
             )
 
-        extension, reader_fn, split_fn = cls._FILETYPE_MAP[file_type]
-        readers = {extension: reader_fn}
-        mapped_kwargs = {extension: reader_kwargs} if reader_kwargs else None
-        return readers, mapped_kwargs, split_fn
+        ext, reader_fn = cls._FILETYPE_MAP[file_type]
+
+        # Split types (yml/yaml): store as Paths, process later
+        if reader_fn is None:
+            return None, None
+
+        readers = {ext: reader_fn}
+        mapped_kwargs = {ext: reader_kwargs} if reader_kwargs else None
+        return readers, mapped_kwargs
+
 
     def _collapse_double_folders(self):
         '''
         Collapse double folders in dfs_dict.
 
-        Bonsai often creates {DeviceType: {DeviceType: {files...}}}
+        Bonsai often creates {DeviceType: {DeviceType: {files...}}} 
         structures. This collapses them to {DeviceType: {files...}}.
-        Same logic as Device.
+        Same logic as HarpDevice.
         '''
         for key in list(self.dfs_dict.keys()):
             value = self.dfs_dict[key]
             if isinstance(value, dict) and list(value.keys()) == [key]:
                 self.dfs_dict[key] = value[key]
 
+
     def _handle_split_types(self):
         '''
-        Handle split file types (JSONL/YAML -> metadata+trials).
+        Handle split file types (YAML → metadata+trials).
 
-        For jsonl/yml/yaml file_types, leaf values in dfs_dict are Paths
-        (since a path-preserving reader was passed to collect_dfs). This
-        method walks dfs_dict, finds Path leaves, and replaces them with
-        {'metadata': df, 'trials': df} dicts produced by split_jsonl or
-        split_yaml.
+        For yml/yaml file_types, leaf values in dfs_dict are Paths 
+        (since no reader was passed to collect_dfs). This method walks 
+        dfs_dict, finds Path leaves, and replaces them with 
+        {'metadata': df, 'trials': df} dicts produced by split_yaml.
         '''
-        if self._split_fn is None:
+        if self.file_type not in ('yml', 'yaml'):
             return
 
+        split_fn = split_yaml
+
         self.dfs_dict = self._apply_split_to_leaves(
-            self.dfs_dict,
-            self._split_fn,
-            self.verbose,
+            self.dfs_dict, split_fn, self.verbose
         )
+
 
     @staticmethod
     def _apply_split_to_leaves(d: dict,
@@ -281,7 +269,7 @@ class FileTypeData(DataSource):
         Returns
         -------
         dict
-            Same structure but Path leaves replaced with
+            Same structure but Path leaves replaced with 
             {'metadata': df, 'trials': df}.
         '''
         result = {}
@@ -294,16 +282,17 @@ class FileTypeData(DataSource):
                 try:
                     meta_df, trials_df = split_fn(value, verbose=verbose)
                     result[key] = {'metadata': meta_df, 'trials': trials_df}
-                except Exception as error:
+                except Exception as e:
                     if verbose:
-                        print(f"Warning: Split failed for '{key}' ({value}): {error}")
+                        print(f"Warning: Split failed for '{key}' ({value}): {e}")
             else:
                 result[key] = value
         return result
 
+
     def _apply_renames(self):
         '''
-        Apply rename_columns_dict and rename_index_dict to all leaf
+        Apply rename_columns_dict and rename_index_dict to all leaf 
         DataFrames in dfs_dict.
         '''
         if self.rename_columns_dict is None and self.rename_index_dict is None:
@@ -315,13 +304,14 @@ class FileTypeData(DataSource):
             self.rename_index_dict,
         )
 
+
     @staticmethod
     def _rename_leaves(d: dict,
                        columns_dict: dict | None,
                        index_rename: str | dict | None,
                        ) -> dict:
         '''
-        Recursively walk a nested dict and apply column/index renames
+        Recursively walk a nested dict and apply column/index renames 
         to all DataFrame leaves.
 
         Parameters
@@ -343,36 +333,37 @@ class FileTypeData(DataSource):
         for key, value in d.items():
             if isinstance(value, dict):
                 result[key] = FileTypeData._rename_leaves(
-                    value,
-                    columns_dict,
-                    index_rename,
+                    value, columns_dict, index_rename
                 )
             elif isinstance(value, pd.DataFrame):
-                dataframe = value
+                df = value
                 if columns_dict is not None:
-                    dataframe = dataframe.rename(columns=columns_dict)
+                    df = df.rename(columns=columns_dict)
                 if index_rename is not None:
                     if isinstance(index_rename, str):
-                        dataframe = dataframe.copy()
-                        dataframe.index.name = index_rename
+                        df.index.name = index_rename
                     elif isinstance(index_rename, dict):
-                        dataframe = dataframe.rename(index=index_rename)
-                result[key] = dataframe
+                        df = df.rename(index=index_rename)
+                result[key] = df
             else:
                 result[key] = value
         return result
 
 
 ################################################################################
+
+
+
+
+################################################################################
 # ExperimentEvents
 ################################################################################
-
 
 class ExperimentEvents(FileTypeData):
     '''
     Preset config for ExperimentEvents CSV data.
 
-    Loads CSV files from ExperimentEvents subfolder(s), renames the
+    Loads CSV files from ExperimentEvents subfolder(s), renames the 
     'Value' column to 'Event', and ensures the index is named 'Time'.
 
     Parameters
@@ -387,7 +378,7 @@ class ExperimentEvents(FileTypeData):
         Column renaming. Default {'Value': 'Event'}.
     rename_index_dict : str
         Index name. Default 'Time'.
-    filetype_data_arrays : dict or None
+    name_map : dict or None
         Mapping of friendly names to paths in dfs_dict.
     verbose : bool
         If True, print warnings during processing.
@@ -396,16 +387,17 @@ class ExperimentEvents(FileTypeData):
     '''
 
     def __init__(self,
-                 experiment_directory_path: str | Path | None = None,
+                 experiment_directory_path: str | Path,
                  device_type: str = 'ExperimentEvents',
                  reader_kwargs: dict | None = None,
                  rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = 'Time',
-                 filetype_data_arrays: dict | None = None,
+                 name_map: dict | None = None,
                  verbose: bool = False,
                  **kwargs,
                  ):
         '''Initialise ExperimentEvents with CSV preset.'''
+
         if rename_columns_dict is None:
             rename_columns_dict = {'Value': 'Event'}
 
@@ -416,16 +408,20 @@ class ExperimentEvents(FileTypeData):
             reader_kwargs=reader_kwargs,
             rename_columns_dict=rename_columns_dict,
             rename_index_dict=rename_index_dict,
-            filetype_data_arrays=filetype_data_arrays,
+            name_map=name_map,
             verbose=verbose,
             **kwargs,
         )
 
 
 ################################################################################
+
+
+
+
+################################################################################
 # RotationData
 ################################################################################
-
 
 class RotationData(FileTypeData):
     '''
@@ -440,7 +436,7 @@ class RotationData(FileTypeData):
     experiment_directory_path : str or Path
         Path to the experiment directory.
     device_type : str or None
-        Folder prefix. Must be one of 'InnerRotation',
+        Folder prefix. Must be one of 'InnerRotation', 
         'OuterRotation', or 'NosepokeRotation'.
     reader_kwargs : dict or None
         Custom kwargs for read_csv.
@@ -455,7 +451,7 @@ class RotationData(FileTypeData):
         Two-element list [min, max] to wrap angular values within.
         e.g. [0, 360], [-180, 180], [0, 2*pi].
         If None, no wrapping is applied.
-    filetype_data_arrays : dict or None
+    name_map : dict or None
         Mapping of friendly names to paths in dfs_dict.
     verbose : bool
         If True, print warnings during processing.
@@ -468,18 +464,19 @@ class RotationData(FileTypeData):
     ]
 
     def __init__(self,
-                 experiment_directory_path: str | Path | None = None,
+                 experiment_directory_path: str | Path,
                  device_type: str | None = None,
                  reader_kwargs: dict | None = None,
                  rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = 'Time',
                  angular_unit_conversion: str | None = None,
                  angular_range: list | None = None,
-                 filetype_data_arrays: dict | None = None,
+                 name_map: dict | None = None,
                  verbose: bool = False,
                  **kwargs,
                  ):
         '''Initialise RotationData with CSV preset and angular processing.'''
+
         if device_type is not None and device_type not in self._VALID_DEVICE_TYPES:
             raise ValueError(
                 f"RotationData device_type must be one of "
@@ -499,7 +496,7 @@ class RotationData(FileTypeData):
             reader_kwargs=reader_kwargs,
             rename_columns_dict=rename_columns_dict,
             rename_index_dict=rename_index_dict,
-            filetype_data_arrays=filetype_data_arrays,
+            name_map=name_map,
             verbose=verbose,
             **kwargs,
         )
@@ -507,16 +504,11 @@ class RotationData(FileTypeData):
         #=== Apply angular transforms after all base post-processing
         if self.angular_unit_conversion is not None or self.angular_range is not None:
             self._apply_angular_transforms()
-            if self.filetype_data_arrays is not None:
-                self.data_arrays = _build_data_arrays(
-                    dfs_dict=self.dfs_dict,
-                    datasource_data_arrays=self.filetype_data_arrays,
-                    verbose=self.verbose,
-                )
+
 
     def _apply_angular_transforms(self):
         '''
-        Apply angular unit conversion and range wrapping to all
+        Apply angular unit conversion and range wrapping to all 
         Rotation columns in leaf DataFrames of dfs_dict.
         '''
         self.dfs_dict = self._transform_rotation_leaves(
@@ -526,6 +518,7 @@ class RotationData(FileTypeData):
             self.verbose,
         )
 
+
     @staticmethod
     def _transform_rotation_leaves(d: dict,
                                    conversion: str | None,
@@ -533,7 +526,7 @@ class RotationData(FileTypeData):
                                    verbose: bool,
                                    ) -> dict:
         '''
-        Recursively apply angular transforms to Rotation columns in
+        Recursively apply angular transforms to Rotation columns in 
         all DataFrame leaves.
         '''
         result = {}
@@ -543,37 +536,39 @@ class RotationData(FileTypeData):
                     value, conversion, angular_range, verbose
                 )
             elif isinstance(value, pd.DataFrame) and 'Rotation' in value.columns:
-                dataframe = value.copy()
-                dataframe['Rotation'] = pd.to_numeric(dataframe['Rotation'], errors='coerce')
+                df = value.copy()
+                df['Rotation'] = pd.to_numeric(df['Rotation'], errors='coerce')
 
-                if dataframe['Rotation'].isna().any():
-                    bad_rows = int(dataframe['Rotation'].isna().sum())
+                if df['Rotation'].isna().any():
+                    bad_rows = int(df['Rotation'].isna().sum())
                     raise ValueError(
                         f"RotationData: 'Rotation' column in '{key}' contains "
                         f"{bad_rows} non-numeric value(s); cannot apply "
                         f"angular transforms."
                     )
 
+                # Unit conversion
                 if conversion == 'deg2rad':
-                    dataframe['Rotation'] = np.deg2rad(dataframe['Rotation'])
+                    df['Rotation'] = np.deg2rad(df['Rotation'])
                 elif conversion == 'rad2deg':
-                    dataframe['Rotation'] = np.rad2deg(dataframe['Rotation'])
+                    df['Rotation'] = np.rad2deg(df['Rotation'])
                 elif conversion is not None:
                     raise ValueError(
                         f"Invalid angular_unit_conversion: '{conversion}'. "
                         f"Must be 'deg2rad' or 'rad2deg'."
                     )
 
+                # Range wrapping
                 if angular_range is not None:
                     if not (isinstance(angular_range, list) and len(angular_range) == 2):
                         raise ValueError(
                             f"angular_range must be a list of two floats "
                             f"[min, max]. Got: {angular_range}"
                         )
-                    min_value, max_value = angular_range
-                    dataframe['Rotation'] = (
-                        (dataframe['Rotation'] - min_value) % (max_value - min_value)
-                    ) + min_value
+                    min_val, max_val = angular_range
+                    df['Rotation'] = (
+                        (df['Rotation'] - min_val) % (max_val - min_val)
+                    ) + min_val
 
                 if verbose:
                     if conversion:
@@ -581,16 +576,20 @@ class RotationData(FileTypeData):
                     if angular_range:
                         print(f"Wrapped '{key}' within {angular_range}")
 
-                result[key] = dataframe
+                result[key] = df
             else:
                 result[key] = value
         return result
 
 
 ################################################################################
+
+
+
+
+################################################################################
 # VideoData
 ################################################################################
-
 
 class VideoData(FileTypeData):
     '''
@@ -611,7 +610,7 @@ class VideoData(FileTypeData):
         Column renaming. Default maps ChunkData fields.
     rename_index_dict : str
         Index name. Default 'Time'.
-    filetype_data_arrays : dict or None
+    name_map : dict or None
         Mapping of friendly names to paths in dfs_dict.
     verbose : bool
         If True, print warnings during processing.
@@ -620,16 +619,17 @@ class VideoData(FileTypeData):
     '''
 
     def __init__(self,
-                 experiment_directory_path: str | Path | None = None,
+                 experiment_directory_path: str | Path,
                  device_type: str = 'VideoData',
                  reader_kwargs: dict | None = None,
                  rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = 'Time',
-                 filetype_data_arrays: dict | None = None,
+                 name_map: dict | None = None,
                  verbose: bool = False,
                  **kwargs,
                  ):
         '''Initialise VideoData with CSV preset.'''
+
         if rename_columns_dict is None:
             rename_columns_dict = {
                 'Value.ChunkData.FrameID': 'FrameID',
@@ -643,16 +643,20 @@ class VideoData(FileTypeData):
             reader_kwargs=reader_kwargs,
             rename_columns_dict=rename_columns_dict,
             rename_index_dict=rename_index_dict,
-            filetype_data_arrays=filetype_data_arrays,
+            name_map=name_map,
             verbose=verbose,
             **kwargs,
         )
 
 
 ################################################################################
+
+
+
+
+################################################################################
 # VisualEnvironment
 ################################################################################
-
 
 class VisualEnvironment(FileTypeData):
     '''
@@ -674,7 +678,7 @@ class VisualEnvironment(FileTypeData):
         Column renaming. Default None (names set via reader_kwargs).
     rename_index_dict : str
         Index name. Default 'Time'.
-    filetype_data_arrays : dict or None
+    name_map : dict or None
         Mapping of friendly names to paths in dfs_dict.
     verbose : bool
         If True, print warnings during processing.
@@ -683,16 +687,17 @@ class VisualEnvironment(FileTypeData):
     '''
 
     def __init__(self,
-                 experiment_directory_path: str | Path | None = None,
+                 experiment_directory_path: str | Path,
                  device_type: str = 'VisualEnvironment',
                  reader_kwargs: dict | None = None,
                  rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = 'Time',
-                 filetype_data_arrays: dict | None = None,
+                 name_map: dict | None = None,
                  verbose: bool = False,
                  **kwargs,
                  ):
         '''Initialise VisualEnvironment with CSV preset and custom column names.'''
+
         if reader_kwargs is None:
             reader_kwargs = {
                 'names': [
@@ -712,24 +717,28 @@ class VisualEnvironment(FileTypeData):
             reader_kwargs=reader_kwargs,
             rename_columns_dict=rename_columns_dict,
             rename_index_dict=rename_index_dict,
-            filetype_data_arrays=filetype_data_arrays,
+            name_map=name_map,
             verbose=verbose,
             **kwargs,
         )
 
 
 ################################################################################
+
+
+
+
+################################################################################
 # RingDebugData
 ################################################################################
-
 
 class RingDebugData(FileTypeData):
     '''
     Preset config for ring-debug YAML data (metadata + trials).
 
-    Loads YAML files from the experiment directory (ring-debug.yml
+    Loads YAML files from the experiment directory (ring-debug.yml 
     typically sits at the root, not in a device subfolder). Each YAML
-    file is split into metadata and trials DataFrames stored as a
+    file is split into metadata and trials DataFrames stored as a 
     nested dict: {stem: {'metadata': df, 'trials': df}}.
 
     Parameters
@@ -742,7 +751,7 @@ class RingDebugData(FileTypeData):
         Column renaming. Default None.
     rename_index_dict : str
         Index name. Default 'Time'.
-    filetype_data_arrays : dict or None
+    name_map : dict or None
         Mapping of friendly names to paths in dfs_dict.
     verbose : bool
         If True, print warnings during processing.
@@ -751,32 +760,26 @@ class RingDebugData(FileTypeData):
     '''
 
     def __init__(self,
-                 experiment_directory_path: str | Path | None = None,
+                 experiment_directory_path: str | Path,
                  device_type: str = 'ring-debug',
                  rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = 'Time',
-                 filetype_data_arrays: dict | None = None,
+                 name_map: dict | None = None,
                  verbose: bool = False,
                  **kwargs,
                  ):
         '''Initialise RingDebugData with YAML split preset.'''
+
         super().__init__(
             experiment_directory_path=experiment_directory_path,
             device_type=device_type,
             file_type='yml',
             rename_columns_dict=rename_columns_dict,
             rename_index_dict=rename_index_dict,
-            filetype_data_arrays=filetype_data_arrays,
+            name_map=name_map,
             verbose=verbose,
             **kwargs,
         )
 
 
-__all__ = [
-    'FileTypeData',
-    'ExperimentEvents',
-    'RotationData',
-    'VideoData',
-    'VisualEnvironment',
-    'RingDebugData',
-]
+################################################################################

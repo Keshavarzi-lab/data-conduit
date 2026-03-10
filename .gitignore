@@ -9,3 +9,13 @@ wheels/
 *.code-workspace
 # Virtual environments
 .venv
+/Old/
+/Misc/
+/JPVA191B_23102025_run1_g0/
+/device.yml
+/soundcard.yml
+# Ignore everything outside src by default.
+# /*
+# !/.gitignore
+# !/src/
+# !/src/**
