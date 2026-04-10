@@ -39,7 +39,7 @@ from collections.abc import Callable
 import numpy as np
 import pandas as pd
 
-from data_conduit.datasource import DataSource
+from data_conduit.datasources.monosource import DataSource
 from data_conduit.io import read_csv, read_json, split_jsonl, split_yaml
 from data_conduit.utils import starts_with
 

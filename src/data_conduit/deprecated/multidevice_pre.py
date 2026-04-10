@@ -25,8 +25,8 @@ Contents:
 
 from pathlib import Path
 
-from data_conduit.datasource.devices import HarpDevice
-from data_conduit.multisource.multisource_core import MultiSource
+from data_conduit.datasources.monosource.devices import HarpDevice
+from data_conduit.datasources.multisource.multisource_core import MultiSource
 
 ################################################################################
 

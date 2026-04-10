@@ -23,7 +23,7 @@ Contents:
 
 from pathlib import Path
 
-from data_conduit.datasource import DataSource
+from data_conduit.datasources.monosource import DataSource
 from data_conduit.harptools import read_harp_bin
 from data_conduit.utils import starts_with
 

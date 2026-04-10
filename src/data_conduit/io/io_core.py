@@ -28,11 +28,8 @@ Contents:
 from pathlib import Path                                # noqa
 from typing import Any, Callable                      # noqa
 
-from data_conduit.io.readers import get_reader
 from data_conduit.utils import (
-    _apply_level_selectors,
     _flatten_nested_dict,
-    _get_nested_dict_depth, 
     _parse_selectors,
     _walk_dirtree,
 ) 

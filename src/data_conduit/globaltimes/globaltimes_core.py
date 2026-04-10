@@ -33,6 +33,23 @@ def _match_idx(
 ) -> np.ndarray:
 	'''
 	Return target indices that best match each value in base_array.
+
+	Parameters
+	----------
+	base_array : array-like
+		1D array of values to match.
+	target_array : array-like
+		1D array of values to search within.
+	match_type : {'nearest', 'before', 'after', 'exact'}, optional
+		Matching rule for finding indices. Default is 'nearest'.
+		- 'nearest': Return the index of the closest value in target_array.
+		- 'before': Return the index of the largest value in target_array that is <= base_array.
+		- 'after': Return the index of the smallest value in target_array that is >= base_array.
+		- 'exact': Return the index of the value in target_array that is exactly equal to base_array, or -1 if no exact match exists.
+	Returns
+	-------
+	ndarray
+		Array of indices in target_array corresponding to each value in base_array according to the specified match_type. If no valid match is found for a given value, the index will be -1.
 	'''
 	match_type = match_type.lower()
 	if match_type not in {'nearest', 'before', 'after', 'exact'}:
@@ -85,7 +102,25 @@ def create_global_clock(
 	include_end_time: bool = True,
 ) -> np.ndarray:
 	'''
-	Create an evenly spaced global clock.
+	Create a global clock as a 1D array of timestamps from start_time to end_time with specified intervals.
+
+	Parameters
+	----------
+	start_time : float or int or None
+		Start time of the global clock. If None, defaults to 0.0.
+	end_time : float or int
+		End time of the global clock.
+	timestep_interval : float or int
+		Time interval between consecutive timestamps in the global clock. Must be non-zero.
+	include_end_time : bool, optional
+		If True, include end_time in the global clock if it falls on a valid timestep. Default is True.
+	
+	Returns
+	-------
+	ndarray
+		1D array of timestamps representing the global clock, starting from start_time up to end_time with
+		intervals of timestep_interval. If include_end_time is True and end_time does not fall on a valid 
+		timestep, end_time will be included as the last timestamp in the array.	
 	'''
 	if start_time is None:
 		start_time = 0.0
@@ -114,18 +149,32 @@ def index_map_util(
 	stream_times: np.ndarray | pd.DataFrame | xr.DataArray | pd.Series,
 	*,
 	match_type: str = 'nearest',
-) -> dict[str, np.ndarray]:
+) -> dict[str, pd.DataFrame | pd.Series]:
 	'''
 	Map stream timestamps to global clock timestamps.
+
+	Parameters
+	----------
+	global_clock_times : array-like
+		1D array of global clock timestamps.
+	stream_times : array-like or pd.DataFrame or xr.DataArray
+		1D array or single-column DataFrame or 1D DataArray of stream timestamps.
+	match_type : {'nearest', 'before', 'after', 'exact'}, optional
+		Matching rule for mapping stream times to global times. Default is 'nearest'.
 
 	Returns
 	-------
 	dict
 		{
-		  'index_position_array': [N x 2] -> [global_index, stream_index],
-		  'matched_global_times': [N x 2] -> [global_time, matched_stream_time],
-		  'global_stream_time_delta': [N] -> (global_time - matched_stream_time)
+		  'index_position_array': DataFrame [N x 2] -> columns ['global_index', 'stream_index'],
+		  'matched_global_times': DataFrame [N x 2] -> columns ['global_time', 'stream_time'],
+		  'global_stream_time_delta': Series [N] -> (global_time - stream_time),
+		  'full': DataFrame [N x 5] -> columns ['global_index', 'stream_index', 'global_time', 'stream_time', 'delta']
 		}
+			- 'index_position_array': DataFrame where each row contains the global index and the corresponding stream index (-1 if no match).
+			- 'matched_global_times': DataFrame where each row contains the global time and the matched stream time (NaN if no match).
+			- 'global_stream_time_delta': Series containing the difference between global time and matched stream time (NaN if no match).
+			- 'full': DataFrame where each row contains global_index, stream_index, global_time, stream_time, and delta.
 	'''
 	g = np.asarray(global_clock_times, dtype=float)
 	if g.ndim != 1:
@@ -143,24 +192,27 @@ def index_map_util(
 		s = np.asarray(stream_times, dtype=float).ravel()
 
 	if s.size == 0:
+		global_idx = np.arange(len(g))
+		missing_idx = np.full(len(g), -1)
 		missing = np.full(len(g), np.nan)
 		return {
-			'index_position_array': np.column_stack((np.arange(len(g)), np.full(len(g), -1))),
-			'matched_global_times': np.column_stack((g, missing)),
-			'global_stream_time_delta': np.full(len(g), np.nan),
+			'index_position_array': pd.DataFrame({'global_index': global_idx, 'stream_index': missing_idx}),
+			'matched_global_times': pd.DataFrame({'global_time': g, 'stream_time': missing}),
+			'global_stream_time_delta': pd.Series(missing, name='delta'),
+			'full': pd.DataFrame({'global_index': global_idx, 'stream_index': missing_idx.astype(float), 'global_time': g, 'stream_time': missing, 'delta': missing}),
 		}
 
 	stream_idx = _match_idx(g, s, match_type=match_type)
 	matched = np.where(stream_idx >= 0, s[np.clip(stream_idx, 0, len(s) - 1)], np.nan)
 
-	index_position_array = np.column_stack((np.arange(len(g)), stream_idx))
-	matched_global_times = np.column_stack((g, matched))
+	global_idx = np.arange(len(g))
 	delta = g - matched
 
 	return {
-		'index_position_array': index_position_array,
-		'matched_global_times': matched_global_times,
-		'global_stream_time_delta': delta,
+		'index_position_array': pd.DataFrame({'global_index': global_idx, 'stream_index': stream_idx}),
+		'matched_global_times': pd.DataFrame({'global_time': g, 'stream_time': matched}),
+		'global_stream_time_delta': pd.Series(delta, name='delta'),
+		'full': pd.DataFrame({'global_index': global_idx, 'stream_index': stream_idx.astype(float), 'global_time': g, 'stream_time': matched, 'delta': delta}),
 	}
 
 

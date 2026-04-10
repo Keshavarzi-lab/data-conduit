@@ -340,7 +340,7 @@ def split_yaml(path: str | Path,
     if not path.exists():
         raise FileNotFoundError(f"The specified YAML file does not exist: {path}")
 
-    with open(path, "r") as f:
+    with open(path) as f:
         record = yaml.safe_load(f)
 
     # Metadata

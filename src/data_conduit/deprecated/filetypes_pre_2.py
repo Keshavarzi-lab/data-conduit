@@ -39,7 +39,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from data_conduit.datasource.datasource_core import DataSource, _build_data_arrays
+from data_conduit.datasources.monosource.monosource_core import DataSource, _build_data_arrays
 from data_conduit.io import read_csv, read_json, split_jsonl, split_yaml
 from data_conduit.utils import starts_with
 

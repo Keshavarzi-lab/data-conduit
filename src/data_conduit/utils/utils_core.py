@@ -15,7 +15,6 @@ Contents:
 ################################################################################
 
 from collections.abc import Callable
-import selectors
 
 import pandas as pd
 import xarray as xr
