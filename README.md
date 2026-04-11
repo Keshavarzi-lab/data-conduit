@@ -2,16 +2,29 @@
 
 **A Python Toolkit for Constructing Standardised, Reusable Data Pipelines for Multi-Stream Experimental Data**
 
-<div align="center">
+<table width="100%"><tr><td align="center" bgcolor="#e07b00"><br>
+<h3>🚧 &nbsp; WARNING: THIS LIBRARY IS STILL A WORK IN PROGRESS! &nbsp; 🚧</h3>
+This library is under active development - APIs, interfaces, and documentation are subject to change without notice.
 
-[User Guide](src/data_conduit/data_conduit_demos/data_conduit_demo_new.ipynb) &nbsp;|&nbsp;
-[Example Gallery](src/data_conduit/data_conduit_demos/data_conduit_demo_new.ipynb) &nbsp;|&nbsp;
-[API Reference](src/data_conduit/data_conduit_demos/API_Reference.ipynb) &nbsp;|&nbsp;
-[Change Log](CHANGELOG.md) &nbsp;|&nbsp;
-[Roadmap](ROADMAP.md) &nbsp;|&nbsp;
-[Useful Links](src/data_conduit/data_conduit_demos/data_conduit_demo_new.ipynb)
+Further, many features, particularly documentation, are not finalised, and may only exist as placeholders. As this code is still pre-release,
+we do not guarantee that extensive changelogs will be included prior to v1.0
+<br><br></td></tr></table>
 
-</div>
+<table width="100%"><tr><td align="center" bgcolor="#f3f3f3"><br>
+&nbsp;
+<a href="src/data_conduit/data_conduit_demos/data_conduit_demo_new.ipynb">📖 User Guide</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="src/data_conduit/data_conduit_demos/data_conduit_demo_new.ipynb">🖼️ Example Gallery</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="src/data_conduit/data_conduit_demos/API_Reference.ipynb">📋 API Reference</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="CHANGELOG.md">📝 Change Log</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="ROADMAP.md">🗺️ Roadmap</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="src/data_conduit/data_conduit_demos/data_conduit_demo_new.ipynb">🔗 Useful Links</a>
+&nbsp;
+<br><br></td></tr></table>
 
 ---
 
