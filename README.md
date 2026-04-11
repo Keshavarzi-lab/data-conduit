@@ -16,7 +16,7 @@ we do not guarantee that extensive changelogs will be included prior to v1.0
 &nbsp;&nbsp;|&nbsp;&nbsp;
 <a href="src/data_conduit/data_conduit_demos/data_conduit_demo_new.ipynb">🖼️ Example Gallery</a>
 &nbsp;&nbsp;|&nbsp;&nbsp;
-<a href="src/data_conduit/data_conduit_demos/API_Reference.ipynb">📋 API Reference</a>
+<a href="https://keshavarzi-lab.github.io/data-conduit/API_Reference.html">📋 API Reference</a>
 &nbsp;&nbsp;|&nbsp;&nbsp;
 <a href="CHANGELOG.md">📝 Change Log</a>
 &nbsp;&nbsp;|&nbsp;&nbsp;
