@@ -1,0 +1,38 @@
+[project]
+name = "data-conduit"
+version = "0.1.0"
+description = "A Python toolkit for modular data processing workflows for experimental neuroscience labs"
+readme = "README.md"
+authors = [{name = "CS-2425"}]
+requires-python = ">=3.11.0"
+dependencies = []
+
+[build-system]
+requires = ["uv_build>=0.10.4,<0.11.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+  "mkdocs>=1.6.1",
+  "mkdocs-material>=9.7.2",
+  "pre-commit>=4.5.1",
+  "pytest>=9.0.2",
+  "ruff>=0.15.2",
+]
+
+[tool.ruff]
+line-length = 180
+exclude = ["__init__.py", "build", ".eggs"]
+fix = true
+
+[tool.ruff.lint]
+select = ["E", "F", "UP", "I", "B", "SIM", "TC", "C90", "D", "NPY201"]
+ignore = ["D203", 
+        "D213",
+        "D300",
+        "C901",
+        "D417", "D202", "D205", "D212", "D406", "D407", "D410","D411", "D413"]
+per-file-ignores = {"tests/*" = ["D100", "D103", "D205"]}
+
+[tool.ruff.format]
+docstring-code-format = true

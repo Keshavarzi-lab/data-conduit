@@ -1,0 +1,26 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+*:Zone.Identifier
+*.code-workspace
+# Virtual environments
+.venv
+/Old/
+/Misc/
+/JPVA191B_23102025_run1_g0/
+/device.yml
+/soundcard.yml
+/src/data_conduit/deprecated/
+/1mouse-Poke
+/2mice
+/2mice.zip
+
+# Ignore everything outside src by default.
+# /*
+# !/.gitignore
+# !/src/
+# !/src/**
