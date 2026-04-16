@@ -12,17 +12,15 @@ we do not guarantee that extensive changelogs will be included prior to v1.0
 
 <table width="100%"><tr><td align="center" bgcolor="#f3f3f3"><br>
 &nbsp;
-<a href="src/data_conduit/data_conduit_demos/data_conduit_demo_new.ipynb">📖 User Guide</a>
+<a href="data_conduit_demo_new.html">📖 User Guide</a>
 &nbsp;&nbsp;|&nbsp;&nbsp;
-<a href="src/data_conduit/data_conduit_demos/data_conduit_demo_new.ipynb">🖼️ Example Gallery</a>
+<a href="examples.html">🖼️ Example Gallery</a>
 &nbsp;&nbsp;|&nbsp;&nbsp;
-<a href="docs/API_Reference.md">📋 API Reference</a>
+<a href="api_index.html">📋 API Reference</a>
 &nbsp;&nbsp;|&nbsp;&nbsp;
-<a href="CHANGELOG.md">📝 Change Log</a>
+<a href="CHANGELOG.html">📝 Change Log</a>
 &nbsp;&nbsp;|&nbsp;&nbsp;
-<a href="ROADMAP.md">🗺️ Roadmap</a>
-&nbsp;&nbsp;|&nbsp;&nbsp;
-<a href="src/data_conduit/data_conduit_demos/data_conduit_demo_new.ipynb">🔗 Useful Links</a>
+<a href="ROADMAP.html">🗺️ Roadmap</a>
 &nbsp;
 <br><br></td></tr></table>
 
