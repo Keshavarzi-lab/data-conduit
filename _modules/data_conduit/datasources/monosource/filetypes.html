@@ -1,0 +1,1338 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>data_conduit.datasources.monosource.filetypes &#8212; data-conduit</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css?v=5c2b050f" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+    <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/data_conduit/datasources/monosource/filetypes';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://Keshavarzi-lab.github.io/data-conduit/_modules/data_conduit/datasources/monosource/filetypes.html" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../../../_static/searchtools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script src="../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">data-conduit v0.1.0</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../getting_started.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../README.html">
+    data-conduit
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../examples.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api_index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../CHANGELOG.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../ROADMAP.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../data_conduit_demo_new.html">
+    data-conduit: Overview and Workflow Guide
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Keshavarzi-lab/data-conduit" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../getting_started.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../README.html">
+    data-conduit
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../examples.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api_index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../CHANGELOG.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../ROADMAP.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../data_conduit_demo_new.html">
+    data-conduit: Overview and Workflow Guide
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Keshavarzi-lab/data-conduit" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">data_conduit.datasources.monosource.filetypes</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for data_conduit.datasources.monosource.filetypes</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">FileTypeData and preset subclasses.</span>
+<span class="sd">--------------------------------</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    FileTypeData extends MonoSource for common file-type data (CSV, JSON,</span>
+<span class="sd">    JSONL, YAML). Analogous to Device but for flat-file formats.</span>
+<span class="sd">    Handles device_type folder filtering, reader resolution from file_type</span>
+<span class="sd">    strings, and post-load column/index renaming.</span>
+
+<span class="sd">    Subclasses provide preset configurations for specific data sources</span>
+<span class="sd">    (ExperimentEvents, RotationData, VideoData, etc.), each setting</span>
+<span class="sd">    defaults for device_type, file_type, renaming, and validation.</span>
+
+<span class="sd">Contents:</span>
+<span class="sd">--------------------------------</span>
+<span class="sd">- FileTypeData(MonoSource)</span>
+<span class="sd">    Intermediate subclass for file-type data.</span>
+<span class="sd">- ExperimentEvents(FileTypeData)</span>
+<span class="sd">    Preset for ExperimentEvents CSV data.</span>
+<span class="sd">- RotationData(FileTypeData)</span>
+<span class="sd">    Preset for rotation encoder CSV data (Inner/Outer/Nosepoke).</span>
+<span class="sd">- VideoData(FileTypeData)</span>
+<span class="sd">    Preset for VideoData CSV data.</span>
+<span class="sd">- VisualEnvironment(FileTypeData)</span>
+<span class="sd">    Preset for VisualEnvironment CSV data.</span>
+<span class="sd">- RingDebugData(FileTypeData)</span>
+<span class="sd">    Preset for ring-debug YAML data (metadata + trials).</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Imports</span>
+<span class="c1">################################################################################</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">data_conduit.datasources.monosource.monosource_core</span><span class="w"> </span><span class="kn">import</span> <span class="n">MonoSource</span><span class="p">,</span> <span class="n">_build_data_arrays</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">data_conduit.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">collect_dfs</span><span class="p">,</span> <span class="n">read_csv</span><span class="p">,</span> <span class="n">read_json</span><span class="p">,</span> <span class="n">split_jsonl</span><span class="p">,</span> <span class="n">split_yaml</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">data_conduit.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">starts_with</span>
+
+<span class="c1">################################################################################</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_read_path</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Return a Path unchanged.</span>
+
+<span class="sd">    Used for split file types so collect_dfs only keeps matching files as</span>
+<span class="sd">    Path leaves, which are then post-processed by FileTypeData.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># FileTypeData</span>
+<span class="c1">################################################################################</span>
+
+
+<div class="viewcode-block" id="FileTypeData">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.datasources.monosource.FileTypeData">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FileTypeData</span><span class="p">(</span><span class="n">MonoSource</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    MonoSource for common file-type data (CSV, JSON, JSONL, YAML).</span>
+
+<span class="sd">    Extends MonoSource to simplify loading directories of flat files.</span>
+<span class="sd">    Analogous to Device: maps a file_type string to the appropriate</span>
+<span class="sd">    reader, uses device_type to filter folders via l0_selector, and</span>
+<span class="sd">    applies post-load column/index renaming.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dfs_dict : dict or None</span>
+<span class="sd">        Optional pre-built nested dictionary of DataFrames. If provided,</span>
+<span class="sd">        collect_dfs is not called and this dict is used directly.</span>
+<span class="sd">    experiment_directory_path : str or Path</span>
+<span class="sd">        Root directory to walk.</span>
+<span class="sd">    device_type : str or None</span>
+<span class="sd">        Folder prefix to filter on (e.g. &#39;ExperimentEvents&#39;, &#39;VideoData&#39;).</span>
+<span class="sd">        Maps to l0_selector=starts_with(device_type).</span>
+<span class="sd">        If None, no folder filtering is applied.</span>
+<span class="sd">    file_type : str</span>
+<span class="sd">        File format to load. Determines which reader and extension to use.</span>
+<span class="sd">        Supported: &#39;csv&#39;, &#39;json&#39;, &#39;jsonl&#39;, &#39;yml&#39;, &#39;yaml&#39;.</span>
+<span class="sd">    reader_kwargs : dict or None</span>
+<span class="sd">        Kwargs passed to the reader function for every matching file.</span>
+<span class="sd">        e.g. {&#39;header&#39;: 0, &#39;index_col&#39;: 0} for CSV.</span>
+<span class="sd">        If None, the reader uses its built-in defaults.</span>
+<span class="sd">    rename_columns_dict : dict or None</span>
+<span class="sd">        Column renaming applied to all leaf DataFrames after loading.</span>
+<span class="sd">        e.g. {&#39;Value&#39;: &#39;Event&#39;}</span>
+<span class="sd">    rename_index_dict : str or dict or None</span>
+<span class="sd">        Index renaming applied to all leaf DataFrames after loading.</span>
+<span class="sd">        If str, renames the index to that name (e.g. &#39;Time&#39;).</span>
+<span class="sd">        If dict, passed to df.index.rename().</span>
+<span class="sd">    filetype_data_arrays : dict or None</span>
+<span class="sd">        Mapping of friendly names to level selectors for extracting</span>
+<span class="sd">        named DataArrays from dfs_dict. Uses the same l{n}_selector</span>
+<span class="sd">        format as collect_dfs.</span>
+<span class="sd">        e.g. {&#39;events&#39;: {&#39;l0_selector&#39;: &#39;ExperimentEvents&#39;}}</span>
+<span class="sd">    keep_empty : bool</span>
+<span class="sd">        If True, preserve empty subdirectories as empty dicts.</span>
+<span class="sd">    flatten : bool</span>
+<span class="sd">        If True, flatten the output dict.</span>
+<span class="sd">    separator : str</span>
+<span class="sd">        Separator for flattened keys.</span>
+<span class="sd">    verbose : bool</span>
+<span class="sd">        If True, print warnings during processing.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Additional level selectors passed to collect_dfs.</span>
+<span class="sd">        e.g. l1_selector=[&#39;subfolder1&#39;], l2_selector=lambda k: ...</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dfs_dict : dict</span>
+<span class="sd">        Nested dictionary of DataFrames from collect_dfs or provided directly.</span>
+<span class="sd">    data_arrays : dict[str, xr.DataArray]</span>
+<span class="sd">        Named DataArrays built from filetype_data_arrays.</span>
+<span class="sd">    df : pd.DataFrame or dict</span>
+<span class="sd">        Backward-compatible convenience property. Returns the single leaf</span>
+<span class="sd">        DataFrame from dfs_dict when there is only one file. For split</span>
+<span class="sd">        types (JSONL/YAML), returns {&#39;metadata&#39;: df, &#39;trials&#39;: df}.</span>
+<span class="sd">        If multiple leaves exist, returns the full nested dict.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1">#===========================================================================</span>
+    <span class="c1"># File-type -&gt; (extension, reader, split_fn) mapping</span>
+    <span class="c1">#===========================================================================</span>
+    <span class="n">_FILETYPE_MAP</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;csv&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="n">read_csv</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="s1">&#39;json&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;.json&#39;</span><span class="p">,</span> <span class="n">read_json</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="s1">&#39;jsonl&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;.jsonl&#39;</span><span class="p">,</span> <span class="n">_read_path</span><span class="p">,</span> <span class="n">split_jsonl</span><span class="p">),</span>
+        <span class="s1">&#39;yml&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;.yml&#39;</span><span class="p">,</span> <span class="n">_read_path</span><span class="p">,</span> <span class="n">split_yaml</span><span class="p">),</span>
+        <span class="s1">&#39;yaml&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;.yaml&#39;</span><span class="p">,</span> <span class="n">_read_path</span><span class="p">,</span> <span class="n">split_yaml</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">dfs_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">experiment_directory_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">device_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">file_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;csv&#39;</span><span class="p">,</span>
+                 <span class="n">reader_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">rename_columns_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">rename_index_dict</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">filetype_data_arrays</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">keep_empty</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="n">flatten</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="n">separator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                 <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                 <span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Initialise FileTypeData.</span>
+
+<span class="sd">        Resolves file_type to a reader, loads via collect_dfs, applies</span>
+<span class="sd">        post-processing (double-folder collapse, split handling, renaming),</span>
+<span class="sd">        then passes the clean dfs_dict to MonoSource.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">=</span> <span class="n">device_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_type</span> <span class="o">=</span> <span class="n">file_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rename_columns_dict</span> <span class="o">=</span> <span class="n">rename_columns_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rename_index_dict</span> <span class="o">=</span> <span class="n">rename_index_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filetype_data_arrays</span> <span class="o">=</span> <span class="n">filetype_data_arrays</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+
+        <span class="c1"># Build dfs_dict if not provided</span>
+        <span class="k">if</span> <span class="n">dfs_dict</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">experiment_directory_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">readers</span><span class="p">,</span> <span class="n">mapped_reader_kwargs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_readers</span><span class="p">(</span>
+                <span class="n">file_type</span><span class="p">,</span> <span class="n">reader_kwargs</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">device_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;l0_selector&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;l0_selector&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">starts_with</span><span class="p">(</span><span class="n">device_type</span><span class="p">)</span>
+
+            <span class="n">dfs_dict</span> <span class="o">=</span> <span class="n">collect_dfs</span><span class="p">(</span>
+                <span class="n">base_path</span><span class="o">=</span><span class="n">experiment_directory_path</span><span class="p">,</span>
+                <span class="n">readers</span><span class="o">=</span><span class="n">readers</span><span class="p">,</span>
+                <span class="n">reader_kwargs</span><span class="o">=</span><span class="n">mapped_reader_kwargs</span><span class="p">,</span>
+                <span class="n">keep_empty</span><span class="o">=</span><span class="n">keep_empty</span><span class="p">,</span>
+                <span class="n">flatten</span><span class="o">=</span><span class="n">flatten</span><span class="p">,</span>
+                <span class="n">separator</span><span class="o">=</span><span class="n">separator</span><span class="p">,</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Post-process</span>
+            <span class="n">dfs_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collapse_double_folders_dict</span><span class="p">(</span><span class="n">dfs_dict</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">dfs_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apply_split_to_leaves</span><span class="p">(</span><span class="n">dfs_dict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_fn</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+            <span class="n">dfs_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rename_leaves</span><span class="p">(</span><span class="n">dfs_dict</span><span class="p">,</span> <span class="n">rename_columns_dict</span><span class="p">,</span> <span class="n">rename_index_dict</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_split_fn</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Pass clean dfs_dict to MonoSource</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">dfs_dict</span><span class="o">=</span><span class="n">dfs_dict</span><span class="p">,</span>
+            <span class="n">experiment_directory_path</span><span class="o">=</span><span class="n">experiment_directory_path</span><span class="p">,</span>
+            <span class="n">monosource_data_arrays</span><span class="o">=</span><span class="n">filetype_data_arrays</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1">#===========================================================================</span>
+    <span class="c1"># Backward-compatible .df property</span>
+    <span class="c1">#===========================================================================</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Backward-compatible access to the loaded data.</span>
+
+<span class="sd">        Walks dfs_dict and returns the single leaf DataFrame (or dict</span>
+<span class="sd">        for split types like JSONL/YAML). If multiple leaves exist,</span>
+<span class="sd">        returns the full nested dict so nothing silently drops data.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_find_leaf</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">d</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">_find_leaf</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
+            <span class="k">return</span> <span class="n">d</span>
+        <span class="k">return</span> <span class="n">_find_leaf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dfs_dict</span><span class="p">)</span>
+
+    <span class="c1">#===========================================================================</span>
+    <span class="c1"># Reader resolution</span>
+    <span class="c1">#===========================================================================</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_resolve_readers</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
+                         <span class="n">file_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                         <span class="n">reader_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+                         <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Map a file_type string to readers and reader_kwargs dicts</span>
+<span class="sd">        suitable for collect_dfs.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file_type : str</span>
+<span class="sd">            One of &#39;csv&#39;, &#39;json&#39;, &#39;jsonl&#39;, &#39;yml&#39;, &#39;yaml&#39;.</span>
+<span class="sd">        reader_kwargs : dict or None</span>
+<span class="sd">            Flat kwargs dict for the reader.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple[dict | None, dict | None, Callable | None]</span>
+<span class="sd">            (readers, mapped_reader_kwargs, split_fn) for collect_dfs.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">file_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FILETYPE_MAP</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unsupported file_type: &#39;</span><span class="si">{</span><span class="n">file_type</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Supported: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_FILETYPE_MAP</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;For custom formats, pass readers directly to MonoSource.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">extension</span><span class="p">,</span> <span class="n">reader_fn</span><span class="p">,</span> <span class="n">split_fn</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FILETYPE_MAP</span><span class="p">[</span><span class="n">file_type</span><span class="p">]</span>
+        <span class="n">readers</span> <span class="o">=</span> <span class="p">{</span><span class="n">extension</span><span class="p">:</span> <span class="n">reader_fn</span><span class="p">}</span>
+        <span class="n">mapped_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">extension</span><span class="p">:</span> <span class="n">reader_kwargs</span><span class="p">}</span> <span class="k">if</span> <span class="n">reader_kwargs</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">readers</span><span class="p">,</span> <span class="n">mapped_kwargs</span><span class="p">,</span> <span class="n">split_fn</span>
+
+    <span class="c1">#===========================================================================</span>
+    <span class="c1"># Post-processing helpers (all static, operate on dicts)</span>
+    <span class="c1">#===========================================================================</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_collapse_double_folders_dict</span><span class="p">(</span><span class="n">dfs_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Collapse double folders in dfs_dict.</span>
+
+<span class="sd">        Bonsai often creates {DeviceType: {DeviceType: {files...}}}</span>
+<span class="sd">        structures. This collapses them to {DeviceType: {files...}}.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">collapsed</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">dfs_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">list</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+                <span class="n">collapsed</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">collapsed</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">collapsed</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_apply_split_to_leaves</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+                               <span class="n">split_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+                               <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                               <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Recursively walk a nested dict and apply split_fn to Path leaves.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        d : dict</span>
+<span class="sd">            Nested dict (dfs_dict) potentially containing Path leaves.</span>
+<span class="sd">        split_fn : Callable</span>
+<span class="sd">            Function with signature (path) -&gt; (metadata_df, trials_df).</span>
+<span class="sd">        verbose : bool</span>
+<span class="sd">            If True, print progress.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            Same structure but Path leaves replaced with</span>
+<span class="sd">            {&#39;metadata&#39;: df, &#39;trials&#39;: df}.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">FileTypeData</span><span class="o">.</span><span class="n">_apply_split_to_leaves</span><span class="p">(</span>
+                    <span class="n">value</span><span class="p">,</span> <span class="n">split_fn</span><span class="p">,</span> <span class="n">verbose</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">meta_df</span><span class="p">,</span> <span class="n">trials_df</span> <span class="o">=</span> <span class="n">split_fn</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+                    <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">meta_df</span><span class="p">,</span> <span class="s1">&#39;trials&#39;</span><span class="p">:</span> <span class="n">trials_df</span><span class="p">}</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Split failed for &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; (</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_rename_leaves</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+                       <span class="n">columns_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="n">index_rename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Recursively walk a nested dict and apply column/index renames</span>
+<span class="sd">        to all DataFrame leaves.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        d : dict</span>
+<span class="sd">            Nested dict (dfs_dict).</span>
+<span class="sd">        columns_dict : dict or None</span>
+<span class="sd">            Column renaming dict passed to df.rename(columns=...).</span>
+<span class="sd">        index_rename : str, dict, or None</span>
+<span class="sd">            If str, renames the index name to that string.</span>
+<span class="sd">            If dict, passed to df.rename(index=...).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            Same structure with renamed DataFrames.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">columns_dict</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">index_rename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">d</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">FileTypeData</span><span class="o">.</span><span class="n">_rename_leaves</span><span class="p">(</span>
+                    <span class="n">value</span><span class="p">,</span>
+                    <span class="n">columns_dict</span><span class="p">,</span>
+                    <span class="n">index_rename</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+                <span class="n">dataframe</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="k">if</span> <span class="n">columns_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">dataframe</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns_dict</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">index_rename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index_rename</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                        <span class="n">dataframe</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                        <span class="n">dataframe</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">index_rename</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index_rename</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                        <span class="n">dataframe</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">index_rename</span><span class="p">)</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataframe</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># ExperimentEvents</span>
+<span class="c1">################################################################################</span>
+
+
+<div class="viewcode-block" id="ExperimentEvents">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.datasources.monosource.ExperimentEvents">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExperimentEvents</span><span class="p">(</span><span class="n">FileTypeData</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Preset config for ExperimentEvents CSV data.</span>
+
+<span class="sd">    Loads CSV files from ExperimentEvents subfolder(s), renames the</span>
+<span class="sd">    &#39;Value&#39; column to &#39;Event&#39;, and ensures the index is named &#39;Time&#39;.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    experiment_directory_path : str or Path or None</span>
+<span class="sd">        Path to the experiment directory.</span>
+<span class="sd">    device_type : str</span>
+<span class="sd">        Folder prefix. Default &#39;ExperimentEvents&#39;.</span>
+<span class="sd">    reader_kwargs : dict or None</span>
+<span class="sd">        Custom kwargs for read_csv.</span>
+<span class="sd">    rename_columns_dict : dict</span>
+<span class="sd">        Column renaming. Default {&#39;Value&#39;: &#39;Event&#39;}.</span>
+<span class="sd">    rename_index_dict : str</span>
+<span class="sd">        Index name. Default &#39;Time&#39;.</span>
+<span class="sd">    filetype_data_arrays : dict</span>
+<span class="sd">        Mapping of friendly names to level selectors.</span>
+<span class="sd">        Default: {&#39;events&#39;: {&#39;l0_selector&#39;: &#39;ExperimentEvents&#39;}}</span>
+<span class="sd">    verbose : bool</span>
+<span class="sd">        If True, print warnings during processing.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Additional level selectors passed to collect_dfs.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data_arrays : dict[str, xr.DataArray]</span>
+<span class="sd">        Named DataArrays built from filetype_data_arrays.</span>
+<span class="sd">        Default ExperimentEvents data_arrays:</span>
+<span class="sd">        {</span>
+<span class="sd">            &#39;events&#39;: xr.DataArray for ExperimentEvents CSV data,</span>
+<span class="sd">        }</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        Backward-compatible access to the single loaded DataFrame.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">experiment_directory_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">device_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ExperimentEvents&#39;</span><span class="p">,</span>
+                 <span class="n">reader_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">rename_columns_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Value&#39;</span><span class="p">:</span> <span class="s1">&#39;Event&#39;</span><span class="p">},</span>
+                 <span class="n">rename_index_dict</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span>
+                 <span class="n">filetype_data_arrays</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;events&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;l0_selector&#39;</span><span class="p">:</span> <span class="s1">&#39;ExperimentEvents&#39;</span><span class="p">}},</span>
+                 <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                 <span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Initialise ExperimentEvents with CSV preset.&#39;&#39;&#39;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">experiment_directory_path</span><span class="o">=</span><span class="n">experiment_directory_path</span><span class="p">,</span>
+            <span class="n">device_type</span><span class="o">=</span><span class="n">device_type</span><span class="p">,</span>
+            <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span>
+            <span class="n">reader_kwargs</span><span class="o">=</span><span class="n">reader_kwargs</span><span class="p">,</span>
+            <span class="n">rename_columns_dict</span><span class="o">=</span><span class="n">rename_columns_dict</span><span class="p">,</span>
+            <span class="n">rename_index_dict</span><span class="o">=</span><span class="n">rename_index_dict</span><span class="p">,</span>
+            <span class="n">filetype_data_arrays</span><span class="o">=</span><span class="n">filetype_data_arrays</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># RotationData</span>
+<span class="c1">################################################################################</span>
+
+
+<div class="viewcode-block" id="RotationData">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.datasources.monosource.RotationData">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RotationData</span><span class="p">(</span><span class="n">FileTypeData</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Preset config for rotation encoder CSV data.</span>
+
+<span class="sd">    Loads CSV files from a rotation device subfolder (InnerRotation,</span>
+<span class="sd">    OuterRotation, or NosepokeRotation), renames &#39;Value&#39; to &#39;Rotation&#39;,</span>
+<span class="sd">    and optionally applies angular unit conversion and range wrapping.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    experiment_directory_path : str or Path or None</span>
+<span class="sd">        Path to the experiment directory.</span>
+<span class="sd">    device_type : str or None</span>
+<span class="sd">        Folder prefix. Typically one of &#39;InnerRotation&#39;,</span>
+<span class="sd">        &#39;OuterRotation&#39;, or &#39;NosepokeRotation&#39;.</span>
+<span class="sd">    reader_kwargs : dict or None</span>
+<span class="sd">        Custom kwargs for read_csv.</span>
+<span class="sd">    rename_columns_dict : dict</span>
+<span class="sd">        Column renaming. Default {&#39;Value&#39;: &#39;Rotation&#39;}.</span>
+<span class="sd">    rename_index_dict : str</span>
+<span class="sd">        Index name. Default &#39;Time&#39;.</span>
+<span class="sd">    angular_unit_conversion : str or None</span>
+<span class="sd">        Unit conversion to apply: &#39;deg2rad&#39; or &#39;rad2deg&#39;.</span>
+<span class="sd">        If None, no conversion is applied.</span>
+<span class="sd">    angular_range : list[float] or None</span>
+<span class="sd">        Two-element list [min, max] to wrap angular values within.</span>
+<span class="sd">        e.g. [0, 360], [-180, 180], [0, 2*pi].</span>
+<span class="sd">        If None, no wrapping is applied.</span>
+<span class="sd">    filetype_data_arrays : dict or None</span>
+<span class="sd">        Mapping of friendly names to level selectors.</span>
+<span class="sd">        No default — device_type varies per instantiation.</span>
+<span class="sd">    verbose : bool</span>
+<span class="sd">        If True, print warnings during processing.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Additional level selectors passed to collect_dfs.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data_arrays : dict[str, xr.DataArray]</span>
+<span class="sd">        Named DataArrays built from filetype_data_arrays (if provided).</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        Backward-compatible access to the single loaded DataFrame.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">experiment_directory_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">device_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">reader_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">rename_columns_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Value&#39;</span><span class="p">:</span> <span class="s1">&#39;Rotation&#39;</span><span class="p">},</span>
+                 <span class="n">rename_index_dict</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span>
+                 <span class="n">angular_unit_conversion</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">angular_range</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">filetype_data_arrays</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                 <span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Initialise RotationData with CSV preset and angular processing.&#39;&#39;&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">angular_unit_conversion</span> <span class="o">=</span> <span class="n">angular_unit_conversion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">angular_range</span> <span class="o">=</span> <span class="n">angular_range</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">experiment_directory_path</span><span class="o">=</span><span class="n">experiment_directory_path</span><span class="p">,</span>
+            <span class="n">device_type</span><span class="o">=</span><span class="n">device_type</span><span class="p">,</span>
+            <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span>
+            <span class="n">reader_kwargs</span><span class="o">=</span><span class="n">reader_kwargs</span><span class="p">,</span>
+            <span class="n">rename_columns_dict</span><span class="o">=</span><span class="n">rename_columns_dict</span><span class="p">,</span>
+            <span class="n">rename_index_dict</span><span class="o">=</span><span class="n">rename_index_dict</span><span class="p">,</span>
+            <span class="n">filetype_data_arrays</span><span class="o">=</span><span class="n">filetype_data_arrays</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Apply angular transforms after all base post-processing</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">angular_unit_conversion</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">angular_range</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_apply_angular_transforms</span><span class="p">()</span>
+            <span class="c1"># Rebuild data_arrays since dfs_dict changed</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filetype_data_arrays</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data_arrays</span> <span class="o">=</span> <span class="n">_build_data_arrays</span><span class="p">(</span>
+                    <span class="n">dfs_dict</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dfs_dict</span><span class="p">,</span>
+                    <span class="n">monosource_data_arrays</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filetype_data_arrays</span><span class="p">,</span>
+                    <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
+                <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_apply_angular_transforms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Apply angular unit conversion and range wrapping to all</span>
+<span class="sd">        Rotation columns in leaf DataFrames of dfs_dict.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dfs_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform_rotation_leaves</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dfs_dict</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">angular_unit_conversion</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">angular_range</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_transform_rotation_leaves</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+                                   <span class="n">conversion</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+                                   <span class="n">angular_range</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+                                   <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+                                   <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Recursively apply angular transforms to Rotation columns in</span>
+<span class="sd">        all DataFrame leaves.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">RotationData</span><span class="o">.</span><span class="n">_transform_rotation_leaves</span><span class="p">(</span>
+                    <span class="n">value</span><span class="p">,</span> <span class="n">conversion</span><span class="p">,</span> <span class="n">angular_range</span><span class="p">,</span> <span class="n">verbose</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;Rotation&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">dataframe</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;Rotation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;Rotation&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;Rotation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+                    <span class="n">bad_rows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;Rotation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;RotationData: &#39;Rotation&#39; column in &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; contains &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bad_rows</span><span class="si">}</span><span class="s2"> non-numeric value(s); cannot apply &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;angular transforms.&quot;</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">conversion</span> <span class="o">==</span> <span class="s1">&#39;deg2rad&#39;</span><span class="p">:</span>
+                    <span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;Rotation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;Rotation&#39;</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">conversion</span> <span class="o">==</span> <span class="s1">&#39;rad2deg&#39;</span><span class="p">:</span>
+                    <span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;Rotation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;Rotation&#39;</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">conversion</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Invalid angular_unit_conversion: &#39;</span><span class="si">{</span><span class="n">conversion</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;Must be &#39;deg2rad&#39; or &#39;rad2deg&#39;.&quot;</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">angular_range</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">angular_range</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">angular_range</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">):</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;angular_range must be a list of two floats &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;[min, max]. Got: </span><span class="si">{</span><span class="n">angular_range</span><span class="si">}</span><span class="s2">&quot;</span>
+                        <span class="p">)</span>
+                    <span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span> <span class="o">=</span> <span class="n">angular_range</span>
+                    <span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;Rotation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="p">(</span><span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;Rotation&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_value</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="n">max_value</span> <span class="o">-</span> <span class="n">min_value</span><span class="p">)</span>
+                    <span class="p">)</span> <span class="o">+</span> <span class="n">min_value</span>
+
+                <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">conversion</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Applied </span><span class="si">{</span><span class="n">conversion</span><span class="si">}</span><span class="s2"> to &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">angular_range</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Wrapped &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; within </span><span class="si">{</span><span class="n">angular_range</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+                <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataframe</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># VideoData</span>
+<span class="c1">################################################################################</span>
+
+
+<div class="viewcode-block" id="VideoData">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.datasources.monosource.VideoData">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">VideoData</span><span class="p">(</span><span class="n">FileTypeData</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Preset config for VideoData CSV data.</span>
+
+<span class="sd">    Loads CSV files from VideoData subfolder(s), renames chunk data</span>
+<span class="sd">    columns to friendly names (FrameID, Timestamp).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    experiment_directory_path : str or Path or None</span>
+<span class="sd">        Path to the experiment directory.</span>
+<span class="sd">    device_type : str</span>
+<span class="sd">        Folder prefix. Default &#39;VideoData&#39;.</span>
+<span class="sd">    reader_kwargs : dict or None</span>
+<span class="sd">        Custom kwargs for read_csv.</span>
+<span class="sd">    rename_columns_dict : dict</span>
+<span class="sd">        Column renaming. Default maps ChunkData fields.</span>
+<span class="sd">    rename_index_dict : str</span>
+<span class="sd">        Index name. Default &#39;Time&#39;.</span>
+<span class="sd">    filetype_data_arrays : dict</span>
+<span class="sd">        Mapping of friendly names to level selectors.</span>
+<span class="sd">        Default: {&#39;video&#39;: {&#39;l0_selector&#39;: &#39;VideoData&#39;}}</span>
+<span class="sd">    verbose : bool</span>
+<span class="sd">        If True, print warnings during processing.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Additional level selectors passed to collect_dfs.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data_arrays : dict[str, xr.DataArray]</span>
+<span class="sd">        Named DataArrays built from filetype_data_arrays.</span>
+<span class="sd">        Default VideoData data_arrays:</span>
+<span class="sd">        {</span>
+<span class="sd">            &#39;video&#39;: xr.DataArray for VideoData CSV data,</span>
+<span class="sd">        }</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        Backward-compatible access to the single loaded DataFrame.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">experiment_directory_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">device_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;VideoData&#39;</span><span class="p">,</span>
+                 <span class="n">reader_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">rename_columns_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+                     <span class="s1">&#39;Value.ChunkData.FrameID&#39;</span><span class="p">:</span> <span class="s1">&#39;FrameID&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Value.ChunkData.Timestamp&#39;</span><span class="p">:</span> <span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span>
+                 <span class="p">},</span>
+                 <span class="n">rename_index_dict</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span>
+                 <span class="n">filetype_data_arrays</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;video&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;l0_selector&#39;</span><span class="p">:</span> <span class="s1">&#39;VideoData&#39;</span><span class="p">}},</span>
+                 <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                 <span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Initialise VideoData with CSV preset.&#39;&#39;&#39;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">experiment_directory_path</span><span class="o">=</span><span class="n">experiment_directory_path</span><span class="p">,</span>
+            <span class="n">device_type</span><span class="o">=</span><span class="n">device_type</span><span class="p">,</span>
+            <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span>
+            <span class="n">reader_kwargs</span><span class="o">=</span><span class="n">reader_kwargs</span><span class="p">,</span>
+            <span class="n">rename_columns_dict</span><span class="o">=</span><span class="n">rename_columns_dict</span><span class="p">,</span>
+            <span class="n">rename_index_dict</span><span class="o">=</span><span class="n">rename_index_dict</span><span class="p">,</span>
+            <span class="n">filetype_data_arrays</span><span class="o">=</span><span class="n">filetype_data_arrays</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># VisualEnvironment</span>
+<span class="c1">################################################################################</span>
+
+
+<div class="viewcode-block" id="VisualEnvironment">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.datasources.monosource.VisualEnvironment">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">VisualEnvironment</span><span class="p">(</span><span class="n">FileTypeData</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Preset config for VisualEnvironment CSV data.</span>
+
+<span class="sd">    Loads CSV files from VisualEnvironment subfolder(s) using custom</span>
+<span class="sd">    column names for the headerless Bonsai output format.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    experiment_directory_path : str or Path or None</span>
+<span class="sd">        Path to the experiment directory.</span>
+<span class="sd">    device_type : str</span>
+<span class="sd">        Folder prefix. Default &#39;VisualEnvironment&#39;.</span>
+<span class="sd">    reader_kwargs : dict</span>
+<span class="sd">        Custom kwargs for read_csv. Defaults provide column names</span>
+<span class="sd">        for the standard VisualEnvironment format.</span>
+<span class="sd">    rename_columns_dict : dict or None</span>
+<span class="sd">        Column renaming. Default None (names set via reader_kwargs).</span>
+<span class="sd">    rename_index_dict : str</span>
+<span class="sd">        Index name. Default &#39;Time&#39;.</span>
+<span class="sd">    filetype_data_arrays : dict</span>
+<span class="sd">        Mapping of friendly names to level selectors.</span>
+<span class="sd">        Default: {&#39;visual_environment&#39;: {&#39;l0_selector&#39;: &#39;VisualEnvironment&#39;}}</span>
+<span class="sd">    verbose : bool</span>
+<span class="sd">        If True, print warnings during processing.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Additional level selectors passed to collect_dfs.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data_arrays : dict[str, xr.DataArray]</span>
+<span class="sd">        Named DataArrays built from filetype_data_arrays.</span>
+<span class="sd">        Default VisualEnvironment data_arrays:</span>
+<span class="sd">        {</span>
+<span class="sd">            &#39;visual_environment&#39;: xr.DataArray for VisualEnvironment CSV data,</span>
+<span class="sd">        }</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        Backward-compatible access to the single loaded DataFrame.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">experiment_directory_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">device_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;VisualEnvironment&#39;</span><span class="p">,</span>
+                 <span class="n">reader_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+                     <span class="s1">&#39;names&#39;</span><span class="p">:</span> <span class="p">[</span>
+                         <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Value&#39;</span><span class="p">,</span> <span class="s1">&#39;Landmark&#39;</span><span class="p">,</span> <span class="s1">&#39;Landmark_Proximal&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;Gratings&#39;</span><span class="p">,</span> <span class="s1">&#39;Firefly&#39;</span><span class="p">,</span>
+                     <span class="p">],</span>
+                     <span class="s1">&#39;skiprows&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                     <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="s1">&#39;engine&#39;</span><span class="p">:</span> <span class="s1">&#39;python&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;index_col&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="p">},</span>
+                 <span class="n">rename_columns_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">rename_index_dict</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span>
+                 <span class="n">filetype_data_arrays</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;visual_environment&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;l0_selector&#39;</span><span class="p">:</span> <span class="s1">&#39;VisualEnvironment&#39;</span><span class="p">}},</span>
+                 <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                 <span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Initialise VisualEnvironment with CSV preset and custom column names.&#39;&#39;&#39;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">experiment_directory_path</span><span class="o">=</span><span class="n">experiment_directory_path</span><span class="p">,</span>
+            <span class="n">device_type</span><span class="o">=</span><span class="n">device_type</span><span class="p">,</span>
+            <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span>
+            <span class="n">reader_kwargs</span><span class="o">=</span><span class="n">reader_kwargs</span><span class="p">,</span>
+            <span class="n">rename_columns_dict</span><span class="o">=</span><span class="n">rename_columns_dict</span><span class="p">,</span>
+            <span class="n">rename_index_dict</span><span class="o">=</span><span class="n">rename_index_dict</span><span class="p">,</span>
+            <span class="n">filetype_data_arrays</span><span class="o">=</span><span class="n">filetype_data_arrays</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># RingDebugData</span>
+<span class="c1">################################################################################</span>
+
+
+<div class="viewcode-block" id="RingDebugData">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.datasources.monosource.RingDebugData">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RingDebugData</span><span class="p">(</span><span class="n">FileTypeData</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Preset config for ring-debug YAML data (metadata + trials).</span>
+
+<span class="sd">    Loads YAML files from the experiment directory (ring-debug.yml</span>
+<span class="sd">    typically sits at the root, not in a device subfolder). Each YAML</span>
+<span class="sd">    file is split into metadata and trials DataFrames stored as a</span>
+<span class="sd">    nested dict: {stem: {&#39;metadata&#39;: df, &#39;trials&#39;: df}}.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    experiment_directory_path : str or Path or None</span>
+<span class="sd">        Path to the experiment directory.</span>
+<span class="sd">    device_type : str</span>
+<span class="sd">        Folder prefix. Default &#39;ring-debug&#39;.</span>
+<span class="sd">    rename_columns_dict : dict or None</span>
+<span class="sd">        Column renaming. Default None.</span>
+<span class="sd">    rename_index_dict : str</span>
+<span class="sd">        Index name. Default &#39;Time&#39;.</span>
+<span class="sd">    filetype_data_arrays : dict</span>
+<span class="sd">        Mapping of friendly names to level selectors.</span>
+<span class="sd">        Default: {&#39;ring_debug&#39;: {&#39;l0_selector&#39;: &#39;ring-debug&#39;}}</span>
+<span class="sd">    verbose : bool</span>
+<span class="sd">        If True, print warnings during processing.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Additional level selectors passed to collect_dfs.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data_arrays : dict[str, xr.DataArray]</span>
+<span class="sd">        Named DataArrays built from filetype_data_arrays.</span>
+<span class="sd">        Default RingDebugData data_arrays:</span>
+<span class="sd">        {</span>
+<span class="sd">            &#39;ring_debug&#39;: xr.DataArray for ring-debug YAML data,</span>
+<span class="sd">        }</span>
+<span class="sd">    df : dict</span>
+<span class="sd">        Backward-compatible access. Returns {&#39;metadata&#39;: df, &#39;trials&#39;: df}.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">experiment_directory_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">device_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ring-debug&#39;</span><span class="p">,</span>
+                 <span class="n">rename_columns_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">rename_index_dict</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span>
+                 <span class="n">filetype_data_arrays</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ring_debug&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;l0_selector&#39;</span><span class="p">:</span> <span class="s1">&#39;ring-debug&#39;</span><span class="p">}},</span>
+                 <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                 <span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Initialise RingDebugData with YAML split preset.&#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">experiment_directory_path</span><span class="o">=</span><span class="n">experiment_directory_path</span><span class="p">,</span>
+            <span class="n">device_type</span><span class="o">=</span><span class="n">device_type</span><span class="p">,</span>
+            <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;yml&#39;</span><span class="p">,</span>
+            <span class="n">rename_columns_dict</span><span class="o">=</span><span class="n">rename_columns_dict</span><span class="p">,</span>
+            <span class="n">rename_index_dict</span><span class="o">=</span><span class="n">rename_index_dict</span><span class="p">,</span>
+            <span class="n">filetype_data_arrays</span><span class="o">=</span><span class="n">filetype_data_arrays</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;FileTypeData&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ExperimentEvents&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;RotationData&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;VideoData&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;VisualEnvironment&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;RingDebugData&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, Keshavarzi Lab.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

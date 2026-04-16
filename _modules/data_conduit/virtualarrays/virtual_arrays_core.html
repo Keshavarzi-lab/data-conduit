@@ -1,0 +1,1076 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>data_conduit.virtualarrays.virtual_arrays_core &#8212; data-conduit</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=5c2b050f" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+    <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/data_conduit/virtualarrays/virtual_arrays_core';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://Keshavarzi-lab.github.io/data-conduit/_modules/data_conduit/virtualarrays/virtual_arrays_core.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">data-conduit v0.1.0</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../getting_started.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../README.html">
+    data-conduit
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../CHANGELOG.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../ROADMAP.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../data_conduit_demo_new.html">
+    data-conduit: Overview and Workflow Guide
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Keshavarzi-lab/data-conduit" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../getting_started.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../README.html">
+    data-conduit
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../CHANGELOG.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ROADMAP.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../data_conduit_demo_new.html">
+    data-conduit: Overview and Workflow Guide
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Keshavarzi-lab/data-conduit" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">data_conduit.virtualarrays.virtual_arrays_core</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for data_conduit.virtualarrays.virtual_arrays_core</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Virtual Arrays.</span>
+
+<span class="sd">Virtual arrays allow users to define n-dimensional lookup matrices that map</span>
+<span class="sd">from a series of input coordinates to a given output coordinate.</span>
+
+<span class="sd">    - Input coordinates are referred to as virtual coordinates, and with</span>
+<span class="sd">      output coordinates being referred to as global or unified coordinates.</span>
+<span class="sd">    - These virtual arrays are used to perform flexible and efficient lookup</span>
+<span class="sd">      query operations, as well as support for constructing custom xarray</span>
+<span class="sd">      accessors.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Imports</span>
+<span class="c1">################################################################################</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mapping</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+
+<span class="c1">################################################################################</span>
+
+
+
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Private Helper Functions</span>
+<span class="c1">################################################################################</span>
+
+<span class="c1">#===============================================================================</span>
+<span class="c1"># 1| Generate Test Values</span>
+<span class="c1">#===============================================================================</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_generate_test_values</span><span class="p">(</span>
+        <span class="n">times</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">global_coords</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="n">virtual_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">virtual_coord_names</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="n">dict_of</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;dicts&#39;</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Generate human-readable test values for debugging DataArray construction.  </span>
+<span class="sd">    Creates string values in following format: &quot;((global_coord, vcoord1: val1, vcoord2: val2, ...))&quot;.</span>
+<span class="sd">    </span>
+<span class="sd">    -------------------------------</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        times: list | np.ndarray</span>
+<span class="sd">            A list or array of timepoints.</span>
+<span class="sd">        global_coords: list</span>
+<span class="sd">            A list of global coordinates.</span>
+<span class="sd">        virtual_map: dict</span>
+<span class="sd">            A dictionary mapping global coordinates to virtual coordinates.</span>
+<span class="sd">        virtual_coord_names: list</span>
+<span class="sd">            A list of names for the virtual coordinate dimensions.</span>
+<span class="sd">        dict_of: str</span>
+<span class="sd">            Specifies the format of virtual_map_dict. Options are &#39;dicts&#39; or &#39;tuples&#39;.</span>
+<span class="sd">        verbose: bool</span>
+<span class="sd">            If True, function will print additional information during execution. Default is False.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: </span>
+<span class="sd">            2D array of test value strings with shape (len(times), len(global_coords))</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No values provided, test_values is True. Creating test values DataArray with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span><span class="si">}</span><span class="s1"> timestamps and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">global_coords</span><span class="p">)</span><span class="si">}</span><span class="s1"> unified coordinates.&#39;</span><span class="p">)</span>    <span class="c1"># noqa</span>
+
+    <span class="n">value_list</span><span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">times</span><span class="p">:</span>
+        <span class="n">time_values</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">unified</span> <span class="ow">in</span> <span class="n">global_coords</span><span class="p">:</span>
+            <span class="n">virtual_coords</span> <span class="o">=</span> <span class="n">virtual_map</span><span class="p">[</span><span class="n">unified</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">dict_of</span> <span class="o">==</span> <span class="s1">&#39;dicts&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">virtual_coords</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span> 
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Expected virtual_map to be dict-of-dicts when dict_of=&quot;dicts&quot;, but got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">virtual_coords</span><span class="p">)</span><span class="si">}</span><span class="s1"> for coordinate </span><span class="si">{</span><span class="n">unified</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                
+                <span class="c1"># Format virtual coordinates as comma-separated &quot;key: value&quot; pairs</span>
+                <span class="c1"># Used for creating human-readable test values</span>
+                <span class="c1"># Example output: &quot;row: 5, col: 3, layer: 2&quot;</span>
+                
+                <span class="n">coord_str</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">virtual_coords</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+
+            <span class="k">elif</span> <span class="n">dict_of</span> <span class="o">==</span> <span class="s1">&#39;tuples&#39;</span><span class="p">:</span>
+                
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">virtual_coords</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>                           <span class="c1"># noqa</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Expected virtual_map to be dict-of-tuples/lists when dict_of=&quot;tuples&quot;, but got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">virtual_coords</span><span class="p">)</span><span class="si">}</span><span class="s1"> for unified coordinate </span><span class="si">{</span><span class="n">unified</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">virtual_coords</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">virtual_coord_names</span><span class="p">):</span> 
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tuple length mismatch for </span><span class="si">{</span><span class="n">unified</span><span class="si">}</span><span class="s2">: len(entry)=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">virtual_coords</span><span class="p">)</span><span class="si">}</span><span class="s2"> vs len(virtual_coord_names)=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">virtual_coord_names</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                
+                <span class="c1"># Map coord names to tuple values: &quot;name1: val1, name2: val2, ...&quot;</span>
+                <span class="n">coord_str</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">virtual_coord_names</span><span class="p">,</span> <span class="n">virtual_coords</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)])</span>
+
+            <span class="k">else</span><span class="p">:</span>                   
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dict_of parameter must be either &#39;dicts&#39; or &#39;tuples&#39;, got: </span><span class="si">{</span><span class="n">dict_of</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="n">time_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">unified</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">coord_str</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+        <span class="n">value_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time_values</span><span class="p">)</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">value_list</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Constructed test helper values array with shape: </span><span class="si">{</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">values</span>
+
+
+<span class="c1">#===============================================================================      </span>
+
+<span class="c1">################################################################################</span>
+
+
+
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Construct Base DataArray</span>
+<span class="c1">################################################################################</span>
+
+
+<div class="viewcode-block" id="construct_data_array">
+<a class="viewcode-back" href="../../../api_index.html#data_conduit.virtualarrays.construct_data_array">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">construct_data_array</span><span class="p">(</span><span class="n">virtual_map</span><span class="p">:</span> <span class="nb">dict</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                         <span class="n">global_coord_name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span> <span class="s1">&#39;global_coord&#39;</span><span class="p">,</span>
+                         <span class="n">virtual_coord_names</span><span class="p">:</span> <span class="nb">list</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                         <span class="n">times</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                         <span class="n">dict_of</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span> <span class="s1">&#39;dicts&#39;</span><span class="p">,</span>
+                         <span class="n">values</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span> <span class="s1">&#39;data_array&#39;</span><span class="p">,</span>
+                         <span class="n">test_values</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                         <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                         <span class="n">da_attrs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span> <span class="kc">None</span>
+                         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Construct a base DataArray for a given set of global coordinates for all timepoints and their associated virtual coordinates.</span>
+<span class="sd">    </span>
+<span class="sd">    virtual_map formats:</span>
+<span class="sd">        dict_of=&quot;dicts&quot;:  {global: {vcoord_name: vcoord_value, ...}, ...}</span>
+<span class="sd">        dict_of=&quot;tuples&quot;: {global: (v0, v1, ...), ...} aligned with virtual_coord_names</span>
+<span class="sd">    -------------------------------</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        virtual_map: dict</span>
+<span class="sd">            A dictionary mapping global coordinates to virtual coordinates.</span>
+<span class="sd">        global_coord_name: str</span>
+<span class="sd">            The name of the global coordinate dimension.</span>
+<span class="sd">        virtual_coord_names: list</span>
+<span class="sd">            A list of names for the virtual coordinate dimensions.</span>
+<span class="sd">        times: list | np.ndarray</span>
+<span class="sd">            A list or array of timepoints to include in the DataArray. Obtained using collect_timestamps_dict() or collect_timestamps_nested_dict() with return_type= &#39;list&#39;.</span>
+<span class="sd">        dict_of: str</span>
+<span class="sd">            Specifies the format of virtual_map_dict. Options are &#39;dicts&#39; or &#39;tuples&#39;.</span>
+<span class="sd">        values: list | np.ndarray | None</span>
+<span class="sd">            Values to populate the DataArray. If None, a placeholder array of NaNs will be created.</span>
+<span class="sd">        name: str</span>
+<span class="sd">            The name of the DataArray.</span>
+<span class="sd">        test_values: bool</span>
+<span class="sd">            If True, function will use test values instead of the provided values. Default is False. Useful for debugging.</span>
+<span class="sd">        verbose: bool</span>
+<span class="sd">            If True, function will print additional information during execution. Default is False.</span>
+<span class="sd">        da_attrs: dict | None</span>
+<span class="sd">            A dictionary of attributes to assign to the DataArray. Default is None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        xr.DataArray</span>
+<span class="sd">            A DataArray with dimensions for time, global coordinates, and virtual coordinates.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">dict_of</span><span class="o">=</span> <span class="n">dict_of</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">dict_of</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;dicts&quot;</span><span class="p">,</span> <span class="s2">&quot;tuples&quot;</span><span class="p">):</span>  
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dict_of must be either &#39;dicts&#39; or &#39;tuples&#39;, got: </span><span class="si">{</span><span class="n">dict_of</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">times</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>                       
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;times parameter must be provided and cannot be None.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">global_coord_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>           
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;global_coord_name parameter must be provided and cannot be None.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">virtual_coord_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>         
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;virtual_coord_names parameter must be provided and cannot be None.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">virtual_map</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>                 
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;virtual_map parameter must be provided and cannot be None.&quot;</span><span class="p">)</span>
+
+
+    <span class="k">if</span> <span class="n">da_attrs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> 
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No da_attrs provided, using defaults.&quot;</span><span class="p">)</span>
+        <span class="n">da_attrs</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Base DataArray for unified coordinates of type </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s1">&#39;Constructed using construct_base_da function&#39;</span><span class="p">}</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">da_attrs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> 
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;da_attrs is not a dict, using defaults.&quot;</span><span class="p">)</span>
+        <span class="n">da_attrs</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Base DataArray for unified coordinates of type </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s1">&#39;Constructed using construct_base_da function&#39;</span><span class="p">}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> 
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using provided da_attrs dictionary.&quot;</span><span class="p">)</span>
+
+
+    <span class="c1">#==== Validate Virtual Map Format</span>
+    <span class="k">if</span> <span class="n">dict_of</span> <span class="o">==</span> <span class="s2">&quot;tuples&quot;</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">virtual_map</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+                                            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;dict_of=&#39;tuples&#39; but at least one entry is a dict. Use dict_of=&#39;dicts&#39;.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">dict_of</span> <span class="o">==</span> <span class="s2">&quot;dicts&quot;</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">))</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">virtual_map</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>                                              <span class="c1"># noqa</span>
+                                            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;dict_of=&#39;dicts&#39; but at least one entry is a tuple/list. Use dict_of=&#39;tuples&#39;.&quot;</span><span class="p">)</span>
+
+    
+
+    <span class="c1">#==== Create data to populate DataArray </span>
+    <span class="n">global_coords</span><span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">virtual_map</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">test_values</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>    
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: Both values provided and test_values is True. Using provided values.&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">test_values</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>   
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> 
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No values provided, test_values is False. Creating NaNs placeholder DataArray with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span><span class="si">}</span><span class="s1"> timestamps and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">global_coords</span><span class="p">)</span><span class="si">}</span><span class="s1"> unified coordinates.&#39;</span><span class="p">)</span> <span class="c1"># noqa</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">global_coords</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        
+
+    <span class="c1">#==== Create test values if specified</span>
+    <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">test_values</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">values</span><span class="o">=</span> <span class="n">_generate_test_values</span><span class="p">(</span><span class="n">times</span><span class="o">=</span> <span class="n">times</span><span class="p">,</span>
+                                          <span class="n">global_coords</span><span class="o">=</span> <span class="n">global_coords</span><span class="p">,</span>
+                                          <span class="n">virtual_map</span><span class="o">=</span> <span class="n">virtual_map</span><span class="p">,</span>
+                                          <span class="n">virtual_coord_names</span><span class="o">=</span> <span class="n">virtual_coord_names</span><span class="p">,</span>
+                                          <span class="n">dict_of</span><span class="o">=</span> <span class="n">dict_of</span><span class="p">,</span>
+                                          <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
+                                          <span class="p">)</span>
+
+    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">global_coords</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">expected</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;values has shape </span><span class="si">{</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, expected </span><span class="si">{</span><span class="n">expected</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+    <span class="c1">#==== Build Coordinates</span>
+
+    <span class="c1"># i) Primary/Base Coordinates</span>
+    <span class="n">coords</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="n">times</span><span class="p">,</span>
+             <span class="n">global_coord_name</span><span class="p">:</span> <span class="n">global_coords</span><span class="p">,</span>
+    <span class="p">}</span>
+    
+
+    <span class="c1"># ii) Virtual Coordinates (dict-of-dicts/ Named Fields)</span>
+
+    <span class="k">if</span> <span class="n">dict_of</span><span class="o">==</span> <span class="s1">&#39;dicts&#39;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">vcoord</span> <span class="ow">in</span> <span class="n">virtual_coord_names</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span> 
+                        <span class="n">vcoord_values</span><span class="o">=</span> <span class="p">[</span><span class="n">virtual_map</span><span class="p">[</span><span class="n">global_coord</span><span class="p">][</span><span class="n">vcoord</span><span class="p">]</span> 
+                                        <span class="k">for</span> <span class="n">global_coord</span> <span class="ow">in</span> <span class="n">global_coords</span><span class="p">]</span>
+                    
+                    <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Missing key </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1"> in virtual_map entries (dict_of=&quot;dicts&quot;)&#39;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+                    
+
+                    <span class="c1"># Add virtual coordinate to coords dict</span>
+                    <span class="n">coords</span><span class="p">[</span><span class="n">vcoord</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">global_coord_name</span><span class="p">,</span> <span class="n">vcoord_values</span><span class="p">)</span>
+
+
+    <span class="c1"># iii) Virtual Coordinates (dict-of-tuples/ Positional Fields)</span>
+
+    <span class="k">elif</span> <span class="n">dict_of</span><span class="o">==</span> <span class="s1">&#39;tuples&#39;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">vcoord</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">virtual_coord_names</span><span class="p">):</span>
+                    <span class="k">try</span><span class="p">:</span> 
+                        <span class="n">vcoord_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">virtual_map</span><span class="p">[</span><span class="n">global_coord</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> 
+                                        <span class="k">for</span> <span class="n">global_coord</span> <span class="ow">in</span> <span class="n">global_coords</span><span class="p">]</span>
+                    <span class="k">except</span> <span class="ne">IndexError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Index </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s1"> out of range for virtual_map entries (dict_of=&quot;tuples&quot;)&#39;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+                    
+                    <span class="c1"># Add virtual coordinate to coords dict</span>
+                    <span class="n">coords</span><span class="p">[</span><span class="n">vcoord</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">global_coord_name</span><span class="p">,</span> <span class="n">vcoord_values</span><span class="p">)</span>
+
+
+    <span class="k">else</span><span class="p">:</span> 
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dict_of parameter must be either &#39;dicts&#39; or &#39;tuples&#39;, got: </span><span class="si">{</span><span class="n">dict_of</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1">#=====================================</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    NOTE: virtual_map_dict can be either:</span>
+<span class="sd">      (A) dict-of-dicts (recommended):</span>
+<span class="sd">          virtual_map_dict[unified] = {&quot;device&quot;: ..., &quot;localID&quot;: ..., ...}</span>
+<span class="sd">          -&gt; use key lookup: virtual_map_dict[unified][vcoord]</span>
+<span class="sd">    </span>
+<span class="sd">      (B) dict-of-tuples/lists (positional):</span>
+<span class="sd">          virtual_map_dict[unified] = (device, localID, ...)</span>
+<span class="sd">          -&gt; assumes tuple order matches virtual_coord_names</span>
+<span class="sd">    </span>
+<span class="sd">    Example for (B):</span>
+<span class="sd">    for i, vcoord in enumerate(virtual_coord_names):</span>
+<span class="sd">        vcoord_values = [virtual_map_dict[unified][i] for unified in unified_dim]</span>
+<span class="sd">        coords[vcoord] = (unified_coord_name, vcoord_values)</span>
+<span class="sd">    </span>
+<span class="sd">    Dict-of-tuples requires that the order of elements in the tuple matches the order in virtual_coord_names.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#=====================================</span>
+
+    <span class="c1">#==== Create DataArray</span>
+    <span class="n">data_array</span><span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span> <span class="n">values</span><span class="p">,</span>
+                             <span class="n">dims</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">global_coord_name</span><span class="p">],</span>
+                             <span class="n">coords</span><span class="o">=</span> <span class="n">coords</span><span class="p">,</span>
+                             <span class="n">name</span><span class="o">=</span> <span class="n">name</span><span class="p">,</span>
+                             <span class="n">attrs</span><span class="o">=</span> <span class="n">da_attrs</span>
+                             <span class="p">)</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Constructed DataArray &quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot; with dimensions: </span><span class="si">{</span><span class="n">data_array</span><span class="o">.</span><span class="n">dims</span><span class="si">}</span><span class="s1"> and shape: </span><span class="si">{</span><span class="n">data_array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">data_array</span></div>
+
+
+<span class="c1">################################################################################</span>
+
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Construct Lookup Array</span>
+<span class="c1">################################################################################</span>
+
+<div class="viewcode-block" id="construct_lookup_array">
+<a class="viewcode-back" href="../../../api_index.html#data_conduit.virtualarrays.construct_lookup_array">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">construct_lookup_array</span><span class="p">(</span><span class="n">virtual_map</span><span class="p">:</span> <span class="nb">dict</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                           <span class="n">global_coord_name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span> <span class="s1">&#39;global_coord&#39;</span><span class="p">,</span>
+                           <span class="n">virtual_coord_names</span><span class="p">:</span> <span class="nb">list</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                           <span class="n">dict_of</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span> <span class="s1">&#39;dicts&#39;</span><span class="p">,</span>
+                            <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span> <span class="s1">&#39;lookup_matrix&#39;</span><span class="p">,</span>
+                            <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                            <span class="n">lookup_attrs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span> <span class="kc">None</span>
+                            <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Construct a lookup DataArray for a given set of global coordiantes and their associated virtual coordinates.</span>
+<span class="sd">    </span>
+<span class="sd">    virtual_map formats:</span>
+<span class="sd">        dict_of=&quot;dicts&quot;:  {global: {vcoord_name: vcoord_value, ...}, ...}</span>
+<span class="sd">        dict_of=&quot;tuples&quot;: {global: (v0, v1, ...), ...} aligned with virtual_coord_names</span>
+<span class="sd">    -------------------------------</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        virtual_map: dict</span>
+<span class="sd">            A dictionary mapping global coordinates to virtual coordinates.</span>
+<span class="sd">        global_coord_name: str</span>
+<span class="sd">            The name of the global coordinate dimension.</span>
+<span class="sd">        virtual_coord_names: list</span>
+<span class="sd">            A list of names for the virtual coordinate dimensions.</span>
+<span class="sd">        dict_of: str</span>
+<span class="sd">            Specifies the format of virtual_map_dict. Options are &#39;dicts&#39; or &#39;tuples&#39;.</span>
+<span class="sd">        name: str</span>
+<span class="sd">            The name of the DataArray.</span>
+<span class="sd">        verbose: bool</span>
+<span class="sd">            If True, function will print additional information during execution. Default is False.</span>
+<span class="sd">        lookup_attrs: dict | None</span>
+<span class="sd">            A dictionary of attributes to assign to the DataArray. Default is None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        lookup_da (xr.DataArray): </span>
+<span class="sd">            A DataArray representing the lookup matrix.</span>
+<span class="sd">        lookup_virtual_coords (dict):</span>
+<span class="sd">            A dictionary containing lists of unique virtual coordinate values for each virtual coordinate dimension. </span>
+<span class="sd">            Keys are virtual coordinate names, values are lists of unique values. </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1">#==== Validate Inputs</span>
+    <span class="n">dict_of</span><span class="o">=</span> <span class="n">dict_of</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    
+    <span class="k">if</span> <span class="n">dict_of</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;dicts&quot;</span><span class="p">,</span> <span class="s2">&quot;tuples&quot;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dict_of must be either &#39;dicts&#39; or &#39;tuples&#39;, got: </span><span class="si">{</span><span class="n">dict_of</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">virtual_map</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;virtual_map parameter must be provided and cannot be None.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">global_coord_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;global_coord_name parameter must be provided and cannot be None.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">virtual_coord_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;virtual_coord_names parameter must be provided and cannot be None.&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">virtual_coord_names</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">virtual_coord_names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;virtual_coord_names must be a non-empty list.&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">dict_of</span> <span class="o">==</span> <span class="s2">&quot;tuples&quot;</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">virtual_map</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;dict_of=&#39;tuples&#39; but at least one entry is a dict. Use dict_of=&#39;dicts&#39;.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">dict_of</span> <span class="o">==</span> <span class="s2">&quot;dicts&quot;</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">))</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">virtual_map</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>              <span class="c1"># noqa</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;dict_of=&#39;dicts&#39; but at least one entry is a tuple/list. Use dict_of=&#39;tuples&#39;.&quot;</span><span class="p">)</span>
+    
+
+    <span class="c1">#=== Default Attributes</span>
+    <span class="k">if</span> <span class="n">lookup_attrs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span> 
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No lookup_attrs provided, using defaults.&quot;</span><span class="p">)</span>
+        <span class="n">lookup_attrs</span><span class="o">=</span>  <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Lookup matrix indicating presence of unified coordinates across virtual coordinate dimensions&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s1">&#39;Constructed using construct_lookup_array function&#39;</span>
+        <span class="p">}</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lookup_attrs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;lookup_attrs must be a dict or None, got: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">lookup_attrs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1">#==== Get Global Coordinates</span>
+    <span class="n">global_coords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">virtual_map</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">global_coords</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;virtual_map is empty: no global coordinates to build a lookup from.&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Constructing 1D lookup for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">global_coords</span><span class="p">)</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">global_coord_name</span><span class="si">}</span><span class="s1">s&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Virtual coordinates: </span><span class="si">{</span><span class="n">virtual_coord_names</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1">#==== Bild Coordinate Arrrays for Each Virtual Coord</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="p">{</span><span class="n">global_coord_name</span><span class="p">:</span> <span class="n">global_coords</span><span class="p">}</span>
+    <span class="n">lookup_virtual_coords</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">vcoord</span> <span class="ow">in</span> <span class="n">virtual_coord_names</span><span class="p">:</span>
+        
+        <span class="n">values</span><span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Extracts values for specified virtual coordinate</span>
+
+        <span class="k">for</span> <span class="n">gcoord</span> <span class="ow">in</span> <span class="n">global_coords</span><span class="p">:</span>
+            <span class="n">vcoord_entry</span> <span class="o">=</span> <span class="n">virtual_map</span><span class="p">[</span><span class="n">gcoord</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">dict_of</span> <span class="o">==</span> <span class="s1">&#39;tuples&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vcoord_entry</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>                                                 <span class="c1"># noqa</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Expected virtual_map to be dict-of-tuples/lists when dict_of=&quot;tuples&quot;,&#39;</span>
+                                            <span class="sa">f</span><span class="s1">&#39;but got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">vcoord_entry</span><span class="p">)</span><span class="si">}</span><span class="s1"> for global coordinate </span><span class="si">{</span><span class="n">gcoord</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vcoord_entry</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">virtual_coord_names</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Tuple length mismatch for </span><span class="si">{</span><span class="n">gcoord</span><span class="si">}</span><span class="s1">: len(entry)=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">vcoord_entry</span><span class="p">)</span><span class="si">}</span><span class="s1"> vs len(virtual_coord_names)=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">virtual_coord_names</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                
+                <span class="c1"># Get value by position</span>
+                <span class="n">idx</span><span class="o">=</span> <span class="n">virtual_coord_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">vcoord</span><span class="p">)</span>
+                <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vcoord_entry</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+               
+            <span class="k">elif</span> <span class="n">dict_of</span> <span class="o">==</span> <span class="s1">&#39;dicts&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vcoord_entry</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Expected virtual_map to be dict-of-dicts when dict_of=&quot;dicts&quot;,&#39;</span>
+                                            <span class="sa">f</span><span class="s1">&#39;but got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">vcoord_entry</span><span class="p">)</span><span class="si">}</span><span class="s1"> for global coordinate </span><span class="si">{</span><span class="n">gcoord</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="n">vcoord</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vcoord_entry</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Missing key </span><span class="si">{</span><span class="n">vcoord</span><span class="si">}</span><span class="s1"> in virtual_map entries (dict_of=&quot;dicts&quot;) for global coordinate </span><span class="si">{</span><span class="n">gcoord</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="c1"># Get value by key</span>
+                <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vcoord_entry</span><span class="p">[</span><span class="n">vcoord</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dict_of parameter must be either &#39;dicts&#39; or &#39;tuples&#39;, got: </span><span class="si">{</span><span class="n">dict_of</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            
+        <span class="c1"># Store as coordinate indexed by global coordinate</span>
+        <span class="n">coords</span><span class="p">[</span><span class="n">vcoord</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">global_coord_name</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+
+        <span class="c1"># Store unique virtual coordinate values for lookup_virtual_coords</span>
+        <span class="n">unique_vals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">values</span><span class="p">))</span> 
+        <span class="n">lookup_virtual_coords</span><span class="p">[</span><span class="n">vcoord</span><span class="p">]</span> <span class="o">=</span> <span class="n">unique_vals</span>
+        
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>    
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">vcoord</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_vals</span><span class="p">)</span><span class="si">}</span><span class="s1"> unique values&#39;</span><span class="p">)</span>
+
+    <span class="c1">#==== Create 1D Lookup DataArray</span>
+    <span class="n">lookup_array</span><span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">global_coords</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">),</span>
+                                 <span class="n">dims</span><span class="o">=</span> <span class="p">[</span><span class="n">global_coord_name</span><span class="p">],</span>
+                                    <span class="n">coords</span><span class="o">=</span> <span class="n">coords</span><span class="p">,</span>
+                                    <span class="n">name</span><span class="o">=</span> <span class="n">name</span><span class="p">,</span>
+                                    <span class="n">attrs</span><span class="o">=</span> <span class="n">lookup_attrs</span>
+                                    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Constructed lookup DataArray &quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot; with dimensions: </span><span class="si">{</span><span class="n">lookup_array</span><span class="o">.</span><span class="n">dims</span><span class="si">}</span><span class="s1"> and shape: </span><span class="si">{</span><span class="n">lookup_array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lookup_array</span><span class="p">,</span> <span class="n">lookup_virtual_coords</span></div>
+
+
+<span class="c1">################################################################################</span>
+
+
+
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Update DataArray </span>
+<span class="c1">################################################################################</span>
+
+<div class="viewcode-block" id="update_data_array">
+<a class="viewcode-back" href="../../../api_index.html#data_conduit.virtualarrays.update_data_array">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_data_array</span><span class="p">(</span><span class="n">data_array</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                      <span class="n">virtual_map</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                      <span class="n">dict_of</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;dicts&#39;</span><span class="p">,</span>
+                      <span class="n">dfs_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                      <span class="n">fill_value</span><span class="p">:</span> <span class="nb">any</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                      <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Update DataArray with values from dfs_dict based on mapping provided in virtual_map.</span>
+<span class="sd">    </span>
+<span class="sd">    Format of dfs_dict and virtual_map should match, i.e. if dfs_dict is indexable as </span>
+<span class="sd">    [global]: [virtual_1][virtual_2].</span>
+<span class="sd">    --------------------------------</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        data_array: xr.DataArray</span>
+<span class="sd">            The DataArray to be updated. Should have dimensions for time and global coordinates, and virtual coordinate information in its coordinates.</span>
+<span class="sd">        virtual_map: dict</span>
+<span class="sd">            A dictionary mapping global coordinates to virtual coordinates. Format should match the structure of dfs_dict </span>
+<span class="sd">            for lookups. Can be in dict-of-dicts or dict-of-tuples format.</span>
+<span class="sd">        dict_of: str</span>
+<span class="sd">            Specifies the format of virtual_map and dfs_dict. Options are &#39;dicts&#39; or &#39;tuples&#39;. Default is &#39;dicts&#39;.</span>
+<span class="sd">        dfs_dict: dict</span>
+<span class="sd">            A nested dictionary containing the source data for updating the DataArray. Should be structured to allow </span>
+<span class="sd">            lookups based on the virtual coordinates specified in virtual_map. For example, if virtual_map is </span>
+<span class="sd">            dict-of-dicts with virtual coordinates &#39;device&#39; and &#39;localID&#39;, dfs_dict should be structured as </span>
+<span class="sd">            dfs_dict[device][localID][global_coord] to retrieve the value for a given global coordinate.</span>
+<span class="sd">        fill_value: any</span>
+<span class="sd">            A value to use for filling entries in the DataArray when lookups fail or when virtual coordinate information is missing. Default is np.nan.</span>
+<span class="sd">        verbose: bool</span>
+<span class="sd">            If True, function will print additional information during execution. Default is False.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        xr.DataArray</span>
+<span class="sd">            The updated DataArray with values filled in from dfs_dict based on the mapping in virtual_map</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1">#===== Validate Inputs</span>
+    <span class="k">if</span> <span class="n">data_array</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>                          
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;data_array parameter must be provided and cannot be None.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">virtual_map</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>                         
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;virtual_map parameter must be provided and cannot be None.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dict_of</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;dicts&#39;</span><span class="p">,</span> <span class="s1">&#39;tuples&#39;</span><span class="p">):</span>  
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dict_of must be either &#39;dicts&#39; or &#39;tuples&#39;, got: </span><span class="si">{</span><span class="n">dict_of</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dfs_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>                            
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;dfs_dict parameter must be provided and cannot be None.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Updating DataArray with shape </span><span class="si">{</span><span class="n">data_array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Virtual map format: </span><span class="si">{</span><span class="n">dict_of</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of global coordinates: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">virtual_map</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+    <span class="c1">#===== Collect Dimensions </span>
+
+    <span class="n">time_dim</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data_array</span><span class="o">.</span><span class="n">dims</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;time&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>   <span class="c1"># Identify time dimension</span>
+    <span class="n">global_dim</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data_array</span><span class="o">.</span><span class="n">dims</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;time&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Identify global coordinate dimension</span>
+
+    <span class="n">da_time</span> <span class="o">=</span> <span class="n">data_array</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span class="n">time_dim</span><span class="p">)</span>                            <span class="c1"># Get time coordinate values</span>
+    
+    <span class="c1"># If fill_value provided, pre-fill entire array</span>
+    <span class="k">if</span> <span class="n">fill_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data_array</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">fill_value</span>
+    <span class="c1">#===== Prebuild source columns dict to avoid redundant lookups in dfs_dict</span>
+    <span class="n">source_cols_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="k">for</span> <span class="n">global_coord</span><span class="p">,</span> <span class="n">virtual_vals</span> <span class="ow">in</span> <span class="n">virtual_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span> 
+            <span class="n">current</span> <span class="o">=</span> <span class="n">dfs_dict</span>
+
+            <span class="k">if</span> <span class="n">dict_of</span> <span class="o">==</span> <span class="s1">&#39;tuples&#39;</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">virtual_vals</span><span class="p">:</span>
+                    <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># dicts</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">virtual_vals</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            
+            <span class="c1"># Store the source column in the dict</span>
+            <span class="n">source_cols_dict</span><span class="p">[</span><span class="n">global_coord</span><span class="p">]</span> <span class="o">=</span> <span class="n">current</span><span class="p">[</span><span class="n">global_coord</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="k">else</span> <span class="n">current</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Could not retrieve source column for global coordinate &#39;</span><span class="si">{</span><span class="n">global_coord</span><span class="si">}</span><span class="s2">&#39; with virtual values </span><span class="si">{</span><span class="n">virtual_vals</span><span class="si">}</span><span class="s2">. Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">source_cols_dict</span><span class="p">[</span><span class="n">global_coord</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">fill_value</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">da_time</span><span class="p">)</span>  <span class="c1"># Fill with default value if retrieval fails</span>
+            
+
+    <span class="c1"># Catch case where no valid data to update</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">source_cols_dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">data_array</span>
+
+    <span class="c1">#===== Bulk Update All DataArray Columns at once</span>
+
+    <span class="n">combined_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">source_cols_dict</span><span class="p">)</span>
+    <span class="c1"># Align combined_df with data_array time coordinate</span>
+    <span class="n">combined_df</span> <span class="o">=</span> <span class="n">combined_df</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">da_time</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span> <span class="k">if</span> <span class="n">fill_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="c1"># Single assignment to update entire DataArray</span>
+    <span class="n">valid_mask</span> <span class="o">=</span> <span class="n">combined_df</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
+    
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">combined_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Updating global coordinate &#39;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&#39; with </span><span class="si">{</span><span class="n">valid_mask</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2"> valid entries out of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">valid_mask</span><span class="p">[</span><span class="n">col</span><span class="p">])</span><span class="si">}</span><span class="s2"> total.&quot;</span><span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">valid_mask</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="n">data_array</span><span class="o">.</span><span class="n">loc</span><span class="p">[{</span><span class="n">time_dim</span><span class="p">:</span> <span class="n">da_time</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">global_dim</span><span class="p">:</span> <span class="n">col</span><span class="p">}]</span> <span class="o">=</span> <span class="n">combined_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="k">return</span> <span class="n">data_array</span></div>
+
+
+<span class="c1">################################################################################</span>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, Keshavarzi Lab.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

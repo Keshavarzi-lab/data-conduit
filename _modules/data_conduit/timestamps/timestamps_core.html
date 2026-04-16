@@ -1,0 +1,927 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>data_conduit.timestamps.timestamps_core &#8212; data-conduit</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=5c2b050f" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+    <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/data_conduit/timestamps/timestamps_core';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://Keshavarzi-lab.github.io/data-conduit/_modules/data_conduit/timestamps/timestamps_core.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">data-conduit v0.1.0</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../getting_started.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../README.html">
+    data-conduit
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../CHANGELOG.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../ROADMAP.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../data_conduit_demo_new.html">
+    data-conduit: Overview and Workflow Guide
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Keshavarzi-lab/data-conduit" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../getting_started.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../README.html">
+    data-conduit
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../CHANGELOG.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ROADMAP.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../data_conduit_demo_new.html">
+    data-conduit: Overview and Workflow Guide
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Keshavarzi-lab/data-conduit" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">data_conduit.timestamps.timestamps_core</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for data_conduit.timestamps.timestamps_core</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Timetamps Module. </span>
+<span class="sd">--------------------------------</span>
+
+<span class="sd">Description: Module for handling timestamp-related functionalities in the context of device data collection and processing.</span>
+
+<span class="sd">Contents:</span>
+<span class="sd">--------------------------------</span>
+<span class="sd">- collect_timestamps: Function to collect and process timestamps from device dataframes.</span>
+
+<span class="sd">- collect_timestamps_dict: Function to collect and process timestamps from a dictionary of device dataframes.</span>
+
+<span class="sd">- collect_timestamps_nested_dict: Function to collect and process timestamps from a nested dictionary of device dataframes.</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Imports</span>
+<span class="c1">################################################################################</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">data_conduit.utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_apply_level_selectors</span><span class="p">,</span>
+    <span class="n">_flatten_nested_dict</span><span class="p">,</span>
+    <span class="n">_get_nested_dict_depth</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1">################################################################################</span>
+
+
+
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Private Helper Functions</span>
+<span class="c1">################################################################################</span>
+
+<span class="c1">#===============================================================================</span>
+<span class="c1"># 1| Find Columns (Case-Insensitive)</span>
+<span class="c1">#===============================================================================</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_find_column</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the actual column name matching `name` (case-insensitive), or None.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">col</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="c1">#===============================================================================</span>
+
+<span class="c1">################################################################################</span>
+
+
+
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Collect Timestamps</span>
+<span class="c1">################################################################################</span>
+<div class="viewcode-block" id="collect_timestamps">
+<a class="viewcode-back" href="../../../api_index.html#data_conduit.timestamps.collect_timestamps">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">collect_timestamps</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="n">timestamp_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="n">time_location</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+                       <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Collect and process timestamps from a given DataFrame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame | xr.DataArray | None</span>
+<span class="sd">        The DataFrame or DataArray containing the timestamps.</span>
+<span class="sd">    timestamp_name : str | None</span>
+<span class="sd">        The name of the column containing the timestamps. If None, defaults to &#39;Time&#39;. Note: case-insensitive.</span>
+<span class="sd">    time_location : str | None</span>
+<span class="sd">        The location of the timestamps, either &#39;columns&#39; or &#39;index&#39;. If None, will attempt index first, then columns.</span>
+<span class="sd">    verbose : bool</span>
+<span class="sd">        If True, prints warnings and information during processing.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.Series | None</span>
+<span class="sd">        A Series of processed timestamps, or None if the DataFrame is None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#=== i| Checks</span>
+    <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No DataFrame provided. Returning None.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">):</span>                   <span class="c1"># Type check, convert to DataFrame if it&#39;s an xarray DataArray</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>                         
+    <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in function collect_timestamps: Expected df to be a pandas DataFrame or xarray DataArray, but got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1">#=== ii| Set default timestamp column</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timestamp_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">timestamp_name</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span>  <span class="c1"># Default column name for timestamps</span>
+    
+
+    <span class="c1">#=== iii| Extract Data</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">    Attempt to find the timestamp column in the specified location (index or columns). </span>
+<span class="sd">    If time_location is None, will check index first, then columns. </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="n">time_location</span> <span class="o">==</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span>
+        
+        <span class="n">index_name</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span>
+        
+        <span class="k">if</span> <span class="n">index_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">index_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">timestamp_name</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s1">&#39;&#39;&#39;Error in function collect_timestamps: Expected index name to be &quot;</span><span class="si">{</span><span class="n">timestamp_name</span><span class="si">}</span><span class="s1">&quot; </span>
+<span class="s1">                            (case-insensitive), but got &quot;</span><span class="si">{</span><span class="n">index_name</span><span class="si">}</span><span class="s1">&quot;.&#39;&#39;&#39;</span>
+                            <span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">time_location</span> <span class="o">==</span> <span class="s1">&#39;columns&#39;</span><span class="p">:</span>
+        
+        <span class="n">actual_col</span> <span class="o">=</span> <span class="n">_find_column</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">timestamp_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">actual_col</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">actual_col</span><span class="p">],</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                                <span class="sa">f</span><span class="s1">&#39;&#39;&#39;Error in function collect_timestamps: Expected column &#39;</span><span class="si">{</span><span class="n">actual_col</span><span class="si">}</span><span class="s1">&#39; </span>
+<span class="s1">                                to be a pandas Series, but got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">actual_col</span><span class="p">])</span><span class="si">}</span>
+<span class="s1">                                &#39;&#39;&#39;</span>
+                                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">actual_col</span><span class="p">]</span>
+    
+
+    <span class="k">if</span> <span class="n">time_location</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+
+        <span class="c1"># Check index first</span>
+        <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">timestamp_name</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span>
+        
+        <span class="c1"># Check Columns</span>
+        <span class="n">actual_col</span> <span class="o">=</span> <span class="n">_find_column</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">timestamp_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">actual_col</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">actual_col</span><span class="p">],</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                                <span class="sa">f</span><span class="s1">&#39;&#39;&#39;Error in function collect_timestamps: Expected column &#39;</span><span class="si">{</span><span class="n">actual_col</span><span class="si">}</span><span class="s1">&#39; </span>
+<span class="s1">                                to be a pandas Series, but got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">actual_col</span><span class="p">])</span><span class="si">}</span>
+<span class="s1">                                &#39;&#39;&#39;</span>
+                                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">actual_col</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s1">&#39;&#39;&#39;Error in function collect_timestamps: Could not find a column or index named &quot;</span><span class="si">{</span><span class="n">timestamp_name</span><span class="si">}</span><span class="s1">&quot; </span>
+<span class="s1">                            (case-insensitive) in the DataFrame.&#39;&#39;&#39;</span>
+                            <span class="p">)</span>
+    
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;&#39;&#39;Error in function collect_timestamps: Invalid time_location &quot;</span><span class="si">{</span><span class="n">time_location</span><span class="si">}</span><span class="s1">&quot;. </span>
+<span class="s1">                    Expected &quot;index&quot;, &quot;columns&quot;, or None.&#39;&#39;&#39;</span>
+                    <span class="p">)</span></div>
+
+
+<span class="c1">################################################################################</span>
+
+
+
+
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Collect Timestamps Dictionary</span>
+<span class="c1">################################################################################</span>
+
+<div class="viewcode-block" id="collect_timestamps_dict">
+<a class="viewcode-back" href="../../../api_index.html#data_conduit.timestamps.collect_timestamps_dict">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">collect_timestamps_dict</span><span class="p">(</span><span class="n">dfs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">],</span>
+                            <span class="n">timestamp_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                            <span class="n">time_location</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                            <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                            <span class="n">return_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;list&#39;</span><span class="p">,</span>  <span class="c1"># &#39;dict&#39; or &#39;list&#39;</span>
+                            <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract timestamps from each DataFrame in a dictionary.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dfs (dict): </span>
+<span class="sd">            A dictionary where keys are identifiers and values are pandas DataFrames.</span>
+<span class="sd">        timestamp_name (str, optional): </span>
+<span class="sd">            The name of the column containing the timestamps. If None, defaults to &#39;Time&#39;. Note: case-insensitive.</span>
+<span class="sd">        verbose (bool, optional): </span>
+<span class="sd">            If True, prints warnings and information during processing. Default is True.</span>
+<span class="sd">        return_type (str, optional): </span>
+<span class="sd">            If &#39;list&#39;, returns a sorted list of all timestamps. </span>
+<span class="sd">            If &#39;dict&#39;, returns a dictionary of timestamps per DataFrame. Default is &#39;list&#39;. </span>
+<span class="sd">            If &#39;both&#39;, returns two outputs: a sorted list of all timestamps and a dictionary of timestamps per DataFrame.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list of all timestamps from each DataFrame in the dictionary, sorted in ascending order.</span>
+<span class="sd">        dict where keys are the same as df_dict and values are the timestamps from each DataFrame.</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+
+    <span class="c1">#=== i| Checks</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in function collect_timestamps_dict: Expected dfs to be a dictionary, but got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">dfs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Standardise return_type to lowercase for case-insensitive comparison</span>
+    <span class="n">return_type</span> <span class="o">=</span> <span class="n">return_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> 
+    <span class="k">if</span> <span class="n">return_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;list&#39;</span><span class="p">,</span> <span class="s1">&#39;dict&#39;</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">]:</span>
+    
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">                         Error in function collect_timestamps_dict: Invalid return_type &#39;</span><span class="si">{</span><span class="n">return_type</span><span class="si">}</span><span class="s1">&#39;. </span>
+<span class="s1">                         Expected &#39;list&#39;, &#39;dict&#39;, or &#39;both&#39;.</span>
+<span class="s1">                         &#39;&#39;&#39;</span>
+                         <span class="p">)</span>
+    
+    <span class="c1">#=== ii| Collect Timestamps</span>
+    <span class="n">timestamps_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">dfs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">ts</span> <span class="o">=</span> <span class="n">collect_timestamps</span><span class="p">(</span>
+            <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+            <span class="n">timestamp_name</span><span class="o">=</span><span class="n">timestamp_name</span><span class="p">,</span>
+            <span class="n">time_location</span><span class="o">=</span><span class="n">time_location</span> <span class="k">if</span> <span class="n">time_location</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">ts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">timestamps_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">ts</span>
+    
+    <span class="c1">#=== iii| Return Results</span>
+    <span class="k">if</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s1">&#39;list&#39;</span><span class="p">:</span>
+        <span class="n">all_timestamps</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">timestamps_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">all_timestamps</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">all_timestamps</span><span class="p">))</span>
+
+    <span class="k">elif</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s1">&#39;dict&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">timestamps_dict</span>
+
+    <span class="k">elif</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s1">&#39;both&#39;</span><span class="p">:</span>
+        <span class="n">all_timestamps</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">timestamps_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">all_timestamps</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">timestamps_dict</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">all_timestamps</span><span class="p">))</span> </div>
+
+
+
+<span class="c1">################################################################################</span>
+
+
+
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Collect Timestamps from Nested Dictionary (Arbitrary Depth, Generic Function)</span>
+<span class="c1">################################################################################</span>
+
+<div class="viewcode-block" id="collect_timestamps_nested">
+<a class="viewcode-back" href="../../../api_index.html#data_conduit.timestamps.collect_timestamps_nested">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">collect_timestamps_nested</span><span class="p">(</span><span class="n">dfs_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+                              <span class="n">return_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;list&#39;</span><span class="p">,</span>
+                              <span class="n">separator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                              <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                              <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>                 <span class="c1"># l0_selector, l1_selector, l2_selector, etc. for future extensibility</span>
+                              <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>  <span class="c1"># TODO: Refine return type hint to be more specific about the nested structure</span>
+        <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]]</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Collect timestamps from an arbitrarily nested dictionary of DataFrames/DataArrays.</span>
+<span class="sd">    </span>
+<span class="sd">    This function first flattens the nested dictionary structure, then applies the base </span>
+<span class="sd">    timestamp collection logic to the flattened dictionary.</span>
+
+<span class="sd">    ----------</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        dfs_dict (dict): </span>
+<span class="sd">            An arbitrarily nested dictionary where the leaf nodes are pandas DataFrames or xarray DataArrays.</span>
+<span class="sd">        return_type (str): </span>
+<span class="sd">            Determines the format of the returned timestamps. </span>
+<span class="sd">            - &#39;list&#39;: Returns a sorted list of all timestamps across all DataFrames.</span>
+<span class="sd">            - &#39;dict&#39;: Returns a dictionary mapping each flattened key to its corresponding timestamps.</span>
+<span class="sd">            - &#39;both&#39;: Returns a tuple containing both the dictionary and the sorted list of timestamps.</span>
+<span class="sd">        separator (str): </span>
+<span class="sd">            The separator used to concatenate keys when flattening the nested dictionary. Default is &#39;:&#39;.</span>
+<span class="sd">        verbose (bool): </span>
+<span class="sd">            If True, prints warnings and information during processing. Default is False.</span>
+<span class="sd">        **kwargs:</span>
+<span class="sd">            Optional keyword arguments for filtering or selecting specific subsets of the nested dictionary. </span>
+<span class="sd">            Must follow naming convention of l{n}_selector to correspond to the depth level n in the nested structure </span>
+<span class="sd">            (e.g., l0_selector for top-level keys, l1_selector for second-level keys, etc.).</span>
+<span class="sd">            Format should be a dictionary where keys are selector levels and values are lists of keys to include at that level.</span>
+<span class="sd">            e.g. l0_selector = [&#39;device1&#39;, &#39;device2&#39;], l1_selector = [&#39;registerA&#39;, &#39;registerB&#39;], etc.</span>
+
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Depending on the value of return_type:</span>
+<span class="sd">        - If &#39;list&#39;: A sorted list of all timestamps collected from the DataFrames.</span>
+<span class="sd">        - If &#39;dict&#39;: A dictionary where keys are the flattened paths of the original nested keys, and values are the corresponding timestamps.</span>
+<span class="sd">        - If &#39;both&#39;: A tuple containing both the dictionary and the sorted list of timestamps.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1">#=== i| Checks</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dfs_dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">dfs_dict</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Input is not a valid non-empty dictionary.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s1">&#39;list&#39;</span> <span class="k">else</span> <span class="p">({}</span> <span class="k">if</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s1">&#39;dict&#39;</span> <span class="k">else</span> <span class="p">({},</span> <span class="p">[]))</span>
+    <span class="k">if</span> <span class="n">return_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;list&#39;</span><span class="p">,</span> <span class="s1">&#39;dict&#39;</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;return_type must be one of &#39;list&#39;, &#39;dict&#39;, or &#39;both&#39;.&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Check all keyword arguments have the correct naming convention</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;l&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_selector&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid keyword argument &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                <span class="s2">&quot;All selectors must follow the naming convention &quot;</span>
+                <span class="s2">&quot;&#39;l</span><span class="si">{n}</span><span class="s2">_selector&#39; (e.g., l0_selector, l1_selector, etc.).&quot;</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Check that depth of selectors matches the depth of the nested dictionary</span>
+    <span class="n">max_depth</span> <span class="o">=</span> <span class="n">_get_nested_dict_depth</span><span class="p">(</span><span class="n">dfs_dict</span><span class="p">)</span>
+    <span class="n">selector_levels</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;l&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_selector&#39;</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">selector</span> <span class="ow">in</span> <span class="n">selector_levels</span><span class="p">:</span>
+        <span class="n">level_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">selector</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">9</span><span class="p">])</span>  <span class="c1"># Extract the level number from the selector name</span>
+        <span class="k">if</span> <span class="n">level_num</span> <span class="o">&gt;=</span> <span class="n">max_depth</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Selector &#39;</span><span class="si">{</span><span class="n">selector</span><span class="si">}</span><span class="s2">&#39; is defined for level </span><span class="si">{</span><span class="n">level_num</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;but the nested dictionary only has a maximum depth of </span><span class="si">{</span><span class="n">max_depth</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
+
+    <span class="c1">#=== ii| Apply level selectors before flattening</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">level_selectors</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">9</span><span class="p">]):</span> <span class="p">(</span><span class="n">v</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">v</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="n">dfs_dict</span> <span class="o">=</span> <span class="n">_apply_level_selectors</span><span class="p">(</span><span class="n">dfs_dict</span><span class="p">,</span> <span class="n">level_selectors</span><span class="p">)</span>
+
+    <span class="c1">#=== iii| Flatten the nested dictionary</span>
+    <span class="n">flat_dict</span> <span class="o">=</span> <span class="n">_flatten_nested_dict</span><span class="p">(</span><span class="n">dfs_dict</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="n">separator</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">flat_dict</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: No DataFrames collected from the nested structure.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s1">&#39;list&#39;</span> <span class="k">else</span> <span class="p">({}</span> <span class="k">if</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s1">&#39;dict&#39;</span> <span class="k">else</span> <span class="p">({},</span> <span class="p">[]))</span>
+    
+    <span class="c1">#=== iii| Collect timestamps from the flattened dictionary</span>
+    <span class="k">return</span> <span class="n">collect_timestamps_dict</span><span class="p">(</span><span class="n">dfs</span><span class="o">=</span><span class="n">flat_dict</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="n">return_type</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span></div>
+
+
+<span class="c1">################################################################################</span>
+
+
+
+
+
+
+
+<span class="c1"># ################################################################################</span>
+<span class="c1"># # 3. Domain-Specific Wrapper</span>
+<span class="c1"># ################################################################################</span>
+
+<span class="c1"># def collect_timestamps_nested_dict(dfs_dict: dict[str, dict[str, pd.DataFrame | xr.DataArray]],</span>
+<span class="c1">#                                    data_key: str | None = None,</span>
+<span class="c1">#                                    devices: list[str] | None = None,</span>
+<span class="c1">#                                    peripheral_registerIDs: dict[str, dict[str, str]] | None = None,</span>
+<span class="c1">#                                    return_type: str = &#39;list&#39;,</span>
+<span class="c1">#                                    verbose: bool = True) -&gt; dict[str, pd.Series] | list[pd.Series] | tuple[dict[str, pd.Series], list[pd.Series]]:</span>
+<span class="c1">#     &#39;&#39;&#39;</span>
+<span class="c1">#     Domain-specific wrapper that filters devices and registers based on peripheral_registerIDs,</span>
+<span class="c1">#     then uses the generic timestamp collector.</span>
+<span class="c1">#     &#39;&#39;&#39;</span>
+<span class="c1">#     if not isinstance(dfs_dict, dict) or not dfs_dict:</span>
+<span class="c1">#         if verbose:</span>
+<span class="c1">#             print(&quot;Warning: dfs_dict is not a valid non-empty dictionary.&quot;)</span>
+<span class="c1">#         return [] if return_type == &#39;list&#39; else ({} if return_type == &#39;dict&#39; else ({}, []))</span>
+
+<span class="c1">#     target_devices = devices if devices is not None else list(dfs_dict.keys())</span>
+<span class="c1">#     filtered_dfs = {}</span>
+
+<span class="c1">#     if peripheral_registerIDs is not None and data_key is not None:</span>
+<span class="c1">#         reg_map = peripheral_registerIDs.get(data_key, {})</span>
+<span class="c1">#         needed_registers = sorted(set(reg_map.values()))</span>
+
+<span class="c1">#         for device in target_devices:</span>
+<span class="c1">#             if device not in dfs_dict:</span>
+<span class="c1">#                 if verbose: </span>
+<span class="c1">#                     print(f&quot;Warning: Device {device} not found in dfs_dict; skipping.&quot;)</span>
+<span class="c1">#                 continue</span>
+
+<span class="c1">#             dev_regs = dfs_dict[device]</span>
+<span class="c1">#             for reg in needed_registers:</span>
+<span class="c1">#                 if reg not in dev_regs:</span>
+<span class="c1">#                     if verbose: </span>
+<span class="c1">#                         print(f&quot;Warning: Device {device} missing register {reg}; skipping.&quot;)</span>
+<span class="c1">#                     continue</span>
+
+<span class="c1">#                 # Filter columns based on localIDs</span>
+<span class="c1">#                 localIDs_for_reg = [lid for lid, r in reg_map.items() if r == reg and lid in dev_regs[reg].columns]</span>
+<span class="c1">#                 if not localIDs_for_reg:</span>
+<span class="c1">#                     if verbose: </span>
+<span class="c1">#                         print(f&quot;Warning: Device {device} register {reg} has no expected localIDs present; skipping.&quot;)</span>
+<span class="c1">#                     continue</span>
+
+<span class="c1">#                 # Build the filtered nested structure</span>
+<span class="c1">#                 if device not in filtered_dfs:</span>
+<span class="c1">#                     filtered_dfs[device] = {}</span>
+<span class="c1">#                 filtered_dfs[device][reg] = dev_regs[reg][localIDs_for_reg]</span>
+
+<span class="c1">#     elif peripheral_registerIDs is None and data_key is None:</span>
+<span class="c1">#         for device in target_devices:</span>
+<span class="c1">#             if device not in dfs_dict:</span>
+<span class="c1">#                 if verbose: </span>
+<span class="c1">#                     print(f&quot;Warning: Device {device} not found in dfs_dict; skipping.&quot;)</span>
+<span class="c1">#                 continue</span>
+<span class="c1">#             filtered_dfs[device] = dfs_dict[device]</span>
+            
+<span class="c1">#     else:</span>
+<span class="c1">#         raise ValueError(&quot;peripheral_registerIDs and data_key must be provided together, or both left as None.&quot;)</span>
+
+<span class="c1">#     # Hand off the cleanly filtered nested dictionary to the generic function</span>
+<span class="c1">#     return collect_timestamps_nested(</span>
+<span class="c1">#         dfs_dict=filtered_dfs,</span>
+<span class="c1">#         return_type=return_type,</span>
+<span class="c1">#         separator=&#39;:&#39;,</span>
+<span class="c1">#         verbose=verbose</span>
+<span class="c1">#    )</span>
+
+
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, Keshavarzi Lab.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

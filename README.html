@@ -1,0 +1,921 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>data-conduit &#8212; data-conduit</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=5c2b050f" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+    <script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'README';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://Keshavarzi-lab.github.io/data-conduit/README.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Example Gallery" href="examples.html" />
+    <link rel="prev" title="Getting Started" href="getting_started.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">data-conduit v0.1.0</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    data-conduit
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="examples.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api_index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="CHANGELOG.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="ROADMAP.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="data_conduit_demo_new.html">
+    data-conduit: Overview and Workflow Guide
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Keshavarzi-lab/data-conduit" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    data-conduit
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="examples.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api_index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="CHANGELOG.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="ROADMAP.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="data_conduit_demo_new.html">
+    data-conduit: Overview and Workflow Guide
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Keshavarzi-lab/data-conduit" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar"><svg class="pst-icon svg-inline--fa" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">data-conduit</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-conduit">
+<h1>data-conduit<a class="headerlink" href="#data-conduit" title="Link to this heading">#</a></h1>
+<p><strong>A Python Toolkit for Constructing Standardised, Reusable Data Pipelines for Multi-Stream Experimental Data</strong></p>
+<table width="100%"><tr><td align="center" bgcolor="#e07b00"><br>
+<h3>🚧 &nbsp; WARNING: THIS LIBRARY IS STILL A WORK IN PROGRESS! &nbsp; 🚧</h3>
+This library is under active development - APIs, interfaces, and documentation are subject to change without notice.
+<p>Further, many features, particularly documentation, are not finalised, and may only exist as placeholders. As this code is still pre-release,
+we do not guarantee that extensive changelogs will be included prior to v1.0
+<br><br></td></tr></table></p>
+<table width="100%"><tr><td align="center" bgcolor="#f3f3f3"><br>
+&nbsp;
+<a href="data_conduit_demo_new.html">📖 User Guide</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="examples.html">🖼️ Example Gallery</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="api_index.html">📋 API Reference</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="CHANGELOG.html">📝 Change Log</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="ROADMAP.html">🗺️ Roadmap</a>
+&nbsp;
+<br><br></td></tr></table>
+<hr class="docutils" />
+<a class="reference internal image-reference" href="_images/data_conduit_overview_revised_SK.svg"><img alt="data-conduit pipeline overview" src="_images/data_conduit_overview_revised_SK.svg" style="width: 100%;" />
+</a>
+<hr class="docutils" />
+<section id="what-is-data-conduit">
+<h2>What is data-conduit?<a class="headerlink" href="#what-is-data-conduit" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">data-conduit</span></code> is a Python toolkit for converting outputs from multiple data acquisition sources into consistent, unified data structures that can be used for subsequent analysis.</p>
+<p>This library was originally designed for experimental neuroscience labs working with the <a class="reference external" href="https://bonsai-rx.org/">Bonsai</a> and <a class="reference external" href="https://harp-tech.org/">HARP</a> ecosystems as part of their workflow, with raw experimental data stored in directories based on the <a class="reference external" href="https://neuroblueprint.neuroinformatics.dev/">NeuroBlueprint</a> standard. However, most functionalities provided by <code class="docutils literal notranslate"><span class="pre">data-conduit</span></code> are modular and flexible, and should be compatible with other data acquisition platforms, as well as other data conventions. <code class="docutils literal notranslate"><span class="pre">data-conduit</span></code> is concerned with using a consistent structure to automate data processing workflows, rather than enforcing any one particular format.</p>
+<p>These workflows are designed to integrate with tools from the broader <a class="reference external" href="https://neuroinformatics.dev/">neuroinformatics.dev</a> ecosystem, including <a class="reference external" href="https://datashuttle.neuroinformatics.dev/">datashuttle</a> for data management and <a class="reference external" href="https://movement.neuroinformatics.dev/">movement</a> for pose tracking analysis.</p>
+<p>The functionality of <code class="docutils literal notranslate"><span class="pre">data-conduit</span></code> can be broadly grouped into the following categories:</p>
+<ol class="arabic simple">
+<li><p><strong>Automated discovery and reading</strong> of data files from directory trees.</p></li>
+<li><p><strong>Processing and conversion</strong> of raw data into unified data structures (nested dicts of DataFrames, xarray DataArrays).</p></li>
+<li><p><strong>Flexible querying utilities</strong> to interact with unified data structures across devices, registers, and data types.</p></li>
+<li><p><strong>Temporal alignment</strong> of different experimental data streams (e.g. Bonsai/HARP ↔ Neuropixels via TTL synchronisation).</p></li>
+<li><p><strong>Segmentation</strong> of data using event-based windowing and boolean run-length encoding.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="how-does-data-conduit-work">
+<h2>How does data-conduit work?<a class="headerlink" href="#how-does-data-conduit-work" title="Link to this heading">#</a></h2>
+<p>To explain how <code class="docutils literal notranslate"><span class="pre">data-conduit</span></code> works, it is helpful to first explain how data from HARP devices would normally need to be extracted using the <code class="docutils literal notranslate"><span class="pre">harp-python</span></code> API.</p>
+<p>When working with HARP devices, users will find that their experimental data is organised into a hierarchical folder structure, with each device having its own subfolder containing multiple <code class="docutils literal notranslate"><span class="pre">.bin</span></code> files corresponding to different registers. The naming convention follows a consistent pattern: <code class="docutils literal notranslate"><span class="pre">DeviceName_RegisterAddress_Timestamp.bin</span></code>.</p>
+<p>A user wanting to access a specific register’s data must:</p>
+<ol class="arabic simple">
+<li><p>Create a device reader from a YAML schema file</p></li>
+<li><p>Know the correct register name and address</p></li>
+<li><p>Construct the correct file path</p></li>
+<li><p>Read the binary data into a DataFrame</p></li>
+</ol>
+<p><strong>The Problem:</strong></p>
+<p>Whilst these tools provide a basic framework for accessing HARP device data, users will often find themselves working with experiment logs containing multiple devices and multiple registers per device, as well as needing to collate data across sessions, devices, and data types. Using the above approach requires manually repeating these steps for every register of interest across every device and session, which is both a time-consuming and error-prone process.</p>
+<p><strong>The Solution:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">data-conduit</span></code> exploits the one thing that is consistent across all experimental sessions: <strong>the directory structure itself</strong>.</p>
+<p>For example, data about a particular component connected to a HARP board will always reside at <code class="docutils literal notranslate"><span class="pre">[device]/[register]/columns</span></code>. By defining a mapping that specifies where each variable of interest is located within the experimental directory — such as by using device, register, and column identifiers — the library can automatically discover, load, and organise all relevant data into consistent structures that mirror the physical layout of the rig.</p>
+<p>This means users work with <strong>stable variable names</strong> instead of file paths. The same code works unchanged across sessions, rigs, and experiments, as long as the directory layout is consistent.</p>
+</section>
+<hr class="docutils" />
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>data-conduit
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Note:</strong> HARP-specific presets (<code class="docutils literal notranslate"><span class="pre">Device</span></code>, <code class="docutils literal notranslate"><span class="pre">MultiDevice</span></code>, etc.) require <code class="docutils literal notranslate"><span class="pre">harp-python</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>harp-python
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="package-structure">
+<h2>Package structure<a class="headerlink" href="#package-structure" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>data_conduit/
+├── io/                  # File discovery and reading
+│   ├── io_core.py       # collect_folders, collect_file_paths, collect_dfs
+│   └── readers.py       # read_csv, read_harp_bin, read_json, etc.
+├── harptools/           # HARP-specific loading (requires harp-python)
+│   └── harptools_core.py  # collect_harp_dfs
+├── datasources/         # Structured data objects
+│   ├── monosource/      # Single-source: dfs_dict → named DataArrays
+│   ├── multisource/     # Multi-source: virtual-coord unified DataArrays
+│   └── presets/
+│       └── harp/        # Device, MultiDevice, SoundCard, Nosepoke, etc.
+├── sync/                # Clock synchronisation
+│   └── ttl/             # TTL pulse extraction, alignment, and conversion
+├── globaltimes/         # Shared global timebase construction
+├── virtualarrays/       # DataArray construction and querying (.ulookup)
+├── timestamps/          # Timestamp extraction utilities
+├── segment/             # Trial segmentation
+├── validators/          # Data validation helpers
+└── utils/               # Internal selector utilities
+</pre></div>
+</div>
+<section id="how-the-layers-connect">
+<h3>How the layers connect<a class="headerlink" href="#how-the-layers-connect" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">data-conduit</span></code> is organised into three conceptual layers, each building on the one below:</p>
+<p><strong>Layer 1 — IO (functions):</strong> Low-level utilities that discover directories, find files, and read them into DataFrames. These are pure functions with no state.</p>
+<p><strong>Layer 2 — Object layer (classes):</strong> Classes that use the IO layer to load data and then organise it into named outputs. There are two families:</p>
+<ul class="simple">
+<li><p><strong>MonoSource → Device / FileTypeData</strong>: For cases where each output maps to a single location in the directory tree (one device, one register). Produces a dict of named <code class="docutils literal notranslate"><span class="pre">xr.DataArray</span></code> objects.</p></li>
+<li><p><strong>MultiSource → MultiDevice</strong>: For cases where a single output combines data from <em>multiple</em> locations (e.g. nosepoke activations spread across multiple HARP boards). Produces unified DataArrays with virtual coordinate lookup.</p></li>
+</ul>
+<p><strong>Layer 3 — Alignment &amp; analysis (functions + classes):</strong> Temporal alignment (TTL sync, global clock), segmentation, and querying utilities that operate on the DataArrays produced by Layer 2.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Layer</p></th>
+<th class="head"><p>Module</p></th>
+<th class="head"><p>Key exports</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>IO</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">io</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">collect_folders</span></code>, <code class="docutils literal notranslate"><span class="pre">collect_file_paths</span></code>, <code class="docutils literal notranslate"><span class="pre">collect_dfs</span></code></p></td>
+<td><p>Walk directories, read files into nested dicts</p></td>
+</tr>
+<tr class="row-odd"><td><p>IO</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">harptools</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">collect_harp_dfs</span></code></p></td>
+<td><p>HARP-specific wrapper: collapse, rekey, filter</p></td>
+</tr>
+<tr class="row-even"><td><p>Object</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">datasources.monosource</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MonoSource</span></code>, <code class="docutils literal notranslate"><span class="pre">FileTypeData</span></code></p></td>
+<td><p>Generic single-source loading → named DataArrays</p></td>
+</tr>
+<tr class="row-odd"><td><p>Object</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">datasources.presets.harp</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Device</span></code>, <code class="docutils literal notranslate"><span class="pre">SoundCard</span></code>, <code class="docutils literal notranslate"><span class="pre">Camera0Frames</span></code></p></td>
+<td><p>HARP device loading + named outputs</p></td>
+</tr>
+<tr class="row-even"><td><p>Object</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">datasources.multisource</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MultiSource</span></code></p></td>
+<td><p>Virtual-map aligned multi-stream arrays</p></td>
+</tr>
+<tr class="row-odd"><td><p>Object</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">datasources.presets.harp</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MultiDevice</span></code>, <code class="docutils literal notranslate"><span class="pre">Nosepoke</span></code></p></td>
+<td><p>HARP multi-device loading + MultiSource</p></td>
+</tr>
+<tr class="row-even"><td><p>Query</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">virtualarrays</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ulookup</span></code>, <code class="docutils literal notranslate"><span class="pre">.ulookup</span></code> accessor</p></td>
+<td><p>Query DataArrays by virtual coordinates</p></td>
+</tr>
+<tr class="row-odd"><td><p>Align</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sync.ttl</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">build_pulse_table</span></code>, <code class="docutils literal notranslate"><span class="pre">extract_ttl_segments</span></code>, <code class="docutils literal notranslate"><span class="pre">get_ttl_timebase_conversion</span></code></p></td>
+<td><p>TTL pulse alignment between clock domains</p></td>
+</tr>
+<tr class="row-even"><td><p>Align</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">globaltimes</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">create_global_clock</span></code>, <code class="docutils literal notranslate"><span class="pre">index_map_util</span></code></p></td>
+<td><p>Shared timebase + index mapping</p></td>
+</tr>
+<tr class="row-odd"><td><p>Segment</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">segment</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">get_segment</span></code></p></td>
+<td><p>Event-based trial windowing</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="workflow">
+<h2>Workflow<a class="headerlink" href="#workflow" title="Link to this heading">#</a></h2>
+<section id="io-discovering-and-reading-files">
+<h3>1. IO — Discovering and reading files<a class="headerlink" href="#io-discovering-and-reading-files" title="Link to this heading">#</a></h3>
+<p>The IO layer provides the building blocks that every higher-level class uses internally. This is central to much of the rest of the library, as every class in <code class="docutils literal notranslate"><span class="pre">data-conduit</span></code> ultimately calls these functions at some stage.</p>
+<p><code class="docutils literal notranslate"><span class="pre">collect_dfs</span></code> is the engine behind everything else. It walks a directory tree, reads every file it can, and returns a <strong>nested dictionary</strong> that mirrors the folder structure, where each leaf is a DataFrame.</p>
+<p>Users control behaviour with two things:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">readers</span></code></strong>: a dict mapping file extensions to reader functions (e.g. <code class="docutils literal notranslate"><span class="pre">{'.csv':</span> <span class="pre">read_csv}</span></code>)</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">l{n}_selector</span></code></strong>: level selectors that filter which folders/files are included at each depth</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">data_conduit.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">collect_dfs</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">data_conduit.io.readers</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_csv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">data_conduit.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">starts_with</span>
+
+<span class="n">dfs</span> <span class="o">=</span> <span class="n">collect_dfs</span><span class="p">(</span>
+    <span class="n">experiment_directory_path</span><span class="o">=</span><span class="s2">&quot;path/to/experiment&quot;</span><span class="p">,</span>
+    <span class="n">readers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;.csv&#39;</span><span class="p">:</span> <span class="n">read_csv</span><span class="p">},</span>
+    <span class="n">l0_selector</span><span class="o">=</span><span class="n">starts_with</span><span class="p">(</span><span class="s1">&#39;Behavior&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="c1"># Result: {&#39;Behavior0&#39;: {&#39;file.csv&#39;: DataFrame}, &#39;Behavior1&#39;: ...}</span>
+</pre></div>
+</div>
+<p>Level selectors filter at any depth of the directory tree. They accept:</p>
+<ul class="simple">
+<li><p><strong>A string</strong>: exact match (<code class="docutils literal notranslate"><span class="pre">l0_selector='Behavior0'</span></code>)</p></li>
+<li><p><strong>A list</strong>: match any item (<code class="docutils literal notranslate"><span class="pre">l0_selector=['Behavior0',</span> <span class="pre">'Behavior1']</span></code>)</p></li>
+<li><p><strong>A callable</strong>: custom logic (<code class="docutils literal notranslate"><span class="pre">l0_selector=starts_with('Behavior')</span></code>)</p></li>
+<li><p><strong>None</strong>: include everything (default)</p></li>
+</ul>
+</section>
+<section id="the-object-layer">
+<h3>2. The object layer<a class="headerlink" href="#the-object-layer" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">collect_dfs</span></code> and <code class="docutils literal notranslate"><span class="pre">collect_harp_dfs</span></code> give you nested dicts of DataFrames. Whilst this is already an obvious improvement over manually extracting each data file, users will frequently want other features such as:</p>
+<ol class="arabic simple">
+<li><p><strong>Named outputs</strong>: instead of navigating <code class="docutils literal notranslate"><span class="pre">dfs_dict['Behavior0']['32']</span></code>, users would often prefer to use more legible naming such as <code class="docutils literal notranslate"><span class="pre">soundcard.data_arrays['PlaySoundFreq']</span></code>.</p></li>
+<li><p><strong>Automatic loading</strong>: pass an experiment path and get results, without manually calling IO functions.</p></li>
+<li><p><strong>Reusable presets</strong>: common device configurations (SoundCard, Camera, Nosepoke) should be one-liners.</p></li>
+<li><p><strong>Multi-device combination</strong>: when the same data type spans multiple files, users will require a unified DataArray with a shared time axis to view them simultaneously.</p></li>
+</ol>
+<section id="device-harp-binary-data">
+<h4>Device — HARP binary data<a class="headerlink" href="#device-harp-binary-data" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">Device</span></code> extends <code class="docutils literal notranslate"><span class="pre">MonoSource</span></code> for HARP devices. Presets like <code class="docutils literal notranslate"><span class="pre">SoundCard</span></code>, <code class="docutils literal notranslate"><span class="pre">CameraStart</span></code>, and <code class="docutils literal notranslate"><span class="pre">Camera0Frames</span></code> set sensible defaults so common devices are one-liners:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">data_conduit.datasources.presets.harp</span><span class="w"> </span><span class="kn">import</span> <span class="n">Device</span><span class="p">,</span> <span class="n">SoundCard</span>
+
+<span class="n">soundcard</span> <span class="o">=</span> <span class="n">SoundCard</span><span class="p">(</span><span class="n">experiment_directory_path</span><span class="o">=</span><span class="s2">&quot;path/to/experiment&quot;</span><span class="p">)</span>
+<span class="n">play_freq</span> <span class="o">=</span> <span class="n">soundcard</span><span class="o">.</span><span class="n">data_arrays</span><span class="p">[</span><span class="s2">&quot;PlaySoundFreq&quot;</span><span class="p">]</span>  <span class="c1"># xr.DataArray</span>
+
+<span class="c1"># Or configure a device manually</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">(</span>
+    <span class="n">experiment_directory_path</span><span class="o">=</span><span class="s2">&quot;path/to/experiment&quot;</span><span class="p">,</span>
+    <span class="n">harp_device_yaml_path</span><span class="o">=</span><span class="s2">&quot;./device.yml&quot;</span><span class="p">,</span>
+    <span class="n">device_type</span><span class="o">=</span><span class="s2">&quot;Behavior&quot;</span><span class="p">,</span>
+    <span class="n">device_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Behavior0&quot;</span><span class="p">],</span>
+    <span class="n">device_registers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Behavior0&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;32&quot;</span><span class="p">,</span> <span class="s2">&quot;34&quot;</span><span class="p">]},</span>
+    <span class="n">device_data_arrays</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;Activations&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;l0_selector&quot;</span><span class="p">:</span> <span class="s2">&quot;Behavior0&quot;</span><span class="p">,</span> <span class="s2">&quot;l1_selector&quot;</span><span class="p">:</span> <span class="s2">&quot;32&quot;</span><span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+<span class="n">activations</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">data_arrays</span><span class="p">[</span><span class="s2">&quot;Activations&quot;</span><span class="p">]</span>  <span class="c1"># xr.DataArray</span>
+</pre></div>
+</div>
+</section>
+<section id="filetypedata-csv-json-yaml-files">
+<h4>FileTypeData — CSV, JSON, YAML files<a class="headerlink" href="#filetypedata-csv-json-yaml-files" title="Link to this heading">#</a></h4>
+<p>Alongside HARP binary data, Bonsai workflows produce CSV, JSONL, and YAML files for experiment events, video metadata, visual environments, and session settings. <code class="docutils literal notranslate"><span class="pre">FileTypeData</span></code> extends <code class="docutils literal notranslate"><span class="pre">MonoSource</span></code> for these file types and produces <code class="docutils literal notranslate"><span class="pre">.data_arrays</span></code> as the primary interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">data_conduit.datasources.monosource</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExperimentEvents</span><span class="p">,</span> <span class="n">VideoData</span>
+
+<span class="n">events</span> <span class="o">=</span> <span class="n">ExperimentEvents</span><span class="p">(</span><span class="n">experiment_directory_path</span><span class="o">=</span><span class="s2">&quot;path/to/experiment&quot;</span><span class="p">)</span>
+<span class="n">video</span>  <span class="o">=</span> <span class="n">VideoData</span><span class="p">(</span><span class="n">experiment_directory_path</span><span class="o">=</span><span class="s2">&quot;path/to/experiment&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="multisource-combining-data-across-multiple-sources">
+<h4>MultiSource — combining data across multiple sources<a class="headerlink" href="#multisource-combining-data-across-multiple-sources" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">MonoSource</span></code> works well when each output maps to a single location in the directory tree. However, users can find themselves with peripherals or other data that spans multiple locations.</p>
+<p>Consider a rig with 2 HARP Behavior boards, each with 3 nosepoke ports. The activation data for nosepoke 0 lives at <code class="docutils literal notranslate"><span class="pre">Behavior0/register_32/DIPort0</span></code>, while nosepoke 5 is at <code class="docutils literal notranslate"><span class="pre">Behavior1/register_32/DIPort2</span></code>. To analyse all 6 nosepokes together requires a single DataArray with a merged <strong>Time</strong> dimension, a <strong>peripherals</strong> dimension, and <strong>virtual coordinates</strong> (device, register, localID) attached to each peripheral to allow querying across multiple associated values. This is what <code class="docutils literal notranslate"><span class="pre">MultiSource</span></code> does.</p>
+<p><code class="docutils literal notranslate"><span class="pre">MultiDevice</span></code> combines <code class="docutils literal notranslate"><span class="pre">collect_harp_dfs</span></code> (for loading) with <code class="docutils literal notranslate"><span class="pre">MultiSource</span></code> (for virtual-map construction). <code class="docutils literal notranslate"><span class="pre">Nosepoke</span></code> is a preset subclass with pre-built defaults for a standard 6-board × 3-port layout:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">data_conduit.datasources.presets.harp</span><span class="w"> </span><span class="kn">import</span> <span class="n">Nosepoke</span>
+
+<span class="n">nosepoke</span> <span class="o">=</span> <span class="n">Nosepoke</span><span class="p">(</span><span class="n">experiment_directory_path</span><span class="o">=</span><span class="s2">&quot;path/to/experiment&quot;</span><span class="p">)</span>
+
+<span class="c1"># Query by virtual coordinates using the .ulookup accessor</span>
+<span class="n">nosepoke</span><span class="o">.</span><span class="n">data_arrays</span><span class="p">[</span><span class="s2">&quot;Activations&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ulookup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s2">&quot;Behavior0&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ttl-synchronisation-and-temporal-alignment">
+<h3>3. TTL synchronisation and temporal alignment<a class="headerlink" href="#ttl-synchronisation-and-temporal-alignment" title="Link to this heading">#</a></h3>
+<p>Bonsai/HARP and Neuropixels run on <strong>independent clocks</strong> that drift over time. To combine behavioural events (HARP timestamps) with neural data (NPX sample indices), a shared time reference is required.</p>
+<p>A <strong>TTL square-wave pulse train</strong> is generated and recorded on both systems simultaneously — one copy on a HARP Behavior board (digital IO), one on an NPX sync channel. We extract pulse start/end times from both recordings, fit a linear model mapping NPX time → Bonsai time, and then any NPX timestamp can be converted to Bonsai time (and vice versa).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">data_conduit.sync.ttl</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_pulse_table</span><span class="p">,</span> <span class="n">extract_ttl_segments</span><span class="p">,</span> <span class="n">get_ttl_timebase_conversion</span>
+
+<span class="c1"># Build Bonsai-side pulse table from HARP digital output events</span>
+<span class="n">rise_times</span> <span class="o">=</span> <span class="n">sync_device</span><span class="o">.</span><span class="n">data_arrays</span><span class="p">[</span><span class="s2">&quot;DO1_rise&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;Time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">fall_times</span> <span class="o">=</span> <span class="n">sync_device</span><span class="o">.</span><span class="n">data_arrays</span><span class="p">[</span><span class="s2">&quot;DO1_fall&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;Time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">bonsai_pulses</span> <span class="o">=</span> <span class="n">build_pulse_table</span><span class="p">(</span><span class="n">rise_times</span><span class="p">,</span> <span class="n">fall_times</span><span class="p">)</span>
+
+<span class="c1"># Extract NPX-side pulses from a raw sync channel</span>
+<span class="n">npx_raw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;npx_sync.npy&quot;</span><span class="p">)</span>
+<span class="n">npx_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">npx_raw</span><span class="p">))</span> <span class="o">/</span> <span class="mi">30000</span>  <span class="c1"># 30 kHz</span>
+<span class="n">npx_pulses</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">extract_ttl_segments</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="n">npx_times</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">npx_raw</span><span class="p">)</span>
+
+<span class="c1"># Align, fit, and optionally visualise</span>
+<span class="n">converted_df</span><span class="p">,</span> <span class="n">ratio</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">fit_stats</span> <span class="o">=</span> <span class="n">get_ttl_timebase_conversion</span><span class="p">(</span>
+    <span class="n">reference_pulses</span><span class="o">=</span><span class="n">bonsai_pulses</span><span class="p">,</span>
+    <span class="n">target_pulses</span><span class="o">=</span><span class="n">npx_pulses</span><span class="p">,</span>
+    <span class="n">visualisation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">error_visualisation_tools</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">return_details</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Convert any NPX timestamp to Bonsai time</span>
+<span class="n">npx_spike_times_in_bonsai</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">npx_spike_times</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">get_ttl_timebase_conversion</span></code> aligns both pulse trains, fits a linear model, and optionally visualises the result. Passing <code class="docutils literal notranslate"><span class="pre">visualisation=True</span></code> shows overlaid pulse trains; <code class="docutils literal notranslate"><span class="pre">error_visualisation_tools=True</span></code> adds per-pulse error scatter plots and histograms for verifying sub-millisecond alignment.</p>
+<section id="global-clock-and-index-mapping">
+<h4>Global clock and index mapping<a class="headerlink" href="#global-clock-and-index-mapping" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">create_global_clock</span></code> builds a uniformly-spaced time axis (e.g. at 1-second resolution) that serves as the shared index for all data streams. <code class="docutils literal notranslate"><span class="pre">index_map_util</span></code> then maps any stream’s timestamps onto this global axis using nearest-match, giving you aligned indices across all modalities.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">data_conduit.globaltimes</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_global_clock</span><span class="p">,</span> <span class="n">index_map_util</span>
+
+<span class="n">global_clock</span> <span class="o">=</span> <span class="n">create_global_clock</span><span class="p">(</span><span class="n">reference_times</span><span class="p">)</span>
+<span class="n">index_map</span> <span class="o">=</span> <span class="n">index_map_util</span><span class="p">(</span><span class="n">global_clock</span><span class="p">,</span> <span class="n">stream_times</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="segment">
+<h3>4. Segment<a class="headerlink" href="#segment" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">data_conduit.segment</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_segment</span>
+
+<span class="n">trial_data</span> <span class="o">=</span> <span class="n">get_segment</span><span class="p">(</span>
+    <span class="n">data_array</span><span class="o">=</span><span class="n">activations</span><span class="p">,</span>
+    <span class="n">start</span><span class="o">=</span><span class="n">trial_start_times</span><span class="p">,</span>
+    <span class="n">end</span><span class="o">=</span><span class="n">trial_end_times</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># Returns a dict of per-trial xr.DataArrays: {&#39;Trial_1&#39;: ..., &#39;Trial_2&#39;: ...}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="integration-with-movement">
+<h2>Integration with movement<a class="headerlink" href="#integration-with-movement" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">xr.DataArray</span></code> outputs produced by data-conduit are directly compatible with <a class="reference external" href="https://movement.neuroinformatics.dev/">movement</a>, a toolkit for pose trajectory and kinematic analysis:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">movement</span>
+
+<span class="n">poses</span> <span class="o">=</span> <span class="n">movement</span><span class="o">.</span><span class="n">load_poses</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s2">&quot;poses.h5&quot;</span><span class="p">)</span>
+<span class="n">trial_poses</span> <span class="o">=</span> <span class="n">get_segment</span><span class="p">(</span><span class="n">poses</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">trial_starts</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">trial_ends</span><span class="p">)</span>
+<span class="n">speed</span> <span class="o">=</span> <span class="n">movement</span><span class="o">.</span><span class="n">kinematics</span><span class="o">.</span><span class="n">compute_speed</span><span class="p">(</span><span class="n">trial_poses</span><span class="p">[</span><span class="s2">&quot;Trial_1&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Link to this heading">#</a></h2>
+<p>If you use data-conduit in your work, please cite:</p>
+<blockquote>
+<div><p>C Marshall, N Sirmpilatze, C Laurent, Q Wu, A Tyson, S Keshavarzi.
+<em>A Python Framework for Integrated Analysis of Behavioural and Neural Data.</em>
+<em>placeholder</em></p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Link to this heading">#</a></h2>
+<p>Developed at the Keshavarzi Lab, Department of Physiology, Development, and Neuroscience, University of Cambridge, in collaboration with the Neuroinformatics Unit, Sainsbury Wellcome Centre, UCL.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="getting_started.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Getting Started</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="examples.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Example Gallery</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-data-conduit">What is data-conduit?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-data-conduit-work">How does data-conduit work?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-structure">Package structure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-layers-connect">How the layers connect</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow">Workflow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#io-discovering-and-reading-files">1. IO — Discovering and reading files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-object-layer">2. The object layer</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#device-harp-binary-data">Device — HARP binary data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#filetypedata-csv-json-yaml-files">FileTypeData — CSV, JSON, YAML files</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multisource-combining-data-across-multiple-sources">MultiSource — combining data across multiple sources</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ttl-synchronisation-and-temporal-alignment">3. TTL synchronisation and temporal alignment</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#global-clock-and-index-mapping">Global clock and index mapping</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#segment">4. Segment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integration-with-movement">Integration with movement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citation">Citation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="_sources/README.md.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, Keshavarzi Lab.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

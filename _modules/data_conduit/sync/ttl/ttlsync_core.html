@@ -1,0 +1,1067 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>data_conduit.sync.ttl.ttlsync_core &#8212; data-conduit</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css?v=5c2b050f" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+    <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/data_conduit/sync/ttl/ttlsync_core';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://Keshavarzi-lab.github.io/data-conduit/_modules/data_conduit/sync/ttl/ttlsync_core.html" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../../../_static/searchtools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script src="../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">data-conduit v0.1.0</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../getting_started.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../README.html">
+    data-conduit
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../examples.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api_index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../CHANGELOG.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../ROADMAP.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../data_conduit_demo_new.html">
+    data-conduit: Overview and Workflow Guide
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Keshavarzi-lab/data-conduit" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../getting_started.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../README.html">
+    data-conduit
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../examples.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api_index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../CHANGELOG.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../ROADMAP.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../data_conduit_demo_new.html">
+    data-conduit: Overview and Workflow Guide
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Keshavarzi-lab/data-conduit" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">data_conduit.sync.ttl.ttlsync_core</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for data_conduit.sync.ttl.ttlsync_core</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">TTL synchronisation core utilities.</span>
+<span class="sd">----------------------------------</span>
+
+<span class="sd">Description:</span>
+<span class="sd">	Utilities for extracting TTL pulse segments, aligning pulse tables from</span>
+<span class="sd">	different clocks, and fitting/applying a linear conversion model between</span>
+<span class="sd">	timebases.</span>
+
+<span class="sd">	The module is intentionally split into small, composable functions:</span>
+<span class="sd">	1) segment extraction from a raw TTL-like signal</span>
+<span class="sd">	2) pulse-table alignment across clock domains</span>
+<span class="sd">	3) linear model fitting and transform application</span>
+<span class="sd">	4) convenience wrappers that bundle the end-to-end conversion flow</span>
+
+<span class="sd">	</span>
+<span class="sd">Contents</span>
+<span class="sd">----------</span>
+<span class="sd">- `build_pulse_table`: Pair rise/fall timestamps into a structured pulse table.</span>
+<span class="sd">- `extract_ttl_segments`: Extract run-length encoded TTL segments from a sampled signal.</span>
+<span class="sd">- `align_pulse_tables`: Align reference and target pulse tables for one-to-one fitting.</span>
+<span class="sd">- `fit_linear_timebase`: Fit a linear model mapping target clock to reference clock.</span>
+<span class="sd">- `convert_timebase`: Apply a linear timebase transformation to values.</span>
+<span class="sd">- `get_ttl_timebase_conversion`: End-to-end helper to convert target pulse table into reference timebase with optional visualisation.</span>
+<span class="sd">- `get_npx_to_bonsai_time_conversion`: Convenience wrapper for NPX-&gt;Bonsai TTL timebase conversion.</span>
+<span class="sd">- `TTLSyncModel`: Dataclass encapsulating a linear TTL sync model with fit stats and transform method.</span>
+<span class="sd">&#39;&#39;&#39;</span>																														<span class="c1"># noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring</span>
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Imports</span>
+<span class="c1">################################################################################</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1">################################################################################</span>
+
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># TTL Segment Extraction</span>
+<span class="c1">################################################################################</span>
+
+<div class="viewcode-block" id="build_pulse_table">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.sync.build_pulse_table">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_pulse_table</span><span class="p">(</span>
+	<span class="n">rise_times</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+	<span class="n">fall_times</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+	<span class="o">*</span><span class="p">,</span>
+	<span class="n">min_duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">	</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Pair rise and fall timestamps into a pulse table.</span>
+
+<span class="sd">	For each rise, the immediately following fall is found via searchsorted.</span>
+<span class="sd">	This correctly handles recordings that start mid-pulse (where a fall arrives</span>
+<span class="sd">	before the first rise) — those orphaned falls are skipped.</span>
+
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	rise_times : array-like</span>
+<span class="sd">		Timestamps of rising edges (pulse starts).</span>
+<span class="sd">	fall_times : array-like</span>
+<span class="sd">		Timestamps of falling edges (pulse ends).</span>
+<span class="sd">	min_duration : float</span>
+<span class="sd">		Pulses shorter than this are dropped. Default 0.0 (keep all valid pairs).</span>
+
+<span class="sd">	Returns</span>
+<span class="sd">	-------</span>
+<span class="sd">	pd.DataFrame</span>
+<span class="sd">		Columns ``Start``, ``End``, ``Duration`` with a 1-based ``Pulse`` index.</span>
+<span class="sd">	&#39;&#39;&#39;</span>																														<span class="c1"># noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring</span>
+	<span class="n">rises</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rise_times</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+	<span class="n">falls</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">fall_times</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+	<span class="c1"># Drop any leading orphaned falls that precede the first rise</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rises</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">falls</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="n">first_rise</span> <span class="o">=</span> <span class="n">rises</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+		<span class="n">falls</span> <span class="o">=</span> <span class="n">falls</span><span class="p">[</span><span class="n">falls</span> <span class="o">&gt;</span> <span class="n">first_rise</span> <span class="o">-</span> <span class="mf">1e-9</span><span class="p">]</span>
+
+	<span class="n">n</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rises</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">falls</span><span class="p">))</span>
+	<span class="n">starts</span> <span class="o">=</span> <span class="n">rises</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+	<span class="n">ends</span> <span class="o">=</span> <span class="n">falls</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+	<span class="n">durations</span> <span class="o">=</span> <span class="n">ends</span> <span class="o">-</span> <span class="n">starts</span>
+
+	<span class="n">valid_mask</span> <span class="o">=</span> <span class="n">durations</span> <span class="o">&gt;=</span> <span class="n">min_duration</span>
+	<span class="n">starts</span><span class="p">,</span> <span class="n">ends</span><span class="p">,</span> <span class="n">durations</span> <span class="o">=</span> <span class="n">starts</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">],</span> <span class="n">ends</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">],</span> <span class="n">durations</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">]</span>
+
+	<span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+		<span class="p">{</span><span class="s1">&#39;Start&#39;</span><span class="p">:</span> <span class="n">starts</span><span class="p">,</span> <span class="s1">&#39;End&#39;</span><span class="p">:</span> <span class="n">ends</span><span class="p">,</span> <span class="s1">&#39;Duration&#39;</span><span class="p">:</span> <span class="n">durations</span><span class="p">},</span>
+		<span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">RangeIndex</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">starts</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Pulse&#39;</span><span class="p">),</span>
+	<span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="extract_ttl_segments">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.sync.extract_ttl_segments">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_ttl_segments</span><span class="p">(</span>
+	<span class="n">times</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">,</span>
+	<span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+	<span class="o">*</span><span class="p">,</span>
+	<span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+	<span class="n">active_high</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+	<span class="n">min_duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+	<span class="n">drop_inactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+	<span class="n">align_to_zero</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">	</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Extract run-length TTL pulse segments from a sampled waveform.</span>
+
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	times : array-like</span>
+<span class="sd">		Monotonic timestamps corresponding to `values`.</span>
+<span class="sd">	values : array-like</span>
+<span class="sd">		Signal values used to infer active/inactive TTL state.</span>
+<span class="sd">	threshold : float</span>
+<span class="sd">		Threshold used to binarize the signal into state 0/1.</span>
+<span class="sd">	active_high : bool</span>
+<span class="sd">		If True, active state is `value &gt;= threshold`.</span>
+<span class="sd">		If False, active state is `value &lt; threshold`.</span>
+<span class="sd">	min_duration : float</span>
+<span class="sd">		Minimum segment duration. Segments shorter than this are dropped.</span>
+<span class="sd">	drop_inactive : bool</span>
+<span class="sd">		If True, keep only active segments (`State == 1`).</span>
+<span class="sd">	align_to_zero : bool</span>
+<span class="sd">		If True, subtract the first kept segment start from Start/End,</span>
+<span class="sd">		so the first segment starts at 0.</span>
+
+<span class="sd">	Returns</span>
+<span class="sd">	-------</span>
+<span class="sd">	tuple[pd.DataFrame, float]</span>
+<span class="sd">		(`segments`, `offset`) where `segments` has columns</span>
+<span class="sd">		[&#39;Start&#39;, &#39;End&#39;, &#39;Duration&#39;, &#39;State&#39;] and `offset` is the original</span>
+<span class="sd">		start value used for alignment.</span>
+
+<span class="sd">	Raises</span>
+<span class="sd">	------</span>
+<span class="sd">	ValueError</span>
+<span class="sd">		If `times` or `values` are not 1D or do not share the same length.</span>
+<span class="sd">	&#39;&#39;&#39;</span>																														<span class="c1"># noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring</span>
+	<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+	<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">v</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;times and values must be 1D.&#39;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+		<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;times and values must have the same length.&#39;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">,</span> <span class="s1">&#39;End&#39;</span><span class="p">,</span> <span class="s1">&#39;Duration&#39;</span><span class="p">,</span> <span class="s1">&#39;State&#39;</span><span class="p">]),</span> <span class="mf">0.0</span>
+
+	<span class="n">state</span> <span class="o">=</span> <span class="p">(</span><span class="n">v</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+	<span class="k">if</span> <span class="ow">not</span> <span class="n">active_high</span><span class="p">:</span>
+		<span class="n">state</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">state</span>
+
+	<span class="c1"># Build run boundaries</span>
+	<span class="n">transitions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+	<span class="n">starts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">transitions</span><span class="p">]</span>
+	<span class="n">ends</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">transitions</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="p">)]</span>
+
+	<span class="n">records</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">starts</span><span class="p">,</span> <span class="n">ends</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+		<span class="n">start_t</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
+		<span class="n">end_t</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">e</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+		<span class="n">duration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">end_t</span> <span class="o">-</span> <span class="n">start_t</span><span class="p">)</span>
+		<span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+			<span class="p">{</span>
+				<span class="s1">&#39;Start&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">start_t</span><span class="p">),</span>
+				<span class="s1">&#39;End&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">end_t</span><span class="p">),</span>
+				<span class="s1">&#39;Duration&#39;</span><span class="p">:</span> <span class="n">duration</span><span class="p">,</span>
+				<span class="s1">&#39;State&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="n">s</span><span class="p">]),</span>
+			<span class="p">}</span>
+		<span class="p">)</span>
+
+	<span class="n">segments</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">min_duration</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="n">segments</span> <span class="o">=</span> <span class="n">segments</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">segments</span><span class="p">[</span><span class="s1">&#39;Duration&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">min_duration</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+	<span class="k">if</span> <span class="n">drop_inactive</span><span class="p">:</span>
+		<span class="n">segments</span> <span class="o">=</span> <span class="n">segments</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">segments</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+	<span class="k">if</span> <span class="n">segments</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">,</span> <span class="s1">&#39;End&#39;</span><span class="p">,</span> <span class="s1">&#39;Duration&#39;</span><span class="p">,</span> <span class="s1">&#39;State&#39;</span><span class="p">]),</span> <span class="mf">0.0</span>
+
+	<span class="n">offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">segments</span><span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+	<span class="k">if</span> <span class="n">align_to_zero</span><span class="p">:</span>
+		<span class="n">segments</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">,</span> <span class="s1">&#39;End&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">segments</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">,</span> <span class="s1">&#39;End&#39;</span><span class="p">]]</span> <span class="o">-</span> <span class="n">offset</span>
+
+	<span class="k">return</span> <span class="n">segments</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">offset</span></div>
+
+
+
+<span class="c1">################################################################################</span>
+
+
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Pulse Alignment + Timebase Conversion</span>
+<span class="c1">################################################################################</span>
+
+<div class="viewcode-block" id="align_pulse_tables">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.sync.align_pulse_tables">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">align_pulse_tables</span><span class="p">(</span>
+	<span class="n">reference_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+	<span class="n">target_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+	<span class="o">*</span><span class="p">,</span>
+	<span class="n">normalise_start</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="w">	</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Align reference and target pulse tables for one-to-one model fitting.</span>
+
+<span class="sd">	The function truncates both tables to equal length (`min(len(ref), len(target))`)</span>
+<span class="sd">	so each row index corresponds to the same pulse ordinal in both clocks.</span>
+
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	reference_df : pd.DataFrame</span>
+<span class="sd">		Pulse table in reference clock units. Must contain `Start` and `End`.</span>
+<span class="sd">	target_df : pd.DataFrame</span>
+<span class="sd">		Pulse table in target clock units. Must contain `Start` and `End`.</span>
+<span class="sd">	normalise_start : bool</span>
+<span class="sd">		If True, subtract each table&#39;s first Start value from Start/End.</span>
+
+<span class="sd">	Returns</span>
+<span class="sd">	-------</span>
+<span class="sd">	tuple[pd.DataFrame, pd.DataFrame]</span>
+<span class="sd">		Aligned copies of `(reference_df, target_df)` with matching row counts.</span>
+
+<span class="sd">	Raises</span>
+<span class="sd">	------</span>
+<span class="sd">	TypeError</span>
+<span class="sd">		If either input is not a pandas DataFrame.</span>
+<span class="sd">	ValueError</span>
+<span class="sd">		If required `Start`/`End` columns are missing.</span>
+<span class="sd">	&#39;&#39;&#39;</span>																														<span class="c1"># noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring</span>
+	<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="p">((</span><span class="s1">&#39;reference_df&#39;</span><span class="p">,</span> <span class="n">reference_df</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;target_df&#39;</span><span class="p">,</span> <span class="n">target_df</span><span class="p">)):</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> must be a pandas DataFrame.&#39;</span><span class="p">)</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="p">{</span><span class="s1">&#39;Start&#39;</span><span class="p">,</span> <span class="s1">&#39;End&#39;</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> must contain &#39;Start&#39; and &#39;End&#39; columns.&quot;</span><span class="p">)</span>
+
+	<span class="n">n_keep</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">reference_df</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">target_df</span><span class="p">))</span>
+	<span class="n">ref</span> <span class="o">=</span> <span class="n">reference_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">n_keep</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+	<span class="n">tgt</span> <span class="o">=</span> <span class="n">target_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">n_keep</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">normalise_start</span> <span class="ow">and</span> <span class="n">n_keep</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="n">ref0</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ref</span><span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+		<span class="n">tgt0</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">tgt</span><span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+		<span class="n">ref</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">,</span> <span class="s1">&#39;End&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ref</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">,</span> <span class="s1">&#39;End&#39;</span><span class="p">]]</span> <span class="o">-</span> <span class="n">ref0</span>
+		<span class="n">tgt</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">,</span> <span class="s1">&#39;End&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">tgt</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">,</span> <span class="s1">&#39;End&#39;</span><span class="p">]]</span> <span class="o">-</span> <span class="n">tgt0</span>
+
+	<span class="k">return</span> <span class="n">ref</span><span class="p">,</span> <span class="n">tgt</span></div>
+
+
+
+<div class="viewcode-block" id="fit_linear_timebase">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.sync.fit_linear_timebase">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">fit_linear_timebase</span><span class="p">(</span>
+	<span class="n">reference_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+	<span class="n">target_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+	<span class="o">*</span><span class="p">,</span>
+	<span class="n">use</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">	</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Fit a linear model that maps target clock values into reference clock values.</span>
+
+<span class="sd">	Model</span>
+<span class="sd">	-----</span>
+<span class="sd">	`reference ~= slope * target + intercept`</span>
+
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	reference_df : pd.DataFrame</span>
+<span class="sd">		Reference-clock pulse table.</span>
+<span class="sd">	target_df : pd.DataFrame</span>
+<span class="sd">		Target-clock pulse table.</span>
+<span class="sd">	use : str</span>
+<span class="sd">		Edge used for fitting: `&#39;start&#39;` or `&#39;end&#39;` (case-insensitive).</span>
+
+<span class="sd">	Returns</span>
+<span class="sd">	-------</span>
+<span class="sd">	dict[str, float]</span>
+<span class="sd">		Dictionary with keys `slope`, `intercept`, and `r2`.</span>
+
+<span class="sd">	Raises</span>
+<span class="sd">	------</span>
+<span class="sd">	ValueError</span>
+<span class="sd">		If aligned inputs are empty.</span>
+<span class="sd">	&#39;&#39;&#39;</span>																														<span class="c1"># noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring</span>
+	<span class="n">ref</span><span class="p">,</span> <span class="n">tgt</span> <span class="o">=</span> <span class="n">align_pulse_tables</span><span class="p">(</span><span class="n">reference_df</span><span class="p">,</span> <span class="n">target_df</span><span class="p">,</span> <span class="n">normalise_start</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">ref</span><span class="o">.</span><span class="n">empty</span> <span class="ow">or</span> <span class="n">tgt</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot fit model with empty pulse tables.&#39;</span><span class="p">)</span>
+
+	<span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;Start&#39;</span> <span class="k">if</span> <span class="n">use</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;start&#39;</span> <span class="k">else</span> <span class="s1">&#39;End&#39;</span>
+	<span class="n">x</span> <span class="o">=</span> <span class="n">tgt</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+	<span class="n">y</span> <span class="o">=</span> <span class="n">ref</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+	<span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="n">y_hat</span> <span class="o">=</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">intercept</span>
+	<span class="n">ss_res</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">y_hat</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+	<span class="n">ss_tot</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+	<span class="n">r2</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="p">(</span><span class="n">ss_res</span> <span class="o">/</span> <span class="n">ss_tot</span> <span class="k">if</span> <span class="n">ss_tot</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="p">{</span>
+		<span class="s1">&#39;slope&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">slope</span><span class="p">),</span>
+		<span class="s1">&#39;intercept&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">intercept</span><span class="p">),</span>
+		<span class="s1">&#39;r2&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">r2</span><span class="p">),</span>
+	<span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="convert_timebase">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.sync.convert_timebase">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">convert_timebase</span><span class="p">(</span>
+	<span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+	<span class="o">*</span><span class="p">,</span>
+	<span class="n">slope</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+	<span class="n">intercept</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">	</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Apply a linear timebase transform (`slope * value + intercept`).</span>
+
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	values : np.ndarray | pd.Series | list[float]</span>
+<span class="sd">		Values to be transformed.</span>
+<span class="sd">	slope : float</span>
+<span class="sd">		Linear slope.</span>
+<span class="sd">	intercept : float</span>
+<span class="sd">		Linear intercept.</span>
+
+<span class="sd">	Returns</span>
+<span class="sd">	-------</span>
+<span class="sd">	np.ndarray</span>
+<span class="sd">		Transformed values.</span>
+<span class="sd">	&#39;&#39;&#39;</span>																														<span class="c1"># noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring</span>
+	<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">arr</span> <span class="o">+</span> <span class="n">intercept</span></div>
+
+
+
+<div class="viewcode-block" id="get_ttl_timebase_conversion">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.sync.get_ttl_timebase_conversion">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_ttl_timebase_conversion</span><span class="p">(</span>
+	<span class="n">reference_pulses</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+	<span class="n">target_pulses</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+	<span class="o">*</span><span class="p">,</span>
+	<span class="n">use</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span>
+	<span class="n">normalise_start</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+	<span class="n">visualisation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+	<span class="n">error_visualisation_tools</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+	<span class="n">reference_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Reference&#39;</span><span class="p">,</span>
+	<span class="n">target_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Target&#39;</span><span class="p">,</span>
+	<span class="n">return_details</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="s1">&#39;TTLSyncModel&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+<span class="w">	</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Convert a target pulse table into a reference clock domain.</span>
+
+<span class="sd">	This helper performs:</span>
+<span class="sd">	1) aligning pulse tables,</span>
+<span class="sd">	2) fitting a linear target-&gt;reference model,</span>
+<span class="sd">	3) returning converted target pulse timestamps + conversion ratio.</span>
+
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	reference_pulses : pd.DataFrame</span>
+<span class="sd">		Reference-clock pulse table.</span>
+<span class="sd">	target_pulses : pd.DataFrame</span>
+<span class="sd">		Target-clock pulse table to be converted into reference time.</span>
+<span class="sd">	use : str</span>
+<span class="sd">		Edge column used for fitting (&#39;start&#39; or &#39;end&#39;).</span>
+<span class="sd">	normalise_start : bool</span>
+<span class="sd">		If True, align both pulse tables to zero at first pulse before fitting.</span>
+<span class="sd">	visualisation : bool</span>
+<span class="sd">		If True, render Workflow_v2-style stacked pulse visualisation.</span>
+<span class="sd">	error_visualisation_tools : bool</span>
+<span class="sd">		If True, render per-pulse error scatter/hist diagnostics.</span>
+<span class="sd">	reference_label : str</span>
+<span class="sd">		Display label for reference pulses in stacked plots.</span>
+<span class="sd">	target_label : str</span>
+<span class="sd">		Display label for target pulses in stacked plots.</span>
+<span class="sd">	return_details : bool</span>
+<span class="sd">		If True, additionally return fitted `TTLSyncModel` and fit stats.</span>
+
+<span class="sd">	Returns</span>
+<span class="sd">	-------</span>
+<span class="sd">	tuple</span>
+<span class="sd">		Default: (`converted_target_df`, `conversion_ratio`)</span>
+<span class="sd">		If `return_details=True`:</span>
+<span class="sd">		(`converted_target_df`, `conversion_ratio`, `model`, `fit_stats`)</span>
+
+<span class="sd">	Notes</span>
+<span class="sd">	-----</span>
+<span class="sd">	`conversion_ratio` is the fitted linear slope (`target -&gt; reference`).</span>
+<span class="sd">	A value near 1.0 indicates similar clock rate; deviations indicate drift/scaling.</span>
+<span class="sd">	&#39;&#39;&#39;</span>																														<span class="c1"># noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring</span>
+	<span class="n">ref_aligned</span><span class="p">,</span> <span class="n">tgt_aligned</span> <span class="o">=</span> <span class="n">align_pulse_tables</span><span class="p">(</span>
+		<span class="n">reference_df</span><span class="o">=</span><span class="n">reference_pulses</span><span class="p">,</span>
+		<span class="n">target_df</span><span class="o">=</span><span class="n">target_pulses</span><span class="p">,</span>
+		<span class="n">normalise_start</span><span class="o">=</span><span class="n">normalise_start</span><span class="p">,</span>
+	<span class="p">)</span>
+
+	<span class="n">fit_stats</span> <span class="o">=</span> <span class="n">fit_linear_timebase</span><span class="p">(</span><span class="n">ref_aligned</span><span class="p">,</span> <span class="n">tgt_aligned</span><span class="p">,</span> <span class="n">use</span><span class="o">=</span><span class="n">use</span><span class="p">)</span>
+	<span class="n">model</span> <span class="o">=</span> <span class="n">TTLSyncModel</span><span class="p">(</span><span class="o">**</span><span class="n">fit_stats</span><span class="p">)</span>
+
+	<span class="n">use_col</span> <span class="o">=</span> <span class="s1">&#39;Start&#39;</span> <span class="k">if</span> <span class="n">use</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;start&#39;</span> <span class="k">else</span> <span class="s1">&#39;End&#39;</span>
+	<span class="n">converted_target_df</span> <span class="o">=</span> <span class="n">tgt_aligned</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+	<span class="n">converted_target_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">use_col</span><span class="si">}</span><span class="s1">_to_ref&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
+		<span class="n">converted_target_df</span><span class="p">[</span><span class="n">use_col</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+	<span class="p">)</span>
+	<span class="n">converted_target_df</span><span class="p">[</span><span class="s1">&#39;Start_to_ref&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">converted_target_df</span><span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="nb">float</span><span class="p">))</span>
+	<span class="n">converted_target_df</span><span class="p">[</span><span class="s1">&#39;End_to_ref&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">converted_target_df</span><span class="p">[</span><span class="s1">&#39;End&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="nb">float</span><span class="p">))</span>
+	<span class="n">converted_target_df</span><span class="p">[</span><span class="s1">&#39;Duration_to_ref&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">converted_target_df</span><span class="p">[</span><span class="s1">&#39;End_to_ref&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">converted_target_df</span><span class="p">[</span><span class="s1">&#39;Start_to_ref&#39;</span><span class="p">]</span>
+
+	<span class="k">if</span> <span class="n">visualisation</span> <span class="ow">or</span> <span class="n">error_visualisation_tools</span><span class="p">:</span>
+		<span class="kn">from</span><span class="w"> </span><span class="nn">data_conduit.sync.ttl.ttl_visualisation</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_conversion_error_tools</span><span class="p">,</span> <span class="n">plot_stacked_pulses</span>
+
+		<span class="n">converted_for_plots</span> <span class="o">=</span> <span class="n">converted_target_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+		<span class="n">converted_for_plots</span><span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">converted_for_plots</span><span class="p">[</span><span class="s1">&#39;Start_to_ref&#39;</span><span class="p">]</span>
+		<span class="n">converted_for_plots</span><span class="p">[</span><span class="s1">&#39;End&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">converted_for_plots</span><span class="p">[</span><span class="s1">&#39;End_to_ref&#39;</span><span class="p">]</span>
+		<span class="n">converted_for_plots</span><span class="p">[</span><span class="s1">&#39;Duration&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">converted_for_plots</span><span class="p">[</span><span class="s1">&#39;Duration_to_ref&#39;</span><span class="p">]</span>
+
+		<span class="k">if</span> <span class="n">visualisation</span><span class="p">:</span>
+			<span class="n">plot_stacked_pulses</span><span class="p">(</span>
+				<span class="n">reference_pulses</span><span class="o">=</span><span class="n">ref_aligned</span><span class="p">,</span>
+				<span class="n">target_pulses</span><span class="o">=</span><span class="n">converted_for_plots</span><span class="p">,</span>
+				<span class="n">reference_label</span><span class="o">=</span><span class="n">reference_label</span><span class="p">,</span>
+				<span class="n">target_label</span><span class="o">=</span><span class="n">target_label</span><span class="p">,</span>
+			<span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">error_visualisation_tools</span><span class="p">:</span>
+			<span class="n">plot_conversion_error_tools</span><span class="p">(</span><span class="n">reference_pulses</span><span class="o">=</span><span class="n">ref_aligned</span><span class="p">,</span> <span class="n">converted_target_pulses</span><span class="o">=</span><span class="n">converted_for_plots</span><span class="p">)</span>
+
+	<span class="n">conversion_ratio</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">slope</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">return_details</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">converted_target_df</span><span class="p">,</span> <span class="n">conversion_ratio</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">fit_stats</span>
+	<span class="k">return</span> <span class="n">converted_target_df</span><span class="p">,</span> <span class="n">conversion_ratio</span></div>
+
+
+
+<div class="viewcode-block" id="get_npx_to_bonsai_time_conversion">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.sync.get_npx_to_bonsai_time_conversion">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_npx_to_bonsai_time_conversion</span><span class="p">(</span>
+	<span class="n">reference_pulses</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+	<span class="n">target_pulses</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+	<span class="o">*</span><span class="p">,</span>
+	<span class="n">use</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span>
+	<span class="n">normalise_start</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+	<span class="n">visualisation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+	<span class="n">error_visualisation_tools</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+	<span class="n">return_details</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="s1">&#39;TTLSyncModel&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+<span class="w">	</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Convert NPX pulse times into Bonsai time using TTL pulse alignment.</span>
+
+<span class="sd">	This is a semantic convenience wrapper over `get_ttl_timebase_conversion`</span>
+<span class="sd">	with labels prefilled for NPX/Bonsai workflows.</span>
+<span class="sd">	</span>
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	reference_pulses : pd.DataFrame</span>
+<span class="sd">		Bonsai-clock pulse table.</span>
+<span class="sd">	target_pulses : pd.DataFrame</span>
+<span class="sd">		NPX-clock pulse table to be converted into Bonsai time.</span>
+<span class="sd">	use : str</span>
+<span class="sd">		Edge column used for fitting (&#39;start&#39; or &#39;end&#39;).</span>
+<span class="sd">	normalise_start : bool</span>
+<span class="sd">		If True, align both pulse tables to zero at first pulse before fitting.</span>
+<span class="sd">	visualisation : bool</span>
+<span class="sd">		If True, render Workflow_v2-style stacked pulse visualisation.</span>
+<span class="sd">	error_visualisation_tools : bool</span>
+<span class="sd">		If True, render per-pulse error scatter/hist diagnostics.</span>
+<span class="sd">	return_details : bool</span>
+<span class="sd">		If True, additionally return fitted `TTLSyncModel` and fit stats.</span>
+<span class="sd">	&#39;&#39;&#39;</span>																														<span class="c1"># noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring</span>
+	<span class="k">return</span> <span class="n">get_ttl_timebase_conversion</span><span class="p">(</span>
+		<span class="n">reference_pulses</span><span class="o">=</span><span class="n">reference_pulses</span><span class="p">,</span>
+		<span class="n">target_pulses</span><span class="o">=</span><span class="n">target_pulses</span><span class="p">,</span>
+		<span class="n">use</span><span class="o">=</span><span class="n">use</span><span class="p">,</span>
+		<span class="n">normalise_start</span><span class="o">=</span><span class="n">normalise_start</span><span class="p">,</span>
+		<span class="n">visualisation</span><span class="o">=</span><span class="n">visualisation</span><span class="p">,</span>
+		<span class="n">error_visualisation_tools</span><span class="o">=</span><span class="n">error_visualisation_tools</span><span class="p">,</span>
+		<span class="n">reference_label</span><span class="o">=</span><span class="s1">&#39;Bonsai&#39;</span><span class="p">,</span>
+		<span class="n">target_label</span><span class="o">=</span><span class="s1">&#39;NPX (converted)&#39;</span><span class="p">,</span>
+		<span class="n">return_details</span><span class="o">=</span><span class="n">return_details</span><span class="p">,</span>
+	<span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TTLSyncModel">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.sync.TTLSyncModel">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TTLSyncModel</span><span class="p">:</span>
+<span class="w">	</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Simple linear TTL synchronisation model.</span>
+
+<span class="sd">	Attributes</span>
+<span class="sd">	----------</span>
+<span class="sd">	slope : float</span>
+<span class="sd">		Scale factor mapping target clock units to reference units.</span>
+<span class="sd">	intercept : float</span>
+<span class="sd">		Offset term in reference units.</span>
+<span class="sd">	r2 : float</span>
+<span class="sd">		Coefficient of determination from fit.</span>
+<span class="sd">	&#39;&#39;&#39;</span>																														<span class="c1"># noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring</span>
+
+	<span class="n">slope</span><span class="p">:</span> <span class="nb">float</span>
+	<span class="n">intercept</span><span class="p">:</span> <span class="nb">float</span>
+	<span class="n">r2</span><span class="p">:</span> <span class="nb">float</span>
+
+<div class="viewcode-block" id="TTLSyncModel.fit">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.sync.TTLSyncModel.fit">[docs]</a>
+	<span class="nd">@classmethod</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span>
+		<span class="bp">cls</span><span class="p">,</span>
+		<span class="n">reference_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+		<span class="n">target_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+		<span class="o">*</span><span class="p">,</span>
+		<span class="n">use</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span>
+	<span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TTLSyncModel&#39;</span><span class="p">:</span>
+<span class="w">		</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		Fit a `TTLSyncModel` directly from reference/target pulse tables.</span>
+
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		reference_df : pd.DataFrame</span>
+<span class="sd">			Reference-clock pulse table.</span>
+<span class="sd">		target_df : pd.DataFrame</span>
+<span class="sd">			Target-clock pulse table.</span>
+<span class="sd">		use : str</span>
+<span class="sd">			Edge used for fitting: `&#39;start&#39;` or `&#39;end&#39;`.</span>
+
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		TTLSyncModel</span>
+<span class="sd">			Fitted model instance.</span>
+<span class="sd">		&#39;&#39;&#39;</span>																														<span class="c1"># noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring</span>
+		<span class="n">stats</span> <span class="o">=</span> <span class="n">fit_linear_timebase</span><span class="p">(</span><span class="n">reference_df</span><span class="o">=</span><span class="n">reference_df</span><span class="p">,</span> <span class="n">target_df</span><span class="o">=</span><span class="n">target_df</span><span class="p">,</span> <span class="n">use</span><span class="o">=</span><span class="n">use</span><span class="p">)</span>
+		<span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+			<span class="n">slope</span><span class="o">=</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;slope&#39;</span><span class="p">],</span>
+			<span class="n">intercept</span><span class="o">=</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;intercept&#39;</span><span class="p">],</span>
+			<span class="n">r2</span><span class="o">=</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;r2&#39;</span><span class="p">],</span>
+		<span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TTLSyncModel.transform">
+<a class="viewcode-back" href="../../../../api_index.html#data_conduit.sync.TTLSyncModel.transform">[docs]</a>
+	<span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">		</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		Transform target-clock values into reference-clock values.</span>
+
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		values : array-like</span>
+<span class="sd">			Values in target clock units.</span>
+
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		np.ndarray</span>
+<span class="sd">			Converted values in reference clock units.</span>
+<span class="sd">		&#39;&#39;&#39;</span>																														<span class="c1"># noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring</span>
+		<span class="k">return</span> <span class="n">convert_timebase</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">slope</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">intercept</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="c1">################################################################################</span>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, Keshavarzi Lab.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
