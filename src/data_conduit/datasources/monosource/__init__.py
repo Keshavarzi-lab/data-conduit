@@ -1,3 +1,4 @@
+
 """MonoSource package exports."""
 
 from data_conduit.datasources.monosource.monosource_core import MonoSource
@@ -6,6 +7,7 @@ from data_conduit.datasources.monosource.filetypes import (
 	FileTypeData,
 	RingDebugData,
 	RotationData,
+	SessionSettings,
 	VideoData,
 	VisualEnvironment,
 )
@@ -18,5 +20,6 @@ __all__ = [
 	"VideoData",
 	"VisualEnvironment",
 	"RingDebugData",
+	"SessionSettings",
 ]
 

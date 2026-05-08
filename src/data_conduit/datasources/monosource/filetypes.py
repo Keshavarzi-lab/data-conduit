@@ -52,6 +52,18 @@ def _read_path(path: str | Path, **kwargs) -> Path:
 
     Used for split file types so collect_dfs only keeps matching files as
     Path leaves, which are then post-processed by FileTypeData.
+
+    Parameters
+    ----------
+    path : str or Path
+        File path to return as a Path.
+    **kwargs
+        Ignored. Allows this function to be used as a reader in collect_dfs
+        without needing to know the file_type in advance.
+    Returns
+    -------
+    Path
+        The input path converted to a Path object.
     '''
     return Path(path)
 
@@ -157,6 +169,50 @@ class FileTypeData(MonoSource):
         Resolves file_type to a reader, loads via collect_dfs, applies
         post-processing (double-folder collapse, split handling, renaming),
         then passes the clean dfs_dict to MonoSource.
+
+        Parameters
+        ----------
+        dfs_dict : dict or None
+            Optional pre-built nested dictionary of DataFrames. If provided,
+            collect_dfs is not called and this dict is used directly.
+
+        experiment_directory_path : str or Path or None
+            Path to the experiment directory. Used to build dfs_dict if not provided.
+
+        device_type : str or None
+            Device type to filter files in the experiment directory.
+
+        file_type : str
+            One of 'csv', 'json', 'jsonl', 'yml', 'yaml'. Determines the reader to use.
+
+        reader_kwargs : dict or None
+            Additional keyword arguments passed to the reader function.
+
+        rename_columns_dict : dict or None
+            Dictionary mapping old column names to new column names.
+
+        rename_index_dict : str or dict or None
+            Dictionary mapping old index names to new index names.
+
+        filetype_data_arrays : dict or None
+            Dictionary mapping file types to DataArrays.
+
+        keep_empty : bool
+            If True, preserve empty subdirectories as empty dicts.
+
+        flatten : bool
+            If True, flatten the output dict.
+
+        separator : str
+            Separator for flattened keys.
+
+        verbose : bool
+            If True, print warnings during processing.
+
+        **kwargs
+            Additional level selectors passed to collect_dfs.
+            e.g. l1_selector=['subfolder1'], l2_selector=lambda k: ...
+
         '''
         self.device_type = device_type
         self.file_type = file_type
@@ -418,13 +474,17 @@ class ExperimentEvents(FileTypeData):
                  experiment_directory_path: str | Path | None = None,
                  device_type: str = 'ExperimentEvents',
                  reader_kwargs: dict | None = None,
-                 rename_columns_dict: dict = {'Value': 'Event'},
+                 rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = 'Time',
-                 filetype_data_arrays: dict = {'events': {'l0_selector': 'ExperimentEvents'}},
+                 filetype_data_arrays: dict | None = None,
                  verbose: bool = False,
                  **kwargs,
                  ):
         '''Initialise ExperimentEvents with CSV preset.'''
+        if rename_columns_dict is None:
+            rename_columns_dict = {'Value': 'Event'}
+        if filetype_data_arrays is None:
+            filetype_data_arrays = {'events': {'l0_selector': 'ExperimentEvents'}}
 
         super().__init__(
             experiment_directory_path=experiment_directory_path,
@@ -492,7 +552,7 @@ class RotationData(FileTypeData):
                  experiment_directory_path: str | Path | None = None,
                  device_type: str | None = None,
                  reader_kwargs: dict | None = None,
-                 rename_columns_dict: dict = {'Value': 'Rotation'},
+                 rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = 'Time',
                  angular_unit_conversion: str | None = None,
                  angular_range: list | None = None,
@@ -501,6 +561,8 @@ class RotationData(FileTypeData):
                  **kwargs,
                  ):
         '''Initialise RotationData with CSV preset and angular processing.'''
+        if rename_columns_dict is None:
+            rename_columns_dict = {'Value': 'Rotation'}
 
         self.angular_unit_conversion = angular_unit_conversion
         self.angular_range = angular_range
@@ -649,16 +711,17 @@ class VideoData(FileTypeData):
                  experiment_directory_path: str | Path | None = None,
                  device_type: str = 'VideoData',
                  reader_kwargs: dict | None = None,
-                 rename_columns_dict: dict = {
-                     'Value.ChunkData.FrameID': 'FrameID',
-                     'Value.ChunkData.Timestamp': 'Timestamp',
-                 },
+                 rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = 'Time',
-                 filetype_data_arrays: dict = {'video': {'l0_selector': 'VideoData'}},
+                 filetype_data_arrays: dict | None = None,
                  verbose: bool = False,
                  **kwargs,
                  ):
         '''Initialise VideoData with CSV preset.'''
+        if rename_columns_dict is None:
+            rename_columns_dict = {'Value.ChunkData.FrameID': 'FrameID', 'Value.ChunkData.Timestamp': 'Timestamp'}
+        if filetype_data_arrays is None:
+            filetype_data_arrays = {'video': {'l0_selector': 'VideoData'}}
 
         super().__init__(
             experiment_directory_path=experiment_directory_path,
@@ -721,23 +784,24 @@ class VisualEnvironment(FileTypeData):
     def __init__(self,
                  experiment_directory_path: str | Path | None = None,
                  device_type: str = 'VisualEnvironment',
-                 reader_kwargs: dict = {
-                     'names': [
-                         'Time', 'Value', 'Landmark', 'Landmark_Proximal',
-                         'Gratings', 'Firefly',
-                     ],
-                     'skiprows': 1,
-                     'header': None,
-                     'engine': 'python',
-                     'index_col': 0,
-                 },
+                 reader_kwargs: dict | None = None,
                  rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = 'Time',
-                 filetype_data_arrays: dict = {'visual_environment': {'l0_selector': 'VisualEnvironment'}},
+                 filetype_data_arrays: dict | None = None,
                  verbose: bool = False,
                  **kwargs,
                  ):
         '''Initialise VisualEnvironment with CSV preset and custom column names.'''
+        if reader_kwargs is None:
+            reader_kwargs = {
+                'names': ['Time', 'Value', 'Landmark', 'Landmark_Proximal', 'Gratings', 'Firefly'],
+                'skiprows': 1,
+                'header': None,
+                'engine': 'python',
+                'index_col': 0,
+            }
+        if filetype_data_arrays is None:
+            filetype_data_arrays = {'visual_environment': {'l0_selector': 'VisualEnvironment'}}
 
         super().__init__(
             experiment_directory_path=experiment_directory_path,
@@ -801,11 +865,13 @@ class RingDebugData(FileTypeData):
                  device_type: str = 'ring-debug',
                  rename_columns_dict: dict | None = None,
                  rename_index_dict: str | dict | None = 'Time',
-                 filetype_data_arrays: dict = {'ring_debug': {'l0_selector': 'ring-debug'}},
+                 filetype_data_arrays: dict | None = None,
                  verbose: bool = False,
                  **kwargs,
                  ):
         '''Initialise RingDebugData with YAML split preset.'''
+        if filetype_data_arrays is None:
+            filetype_data_arrays = {'ring_debug': {'l0_selector': 'ring-debug'}}
         super().__init__(
             experiment_directory_path=experiment_directory_path,
             device_type=device_type,
@@ -818,6 +884,364 @@ class RingDebugData(FileTypeData):
         )
 
 
+################################################################################
+# SessionSettings
+################################################################################
+
+
+class SessionSettings(FileTypeData):
+    '''
+    Preset config for SessionSettings JSONL data (metadata + per-trial settings).
+
+    Loads JSONL files from the SessionSettings subfolder. Each JSONL record has the 
+    shape {"seconds": ..., "value": {"metadata": {...}, "trials": [...]}}. The `split_jsonl`
+    function produces a {'metadata': df, 'trials': df} pair per file. 
+
+    Trial-level list columns (e.g. `timeToTarget`, `targetZone.zoneRange`) are expanded into 
+    suffixed scalar columns (`timeToTarget_0`, `timeToTarget_1`, ..., `targetZone.zoneRange_0`, etc.),
+    so analysis code can index by column name.
+    A leading ``trial`` column is added to the trials DataFrame with labels
+    ``trial_1``, ``trial_2``, etc. so displayed and exported tables clearly
+    identify each row.
+
+    Schema tolerance (filling missing columns with defaults, retaining or dropping unknown columns) is 
+    controlled by the `expected_columns` and `strict` parameters. Missing expected columns are filled 
+    with the supplied default value; unknown columns are retained by default and dropped when `strict=True`.
+
+
+    Parameters
+    ----------
+    experiment_directory_path : str or Path or None
+        Path to the experiment directory.
+    device_type : str or None
+        Folder prefix. Default 'SessionSettings'. Set to None to search
+        the directory root (e.g. when the JSONL sits alongside other files).
+    expected_columns : dict or None
+        Mapping of {column_name: default_value} for expected trial columns.
+        Missing columns are added filled with the default value.
+        If None, uses SessionSettings.DEFAULT_EXPECTED_COLUMNS.
+    strict : bool
+        If True, restrict the trials frame to exactly the keys of
+        ``expected_columns`` (unknown columns are dropped).
+        If False (default), unknown columns are retained.
+    rename_columns_dict : dict or None
+        Column renaming. Default None.
+    rename_index_dict : str or dict or None
+        Index renaming. Default None.
+    filetype_data_arrays : dict
+        Mapping of friendly names to level selectors.
+        Default: {'session_settings': {'l0_selector': 'SessionSettings'}}
+    verbose : bool
+        If True, print warnings during processing.
+    **kwargs
+        Additional level selectors passed to collect_dfs.
+
+    Attributes
+    ----------
+    data_arrays : dict[str, xr.DataArray]
+        Named DataArrays built from filetype_data_arrays.
+    df : dict
+        Backward-compatible access. Returns {'metadata': df, 'trials': df}.
+
+    DEFAULT_EXPECTED_COLUMNS : dict
+        Default expected trial columns (all default to ``None``):
+
+        ========================== =========================================
+        Group                      Columns
+        ========================== =========================================
+        Runtime                    ``maxRuntime``
+        Time-to-target             ``timeToTarget_0``, ``_1``
+        Target zone                ``targetZone.zoneRange_0`` … ``_3``
+        Landmark                   ``landmark.draw``, ``.cue``, ``.angleOffset_0``, ``_1``
+        Landmark proximal          ``landmarkProximal.draw``
+        Grating                    ``grating.draw``, ``.spatialFrequency``, ``.temporalFrequency``, ``.contrast``
+        Firefly                    ``firefly.draw``, ``.dotCount``, ``.coherence``, ``.speed``
+        Arena rotation             ``arenaRotation.rotationRanges_0`` … ``_3``
+        Nosepoke rotation          ``nosepokeRotation.rotationRanges_0``, ``_1``
+        Mismatch rotation          ``mismatchRotation.rotationRanges_0``, ``_1``
+        Reward tone                ``rewardTone.frequency_0``, ``_1``, ``.attenuation_0``, ``_1``
+        Reward                     ``rewardTimeout``, ``rewardPortIndicators``
+        Masking sound              ``maskingSound.play``
+        Visual                     ``overlayAlpha``, ``visualRevealDelay_0``, ``_1``
+        ========================== =========================================
+
+    '''
+
+    DEFAULT_EXPECTED_COLUMNS: dict = {
+        'maxRuntime': None,
+        'timeToTarget_0': None,
+        'timeToTarget_1': None,
+        'targetZone.zoneRange_0': None,
+        'targetZone.zoneRange_1': None,
+        'targetZone.zoneRange_2': None,
+        'targetZone.zoneRange_3': None,
+        'landmark.draw': None,
+        'landmark.cue': None,
+        'landmark.angleOffset_0': None,
+        'landmark.angleOffset_1': None,
+        'landmarkProximal.draw': None,
+        'grating.draw': None,
+        'grating.spatialFrequency': None,
+        'grating.temporalFrequency': None,
+        'grating.contrast': None,
+        'firefly.draw': None,
+        'firefly.dotCount': None,
+        'firefly.coherence': None,
+        'firefly.speed': None,
+        'arenaRotation.rotationRanges_0': None,
+        'arenaRotation.rotationRanges_1': None,
+        'arenaRotation.rotationRanges_2': None,
+        'arenaRotation.rotationRanges_3': None,
+        'nosepokeRotation.rotationRanges_0': None,
+        'nosepokeRotation.rotationRanges_1': None,
+        'mismatchRotation.rotationRanges_0': None,
+        'mismatchRotation.rotationRanges_1': None,
+        'rewardTone.frequency_0': None,
+        'rewardTone.frequency_1': None,
+        'rewardTone.attenuation_0': None,
+        'rewardTone.attenuation_1': None,
+        'rewardTimeout': None,
+        'rewardPortIndicators': None,
+        'maskingSound.play': None,
+        'overlayAlpha': None,
+        'visualRevealDelay_0': None,
+        'visualRevealDelay_1': None,
+    }
+
+    def __init__(self,
+                 experiment_directory_path: str | Path | None = None,
+                 device_type: str | None = 'SessionSettings',
+                 expected_columns: dict | None = None,
+                 strict: bool = False,
+                 rename_columns_dict: dict | None = None,
+                 rename_index_dict: str | dict | None = None,
+                 filetype_data_arrays: dict | None = None,
+                 verbose: bool = False,
+                 **kwargs,
+                 ):
+        '''
+        Initialise SessionSettings with JSONL split preset.
+        
+        Parameters
+        ----------
+        experiment_directory_path : str or Path or None
+            Path to the experiment directory. SessionSettings JSONL files typically sit in a 'SessionSettings' subfolder, 
+            but setting device_type to None allows searching the root directory (e.g. when the JSONL sits alongside other files).
+            If None, dfs_dict must be provided directly.
+        device_type : str or None
+            Folder prefix. Default 'SessionSettings'. Set to None to search the directory root.
+        expected_columns : dict or None
+            Mapping of {column_name: default_value} for expected trial columns. Missing columns are added filled with the default value. 
+            If None, uses SessionSettings.DEFAULT_EXPECTED_COLUMNS.
+        strict : bool
+            If True, only the expected columns are kept in the DataFrame. Extra columns are dropped. If False (default), extra columns are retained.
+        rename_columns_dict : dict or None
+            Column renaming. Default None.
+        rename_index_dict : str or dict or None
+            Index renaming. Default None.
+        filetype_data_arrays : dict
+            Mapping of friendly names to level selectors.
+            Default: {'session_settings': {'l0_selector': 'SessionSettings'}}
+        verbose : bool
+            If True, print warnings during processing.
+        **kwargs
+            Additional level selectors passed to collect_dfs.
+        
+        Attributes
+        ----------
+        data_arrays : dict[str, xr.DataArray]
+            Named DataArrays built from filetype_data_arrays. Default:
+            {'session_settings': xr.DataArray for SessionSettings JSONL data}
+        df : dict
+            Backward-compatible access. Returns {'metadata': df, 'trials': df}.
+        DEFAULT_EXPECTED_COLUMNS : dict
+            Default expected columns and their default values for trial-level data. See class docstring for details.
+
+        '''
+        if filetype_data_arrays is None:
+            filetype_data_arrays = {'session_settings': {'l0_selector': 'SessionSettings'}}
+        self.expected_columns = (
+            dict(self.DEFAULT_EXPECTED_COLUMNS)
+            if expected_columns is None
+            else expected_columns
+        )
+        self.strict = strict
+
+        super().__init__(
+            experiment_directory_path=experiment_directory_path,
+            device_type=device_type,
+            file_type='jsonl',
+            rename_columns_dict=rename_columns_dict,
+            rename_index_dict=rename_index_dict,
+            filetype_data_arrays=filetype_data_arrays,
+            verbose=verbose,
+            **kwargs,
+        )
+
+        self.dfs_dict = self._reconcile_trial_schemas(
+            self.dfs_dict, self.expected_columns, self.strict, self.verbose,
+        )
+
+        if self.filetype_data_arrays is not None:
+            self.data_arrays = _build_data_arrays(
+                dfs_dict=self.dfs_dict,
+                monosource_data_arrays=self.filetype_data_arrays,
+                verbose=self.verbose,
+            )
+
+    @staticmethod
+    def _reconcile_trial_schemas(d: dict,
+                                 expected: dict,
+                                 strict: bool,
+                                 verbose: bool,
+                                 ) -> dict:
+        '''
+        Walk dfs_dict and apply list-expansion + schema reconciliation to any
+        {'metadata': df, 'trials': df} leaf produced by split_jsonl.
+
+        Parameters
+        ----------
+        d : dict
+            Nested dict (dfs_dict) potentially containing {'metadata': df, 'trials': df} leaves.
+        expected : dict
+            Mapping of {column_name: default_value} for expected trial columns. Missing columns are added filled with the default value.
+        strict : bool
+            If True, only the expected columns are kept in the DataFrame. Extra columns are dropped. If False, extra columns are retained.
+        verbose : bool
+            If True, print warnings about missing or extra columns during reconciliation.
+        
+        Returns
+        -------
+        dict
+            Nested dict with reconciled trial schemas.
+        
+            
+        '''
+        result = {}
+        for key, value in d.items():
+            if isinstance(value, dict):
+                if (
+                    'trials' in value
+                    and isinstance(value['trials'], pd.DataFrame)
+                ):
+                    reconciled = dict(value)
+                    reconciled['trials'] = SessionSettings._reconcile_trials_frame(
+                        value['trials'], expected, strict, verbose, key,
+                    )
+                    result[key] = reconciled
+                else:
+                    result[key] = SessionSettings._reconcile_trial_schemas(
+                        value, expected, strict, verbose,
+                    )
+            else:
+                result[key] = value
+        return result
+
+    @staticmethod
+    def _reconcile_trials_frame(df: pd.DataFrame,
+                                expected: dict,
+                                strict: bool,
+                                verbose: bool,
+                                source_key: str,
+                                ) -> pd.DataFrame:
+        '''
+        Expand list columns, add missing expected columns, optionally drop extras.
+        
+        Parameters
+        ----------
+        df : pd.DataFrame
+            The trials DataFrame to reconcile. Expected to have one row per trial, but may contain list-valued columns.
+        expected : dict
+            Mapping of {column_name: default_value} for expected trial columns. Missing columns are added filled with the default value.
+        strict : bool
+            If True, only the expected columns are kept in the DataFrame. Extra columns are dropped. If False, extra columns are retained.
+        verbose : bool
+            If True, print warnings about missing or extra columns.
+        source_key : str
+            Identifier for the source of this DataFrame, used in warning messages.
+
+        Returns
+        -------
+        pd.DataFrame
+            The reconciled DataFrame with expanded list columns, all expected columns present, and extras retained or dropped according to `strict`.
+        
+
+        '''
+        df = SessionSettings._expand_list_columns(df)
+
+        missing = [c for c in expected if c not in df.columns]
+        extras = [c for c in df.columns if c not in expected]
+
+        for col in missing:
+            df[col] = expected[col]
+
+        if strict:
+            df = df.loc[:, list(expected.keys())]
+
+        df = SessionSettings._add_trial_labels(df)
+
+        if verbose:
+            if missing:
+                print(f"SessionSettings '{source_key}': filled missing columns {missing}")
+            if extras:
+                action = 'dropped' if strict else 'retained'
+                print(f"SessionSettings '{source_key}': {action} extra columns {extras}")
+
+        return df
+
+    @staticmethod
+    def _add_trial_labels(df: pd.DataFrame) -> pd.DataFrame:
+        '''
+        Add a first-column trial label for display and CSV export.
+
+        The raw JSONL trials naturally arrive as one row per trial, but pandas
+        gives them a plain RangeIndex. A visible column survives notebook
+        display and ``to_csv(index=False)`` better than relying on that index.
+        '''
+        if 'trial' in df.columns:
+            return df
+
+        labelled = df.copy()
+        labelled.insert(
+            0,
+            'trial',
+            [f'trial_{trial_number}' for trial_number in range(1, len(labelled) + 1)],
+        )
+        return labelled
+
+    @staticmethod
+    def _expand_list_columns(df: pd.DataFrame) -> pd.DataFrame:
+        '''
+        Expand any list-valued column into suffixed scalar columns (``col_0``, ``col_1``, ...).
+        
+        Parameters
+        ----------
+        df : pd.DataFrame
+            The DataFrame to expand.
+
+        Returns
+        -------
+        pd.DataFrame
+            The DataFrame with list-valued columns expanded into suffixed scalar columns.
+        '''
+        new_df = df.copy()
+        for col in df.columns:
+            non_null = df[col].dropna()
+            if non_null.empty:
+                continue
+            if not non_null.apply(lambda v: isinstance(v, list)).any():
+                continue
+            max_len = int(
+                df[col].apply(lambda v: len(v) if isinstance(v, list) else 0).max()
+            )
+            for i in range(max_len):
+                new_df[f"{col}_{i}"] = df[col].apply(
+                    lambda v, i=i: v[i] if isinstance(v, list) and i < len(v) else None
+                )
+            new_df = new_df.drop(columns=[col])
+        return new_df
+
+
 __all__ = [
     'FileTypeData',
     'ExperimentEvents',
@@ -825,4 +1249,5 @@ __all__ = [
     'VideoData',
     'VisualEnvironment',
     'RingDebugData',
+    'SessionSettings',
 ]

@@ -18,7 +18,7 @@ wheels/
 /1mouse-Poke
 /2mice
 /2mice.zip
-
+/Q_C_Analysis_Workflow/data
 # Ignore everything outside src by default.
 # /*
 # !/.gitignore
@@ -27,3 +27,4 @@ wheels/
 
 # Cookiecutter scaffold (already integrated)
 /data-conduit
+/datasets

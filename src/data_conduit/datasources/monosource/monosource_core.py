@@ -304,6 +304,8 @@ class MonoSource:
         Named DataArrays built from monosource_data_arrays.
     '''
 
+    _verbose_disabled_warning_shown_for: set[type] = set()
+
     def __init__(
             self,
             dfs_dict: dict | None = None,
@@ -384,12 +386,22 @@ class MonoSource:
         super(MonoSource, self).__init__()  # noqa
 
         self.verbose = verbose
-        if self.verbose is False:
+        ms_class = self.__class__
+        if not verbose and ms_class not in self._verbose_disabled_warning_shown_for:
             print(f'''
-                  Warning: verbose output disabled for {self.__class__.__name__}. 
+                  Warning: verbose output disabled for {ms_class.__name__}. 
                   If any files/paths are missing or invalid for the monosource_data_arrays you specified, 
                   you may not see warnings about them. Set verbose=True to enable warnings.
                   ''')
+            self._verbose_disabled_warning_shown_for.add(ms_class)
+
+
+        # if self.verbose is False:
+        #     print(f'''
+        #           Warning: verbose output disabled for {self.__class__.__name__}. 
+        #           If any files/paths are missing or invalid for the monosource_data_arrays you specified, 
+        #           you may not see warnings about them. Set verbose=True to enable warnings.
+        #           ''')
         
      
         #=== 1. Obtain dfs_dict 
