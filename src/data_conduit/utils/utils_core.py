@@ -126,6 +126,19 @@ def contains(substring: str) -> Callable[[str], bool]:
     """Return a function that checks if a string contains the given substring."""
     return lambda key: substring in key
 
+def exclude(*names: str) -> Callable[[str], bool]:
+    """Return a selector that keeps every key EXCEPT the named ones.
+
+    This is the complement of passing a list (which *includes* only the named
+    keys). It is the natural way to express "all subfolders except these":
+    ``l0_selector=exclude('skip_me', 'and_me')`` keeps everything else. The
+    returned function is used exactly like ``starts_with``/``contains`` — it is
+    handed to a selector and called per key by ``_matches_selector``.
+    """
+    # Build a set once for fast membership tests, then keep keys not in it.
+    blocked = set(names)
+    return lambda key: key not in blocked
+
 
 def _matches_selector(
         key: str,
