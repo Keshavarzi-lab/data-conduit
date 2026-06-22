@@ -1,0 +1,47 @@
+# Conda environment for data-conduit + the Pose_Analysis_workspace notebook.
+#
+# Create it from the repo root (the folder containing this file and pyproject.toml):
+#
+#     conda env create -f environment.yml
+#     conda activate data-conduit
+#
+# The final pip line installs data-conduit itself in EDITABLE mode (`-e .`), so
+# `import data_conduit` works against this checkout now, and keeps working
+# unchanged once data-conduit is released to PyPI (`pip install data-conduit`).
+#
+# To update an existing env after editing this file:
+#     conda env update -f environment.yml --prune
+name: data-conduit
+channels:
+  - conda-forge
+dependencies:
+  # --- core runtime (matches pyproject [project.dependencies]) ---
+  # Python is pinned to 3.12: the pose stack (numba, opencv, skia-python via
+  # movement) ships prebuilt wheels for 3.12, so the env installs fast and needs
+  # no compiler. Newer Pythons (3.14) force slow source builds that can fail on a
+  # machine without build tools.
+  - python=3.12
+  - numpy
+  # pandas <3: movement requires the 2.x line, and pinning here avoids conda
+  # installing pandas 3.x only for pip to downgrade it afterwards.
+  - pandas<3
+  - xarray
+  - pyyaml
+  # --- pose: PyTables is needed to read DeepLabCut .h5 outputs ---
+  - pytables
+  # --- notebooks / plotting ---
+  - jupyterlab
+  - ipykernel
+  - matplotlib
+  - pip
+  - pip:
+      # HARP register decoding for the Nosepoke / SoundCard / Camera presets.
+      # (conda-forge has no harp-python package, so install it via pip.)
+      - harp-python
+      # Interactive tables used by the workflow notebooks.
+      - itables
+      # Pose-analysis interop. Optional, but the workspace shows a movement
+      # hand-off; comment this out if movement's deps cause trouble on a device.
+      - movement
+      # data-conduit itself, editable from this checkout.
+      - -e .

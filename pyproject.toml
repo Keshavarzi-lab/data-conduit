@@ -12,6 +12,21 @@ dependencies = [
   "pyyaml",
 ]
 
+# Optional feature groups. The core install stays light (CSV/array work only);
+# install an extra to pull in what a given modality needs, e.g.
+#   pip install data-conduit[harp,pose,notebooks]
+[project.optional-dependencies]
+# HARP register decoding for the Nosepoke / SoundCard / Camera presets.
+harp = ["harp-python"]
+# DeepLabCut pose: reading the .h5 outputs needs PyTables.
+pose = ["tables"]
+# Interop with the neuroinformatics movement pose-analysis package.
+movement = ["movement"]
+# Running the workflow notebooks (interactive tables + a kernel + plots).
+notebooks = ["itables", "jupyterlab", "ipykernel", "matplotlib"]
+# Everything above, for a full analysis environment.
+all = ["harp-python", "tables", "movement", "itables", "jupyterlab", "ipykernel", "matplotlib"]
+
 [build-system]
 requires = ["uv_build>=0.10.4,<0.11.0"]
 build-backend = "uv_build"
