@@ -1,0 +1,1534 @@
+session,seconds,value,source_file
+NoSoundCue,23815.396000000001,Request camera start,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23815.838975999999,Start trial logic,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23816.102975999998,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23816.112991999998,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23816.124,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23816.124,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23816.138975999998,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23817.165983999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23824.736991999998,Target zone available (X Y : 782 544 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23856.614976000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23856.619999999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23856.632991999999,NosePokesLED ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23858.639999999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23858.661983999998,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23858.670976000001,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23858.930976,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23858.953984,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23858.968991999998,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23858.970976000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23858.975999999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23858.975999999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23858.976992,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23859.986976,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23865.938976000001,Target zone available (X Y : 958 490 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23867.664992000002,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23867.665983999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23867.666976,NosePokesLED ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23869.669984,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23869.676992000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23869.677984000002,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23869.930976,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23869.932000000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23869.944992000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23869.945984000002,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23869.950976,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23869.950976,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23869.957984000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23870.961984000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23876.778976000001,Target zone available (X Y : 783 384 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23879.265984000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23879.266975999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23879.268,NosePokesLED ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23881.680992000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23881.680992000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23881.681983999999,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23881.942975999998,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23881.944,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23881.956991999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23881.957984000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23881.962975999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23881.962975999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23881.968991999998,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23882.984,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23883.990976000001,Target zone available (X Y : 810 545 - Radius : 400),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23885.962975999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23885.964,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23887.905503999998,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23887.905984000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23887.906975999998,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23888.16,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23888.160992000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23888.175999999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23888.176992000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23888.182496000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23888.182496000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23888.184000000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23889.180992000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23895.036,Target zone available (X Y : 797 485 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23902.017983999998,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23902.018975999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23902.020992000002,NosePokesLED ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23903.759488,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23903.759999999998,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23903.760992,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23904.021983999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23904.024000000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23904.040000000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23904.040991999998,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23904.045984,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23904.045984,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23904.046976000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23905.056,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23906.067999999999,Target zone available (X Y : 810 545 - Radius : 400),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23907.864000000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23907.864991999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23908.786496000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23908.788,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23908.788992000002,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23909.057983999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23909.058976,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23909.078976000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23909.080000000002,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23909.084992,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23909.084992,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23909.085984000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23910.096991999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23916.646976,Target zone available (X Y : 734 619 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23917.164000000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23917.164992000002,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23917.166976,NosePokesLED ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23918.860479999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23918.861983999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23918.862976,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23919.118976000002,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23919.120992,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23919.138975999998,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23919.139999999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23919.145504,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23919.145504,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23919.145983999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23920.162976,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23921.177984000002,Target zone available (X Y : 810 545 - Radius : 400),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23925.164000000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23925.165983999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23926.290976,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23926.292000000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23926.292991999999,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23926.556,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23926.556992000002,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23926.572992000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23926.573983999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23926.584992,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23926.584992,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23926.588992000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23927.608992000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23935.349984,Target zone available (X Y : 1047 710 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23938.563999999998,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23938.564992,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23938.566975999998,NosePokesLED ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23941.284479999998,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23941.284992000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23941.285983999998,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23941.554975999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23941.556,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23941.572,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23941.573983999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23941.578976000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23941.578976000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23941.580000000002,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23942.582976000002,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23943.596991999999,Target zone available (X Y : 810 545 - Radius : 400),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23946.864991999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23946.865984,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23947.626976,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23947.628000000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23947.628992000002,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23947.886976000002,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23947.887999999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23947.902976000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23947.903999999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23947.908992000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23947.908992000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23947.909984000002,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23948.916991999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23955.946975999999,Target zone available (X Y : 806 344 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23958.913983999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23958.914976,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23958.917984,NosePokesLED ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23960.440480000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23960.441984000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23960.442975999998,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23960.705984,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23960.707999999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23960.726976000002,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23960.728992,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23960.732992000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23960.732992000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23960.733983999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23961.741984,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23962.743999999999,Target zone available (X Y : 810 545 - Radius : 400),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23968.164992000002,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23968.165983999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23969.312000000002,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23969.312991999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23969.313984,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23969.567999999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23969.569984000002,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23969.585984000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23969.588992000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23969.598976000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23969.598976000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23969.599999999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23970.600992,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23977.306976,Target zone available (X Y : 968 657 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23978.563999999998,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23978.564992,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23978.566975999998,NosePokesLED ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23980.525984,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23980.526976000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23980.528992,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23980.780992,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23980.781984000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23980.799999999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23980.800992,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23980.806496000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23980.806496000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23980.806976,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23981.815999999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23982.82,Target zone available (X Y : 810 545 - Radius : 350),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23985.817984000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23985.82,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23987.412,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23987.413983999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23987.414976,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23987.671999999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23987.673984000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23987.690976000002,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23987.691999999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23987.697504,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23987.697504,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23987.697983999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23988.709984000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,23996.338975999999,Target zone available (X Y : 672 421 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24001.563999999998,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24001.564992,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24001.566975999998,NosePokesLED ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24003.927488000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24003.928,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24003.928992000001,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24004.194975999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24004.196,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24004.212992000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24004.214975999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24004.221504000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24004.221504000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24004.222495999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24005.238976000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24006.238976000001,Target zone available (X Y : 810 545 - Radius : 350),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24012.765984000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24012.766975999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24014.012992,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24014.016992000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24014.017983999998,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24014.284,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24014.284992000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24014.300992,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24014.302975999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24014.306976,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24014.306976,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24014.308991999998,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24015.317984000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24020.392992000001,Target zone available (X Y : 1001 509 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24020.716992000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24020.718976,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24020.720000000001,NosePokesLED ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24022.614976000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24022.616000000002,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24022.617984,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24022.876992000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24022.878976,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24022.894976,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24022.901984,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24022.907488000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24022.907488000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24022.908992000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24023.928,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24024.933983999999,Target zone available (X Y : 810 545 - Radius : 300),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24028.364991999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24028.365984,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24030.040991999998,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24030.041984,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24030.042976000001,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24030.293984,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24030.295999999998,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24030.316992,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24030.318975999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24030.324992000002,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24030.324992000002,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24030.326976,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24031.333984000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24037.998975999999,Target zone available (X Y : 1029 616 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24045.514975999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24045.516,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24045.517983999998,NosePokesLED ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24048.284992000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24048.285983999998,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24048.286975999999,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24048.538976,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24048.540991999998,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24048.556992000002,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24048.557983999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24048.565503999998,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24048.565503999998,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24048.565984000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24049.588,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24050.603999999999,Target zone available (X Y : 810 545 - Radius : 250),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24056.964992000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24056.965983999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24059.863487999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24059.864000000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24059.864991999999,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24060.132000000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24060.133984,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24060.148991999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24060.149984,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24060.154976000002,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24060.155488,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24060.156992,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24061.171999999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24068.432991999998,Target zone available (X Y : 825 489 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24075.414976,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24075.416000000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24075.416991999999,NosePokesLED ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24077.254976,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24077.256991999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24077.256991999999,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24077.531999999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24077.533984000002,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24077.549984000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24077.550975999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24077.556,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24077.556,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24077.556992000002,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24078.560991999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24079.569984000002,Target zone available (X Y : 810 545 - Radius : 200),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24086.564992,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24086.565984000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24094.455999999998,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24094.456991999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24094.457984000001,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24094.712,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24094.712992000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24094.748,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24094.748992000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24094.753983999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24094.753983999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24094.754976,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24095.768992000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24102.601984000001,Target zone available (X Y : 1015 641 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24105.714975999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24105.714975999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24105.716992000001,NosePokesLED ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24108.409984000002,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24108.410975999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24108.412,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24108.68,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24108.681983999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24108.697983999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24108.699071999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24108.70448,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24108.70448,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24108.704991999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24109.714975999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24110.732,Target zone available (X Y : 810 545 - Radius : 300),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24114.114976000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24114.116000000002,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24119.124992000001,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24119.125983999998,No reward at 15-,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24119.125983999998,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24119.128000000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24119.144992000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24119.145983999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24119.150976000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24119.150976000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24119.152991999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24120.166976,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24121.184000000001,Target zone available (X Y : 810 545 - Radius : 300),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24121.213984000002,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24121.214975999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24125.285983999998,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24125.288,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24125.288,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24125.562976000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24125.563999999998,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24125.582976000002,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24125.584992,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24125.590496000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24125.590496000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24125.592000000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24126.596000000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24127.599168000001,Target zone available (X Y : 810 545 - Radius : 300),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24133.063999999998,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24133.065984000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24134.657984000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24134.66,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24134.662976,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24134.919999999998,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24134.921984000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24134.941984000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24134.944,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24134.949216000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24134.949216000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24134.950976,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24135.960992,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24136.968000000001,Target zone available (X Y : 810 545 - Radius : 300),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24142.565984000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24142.566975999998,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24145.562976000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24145.563999999998,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24145.565984000001,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24145.820992000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24145.821983999998,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24145.836992,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24145.838975999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24145.844000000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24145.844000000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24145.844991999998,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24146.848000000002,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24147.853984000001,Target zone available (X Y : 810 545 - Radius : 300),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24149.714975999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24149.716,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24150.77648,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24150.776991999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24150.777984,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24151.040991999998,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24151.042976000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24151.057983999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24151.058976,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24151.064992,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24151.064992,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24151.073983999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24152.080000000002,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24158.244992,Target zone available (X Y : 706 698 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24164.914976,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24164.916991999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24168.181504,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24168.182976,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24168.182976,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24168.449983999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24168.450976,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24168.468000000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24168.468991999998,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24168.474495999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24168.474495999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24168.474976000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24169.472000000002,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24175.462975999999,Target zone available (X Y : 552 578 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24217.964992000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24217.965983999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24220.696223999999,"Poke: {Success=False, ChosenPort=0, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24220.696223999999,No reward at 15-,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24220.696223999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24220.696223999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24220.718976,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24220.720000000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24220.725503999998,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24220.725503999998,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24220.725984000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24221.727999999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24227.795999999998,Target zone available (X Y : 852 341 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24227.816992,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24227.817984000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24231.027999999998,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24231.028992,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24231.030975999998,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24231.285983999998,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24231.286975999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24231.304,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24231.304992000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24231.309984,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24231.309984,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24231.312000000002,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24232.328000000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24238.697983999999,Target zone available (X Y : 935 463 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24241.364991999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24241.366976000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24245.252,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24245.252992000002,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24245.253983999999,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24245.516992000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24245.518975999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24245.541984,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24245.544000000002,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24245.548992,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24245.548992,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24245.550975999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24246.560991999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24252.098976000001,Target zone available (X Y : 661 608 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24254.716992000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24254.717983999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24256.870975999998,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24256.872992000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24256.873984000002,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24257.128000000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24257.129983999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24257.148000000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24257.149984,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24257.154976000002,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24257.154976000002,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24257.155999999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24258.160992000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24263.848991999999,Target zone available (X Y : 705 417 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24264.414976,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24264.416000000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24267.328000000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24267.328991999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24267.329984,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24267.593983999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24267.594976,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24267.610976,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24267.616991999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24267.622496,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24267.622496,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24267.624,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24268.632991999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24274.011999999999,Target zone available (X Y : 858 533 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24274.266975999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24274.268,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24276.452000000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24276.453984,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24276.453984,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24276.706976000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24276.707999999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24276.727999999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24276.728992,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24276.734496000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24276.734496000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24276.734976,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24277.741984,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24285.601984000001,Target zone available (X Y : 901 634 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24287.968991999998,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24287.969983999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24291.360992000002,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24291.362976,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24291.364000000001,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24291.619999999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24291.621984000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24291.639999999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24291.640992000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24291.646976,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24291.646976,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24291.648000000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24292.654976000002,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24300.208992,Target zone available (X Y : 837 811 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24328.065984000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24328.067999999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24331.088,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24331.088992000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24331.089983999998,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24331.357983999998,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24331.358976,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24331.380991999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24331.381984,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24331.387999999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24331.387999999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24331.388992,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24332.401984,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24338.353984000001,Target zone available (X Y : 1085 515 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24342.265984000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24342.266975999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24346.151488,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24346.152480000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24346.152991999999,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24346.419999999998,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24346.420991999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24346.439999999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24346.440992,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24346.446975999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24346.446975999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24346.448,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24347.464,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24355.361983999999,Target zone available (X Y : 874 646 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24355.364000000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24355.364991999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24360.381984,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24360.383999999998,No reward at 15-,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24360.383999999998,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24360.384991999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24360.400991999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24360.402976000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24360.407999999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24360.407999999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24360.414976,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24361.424992,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24368.638975999998,Target zone available (X Y : 884 809 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24386.668000000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24386.668991999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24390.786975999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24390.788,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24390.788992000002,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24391.050432,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24391.050975999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24391.072,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24391.072992000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24391.078495999998,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24391.078495999998,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24391.078976000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24392.084992,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24397.366976000001,Target zone available (X Y : 843 426 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24400.764992,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24400.765984000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24405.769983999999,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24405.770976,No reward at 15-,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24405.770976,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24405.772000000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24405.790976,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24405.792000000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24405.796992,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24405.796992,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24405.797984000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24406.809984,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24412.038976,Target zone available (X Y : 807 417 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24412.065984000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24412.066975999998,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24417.077504000001,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24417.078976000001,No reward at 15-,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24417.078976000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24417.080000000002,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24417.096991999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24417.097984,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24417.103488000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24417.103488000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24417.103999999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24418.118976000002,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24423.293984,Target zone available (X Y : 561 381 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24423.314976000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24423.315999999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24425.668991999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24425.669984,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24425.669984,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24425.930976,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24425.932000000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24425.946975999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24425.948,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24425.953984,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24425.953984,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24425.954976000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24426.964992000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24434.694975999999,Target zone available (X Y : 798 520 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24436.464992000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24436.465983999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24440.014975999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24440.016,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24440.016992000001,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24440.272991999998,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24440.274976000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24440.292000000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24440.293984,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24440.299488000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24440.299488000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24440.299999999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24441.317984000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24446.516,Target zone available (X Y : 789 653 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24450.765984000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24450.766975999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24453.004991999998,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24453.005983999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24453.006976000001,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24453.258976000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24453.259999999998,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24453.276000000002,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24453.277984,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24453.283488000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24453.283488000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24453.284,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24454.293984,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24461.506976000001,Target zone available (X Y : 904 480 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24464.867999999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24464.868992,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24469.168991999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24469.170976000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24469.170976000001,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24469.423999999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24469.424992,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24469.442975999998,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24469.444992000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24469.449983999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24469.449983999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24469.450976,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24470.464,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24477.835999999999,Target zone available (X Y : 815 550 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24477.864991999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24477.865984,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24480.837984000002,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24480.84,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24480.84,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24481.094976,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24481.096000000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24481.116000000002,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24481.121984000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24481.129504,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24481.129504,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24481.129983999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24482.148000000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24489.508000000002,Target zone available (X Y : 820 562 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24489.514975999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24489.516,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24492.458976000002,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24492.459999999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24492.460992,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24492.718976,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24492.721984,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24492.738976000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24492.740000000002,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24492.744992,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24492.744992,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24492.746975999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24493.749983999998,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24500.341983999999,Target zone available (X Y : 660 765 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24503.116000000002,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24503.116991999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24507.468991999998,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24507.469983999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24507.470976000001,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24507.736000000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24507.736991999998,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24507.753983999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24507.754976,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24507.764992,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24507.764992,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24507.765984000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24508.781984000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24516.050975999999,Target zone available (X Y : 980 458 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24519.616000000002,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24519.616991999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24522.448,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24522.448992000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24522.449983999999,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24522.701983999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24522.702976,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24522.726976000002,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24522.727999999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24522.733504,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24522.733504,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24522.734976,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24523.750975999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24531.492992,Target zone available (X Y : 689 597 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24532.864991999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24532.865984,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24535.301503999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24535.302496,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24535.302975999999,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24535.557983999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24535.558976,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24535.580000000002,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24535.581984,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24535.586975999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24535.586975999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24535.588992000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24536.603999999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24543.841983999999,Target zone available (X Y : 918 603 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24545.014975999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24545.016,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24548.100480000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24548.101984000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24548.101984000001,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24548.358976,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24548.361983999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24548.377983999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24548.378976,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24548.384991999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24548.384991999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24548.385984,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24549.398976,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24557.356992000001,Target zone available (X Y : 908 324 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24557.364000000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24557.364991999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24562.378976,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24562.380000000001,No reward at 15-,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24562.380000000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24562.381984,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24562.397983999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24562.398976,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24562.404480000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24562.404480000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24562.404992,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24563.412,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24569.978975999999,Target zone available (X Y : 807 677 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24578.065984000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24578.066975999998,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24583.085984000001,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24583.086975999999,No reward at 15-,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24583.086975999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24583.088992000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24583.104992,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24583.105984000002,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24583.110976,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24583.110976,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24583.112991999998,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24584.116000000002,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24592.024000000001,Target zone available (X Y : 750 576 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24592.065984000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24592.066975999998,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24594.072,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24594.072992000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24594.073983999999,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24594.325983999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24594.326976,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24594.341983999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24594.344000000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24594.349504000002,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24594.349504000002,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24594.349984,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24595.380000000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24601.403999999999,Target zone available (X Y : 809 508 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24602.516,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24602.516992000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24606.690495999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24606.691999999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24606.691999999999,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24606.951263999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24606.952991999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24606.972991999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24606.974976000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24606.979488000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24606.979488000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24606.98,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24607.990976000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24613.276991999999,Target zone available (X Y : 827 615 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24614.364000000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24614.364991999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24617.792991999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24617.794495999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24617.795999999998,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24618.060991999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24618.061984,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24618.077984,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24618.080000000002,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24618.083999999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24618.084480000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24618.092992000002,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24619.108,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24625.682976,Target zone available (X Y : 811 550 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24628.364991999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24628.365984,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24630.508991999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24630.510976000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24630.511999999999,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24630.778976000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24630.779999999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24630.797984000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24630.798975999998,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24630.813984,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24630.813984,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24630.815999999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24631.825983999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24639.227999999999,Target zone available (X Y : 1010 517 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24639.266975999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24639.268,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24642.908992000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24642.909984000002,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24642.910975999999,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24643.168000000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24643.169984,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24643.186976000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24643.187999999998,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24643.192480000002,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24643.192480000002,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24643.193503999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24644.216992000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24649.513984000001,Target zone available (X Y : 905 650 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24655.116000000002,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24655.116991999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24658.281984000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24658.282975999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24658.284,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24658.545984,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24658.546976000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24658.567999999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24658.568992,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24658.580000000002,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24658.580000000002,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24658.580991999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24659.585984000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24666.073983999999,Target zone available (X Y : 961 661 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24675.314976000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24675.315999999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24680.329984,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24680.330976000001,No reward at 15-,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24680.330976000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24680.332992,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24680.348991999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24680.349984,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24680.354496,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24680.354496,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24680.356,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24681.362976,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24686.530975999998,Target zone available (X Y : 903 630 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24688.365984,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24688.366976000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24693.314976000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24693.315999999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24693.316992,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24693.570975999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24693.572,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24693.589983999998,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24693.592000000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24693.596991999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24693.596991999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24693.598976000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24694.616991999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24702,Target zone available (X Y : 872 514 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24702.016,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24702.016992000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24705.041984,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24705.042976000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24705.044000000002,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24705.301984000002,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24705.302975999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24705.32,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24705.321983999998,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24705.326976,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24705.326976,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24705.328000000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+NoSoundCue,24706.335999999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24713.122975999999,Request camera start,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24713.545984,Start trial logic,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24713.851999999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24713.866976000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24713.880000000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24713.880000000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24713.901984,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24714.932000000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24722.332992,Target zone available (X Y : 961 793 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24745.141984000002,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24745.144,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24745.157984000001,NosePokesLED ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24749.338975999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24749.361983999999,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24749.371999999999,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24749.628000000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24749.653984,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24749.670976000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24749.671999999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24749.676992000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24749.676992000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24749.677984000002,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24750.696,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24763.851999999999,Target zone available (X Y : 848 582 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24767.542976000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24767.544000000002,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24772.556992000002,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24772.557983999999,No reward at 15-,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24772.557983999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24783.226976000002,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24783.241984,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24783.243999999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24783.249503999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24783.249503999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24783.250975999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24784.259999999998,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24786.276000000002,Target zone available (X Y : 886 556 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24796.040991999998,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24796.041984,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24801.052,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24801.052992000001,No reward at 15-,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24801.052992000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24809.465983999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24809.481983999998,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24809.482975999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24809.488991999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24809.488991999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24809.497984000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24810.504000000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24816.306976,Target zone available (X Y : 864 479 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24816.341983999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24816.342976,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24818.517088000001,"Poke: {Success=False, ChosenPort=0, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24818.517088000001,No reward at 15-,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24818.517088000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24822.553983999998,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24822.572992000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24822.573983999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24822.578976000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24822.578976000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24822.580000000002,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24823.588992000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24840.691999999999,Target zone available (X Y : 958 469 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24908.142975999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24908.142975999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24913.158975999999,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24913.16,No reward at 15-,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24913.16,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24923.381984,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24923.403999999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24923.404992,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24923.410975999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24923.410975999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24923.412,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24924.424319999998,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24948.944,Target zone available (X Y : 801 465 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24954.692992,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24954.693984000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24956.916000000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24956.917984,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24956.918976000001,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24957.175999999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24961.508000000002,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24961.524991999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24961.525984,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24961.531999999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24961.531999999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24961.532992,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24962.548992,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24970.772000000001,Target zone available (X Y : 857 292 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24976.642975999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24976.644,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24980.041504000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24980.042976000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24980.044000000002,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24980.295999999998,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24984.674975999998,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24984.694975999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24984.696992000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24984.701983999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24984.701983999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24984.702976,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24985.712,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,24992.492992,Target zone available (X Y : 862 458 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25006.041984,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25006.042976000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25008.564992,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25008.565984000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25008.566975999998,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25008.821983999998,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25012.908992000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25012.928992000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25012.929983999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25012.934976,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25012.934976,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25012.940992,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25013.940992,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25023.196992000001,Target zone available (X Y : 822 529 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25036.240991999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25036.241984,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25039.074496000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25039.074976,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25039.076000000001,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25039.332992,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25043.148000000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25043.164000000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25043.164992000002,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25043.169984,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25043.169984,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25043.170976000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25044.174975999998,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25054.790976,Target zone available (X Y : 803 496 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25060.592000000001,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25060.592992000002,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25065.594496000002,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25065.596000000001,No reward at 15-,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25065.596000000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25074.618976000002,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25074.632991999999,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25074.633984,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25074.639999999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25074.639999999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25074.640992000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25075.650976000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25081.482975999999,Target zone available (X Y : 749 273 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25095.740991999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25095.741984,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25100.459999999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25100.460992,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25100.461984000001,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25100.720991999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25104.953984,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25104.968000000001,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25104.968991999998,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25104.975072000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25104.975072000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25104.975999999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25105.98,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25114.841983999999,Target zone available (X Y : 771 699 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25114.892,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25114.892992000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25119.793984,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25119.794976000001,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25119.795999999998,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25120.050975999999,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25123.928992000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25123.944,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25123.944992000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25123.950496000001,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25123.950496000001,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25123.950976,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25124.962975999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25128.392992000001,Target zone available (X Y : 530 590 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25128.442975999998,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25128.444,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25130.532480000002,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25130.532992,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25130.533984000002,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25130.797984000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25135.240991999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25135.260992,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25135.261984000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25135.268,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25135.268,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25135.268992000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25136.277984,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25144.136992,Target zone available (X Y : 642 571 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25144.540991999998,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25144.541984,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25146.757984,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25146.759999999998,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25146.760992,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25147.016,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25151.400000000001,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25151.414976,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25151.416000000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25151.420991999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25151.420991999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25151.421984000001,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25152.438976000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25159.726976000002,Target zone available (X Y : 694 393 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25163.590976,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25163.592000000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25165.532992,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25165.533984000002,Reward at 15,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25165.534975999999,Pump ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25165.788,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25170.407999999999,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25170.428,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25170.429983999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25170.434976,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25170.434976,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25170.436991999999,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25171.438976000001,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25177.655999999999,Target zone available (X Y : 935 443 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25186.644,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25186.644992000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25189.175999999999,"Poke: {Success=False, ChosenPort=12, CorrectPort=15-}",ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25189.176992000001,No reward at 15-,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25189.176992000001,Performing inner rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25192.790976,Rotations complete,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25192.808991999998,Mask Sound ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25192.810976000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25192.815999999999,Start Trial,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25192.815999999999,Rotating nosepoke,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25192.816992,Start mismatch rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25193.825983999999,Performing outer rotations,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25198.588992000001,Target zone available (X Y : 658 453 - Radius : 150),ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25198.593983999999,Target zone triggered,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25198.596000000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T060000Z.csv
+FloorRotation,25203.616480000001,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25203.616991999999,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25203.616991999999,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25209.734976,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25209.752,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25209.753983999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25209.759999999998,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25209.759999999998,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25209.761984000001,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25210.762976000002,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25216.784992000001,Target zone available (X Y : 951 746 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25224.344000000001,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25224.344991999998,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25229.360992000002,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25229.361983999999,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25229.361983999999,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25244.068992,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25244.084992,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25244.085984000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25244.097984,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25244.097984,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25244.098976000001,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25245.112991999998,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25252.066975999998,Target zone available (X Y : 801 547 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25255.045984,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25255.046976000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25257.196,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25257.197983999999,Reward at 15,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25257.198976,Pump ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25257.457984000001,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25262.228992,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25262.242976000001,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25262.244992,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25262.249983999998,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25262.249983999998,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25262.250975999999,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25263.254976,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25269.540991999998,Target zone available (X Y : 1072 649 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25269.592992000002,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25269.593983999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25274.470496000002,"Poke: {Success=False, ChosenPort=9, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25274.470976000001,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25274.470976000001,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25284.436000000002,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25284.455999999998,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25284.457984000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25284.463488000001,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25284.463488000001,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25284.464,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25285.488000000001,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25293.155999999999,Target zone available (X Y : 832 691 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25306.592000000001,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25306.592992000002,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25311.596000000001,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25311.597984,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25311.597984,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25321.777984,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25321.800992,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25321.801984000002,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25321.806976,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25321.806976,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25321.808000000001,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25322.813984,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25326.017983999998,Target zone available (X Y : 821 520 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25326.044000000002,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25326.044991999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25328.300992,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25328.302975999999,Reward at 15,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25328.302975999999,Pump ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25328.567999999999,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25331.873984000002,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25331.893983999998,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25331.894976,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25331.900000000001,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25331.900000000001,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25331.901984,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25332.904992,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25337.784992000001,Target zone available (X Y : 793 591 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25339.840992000001,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25339.841983999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25343.860992000002,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25343.861983999999,Reward at 15,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25343.862976,Pump ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25344.114976000001,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25349.008991999999,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25349.025984,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25349.027999999998,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25349.032480000002,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25349.032480000002,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25349.032992,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25350.052992000001,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25357.033984000002,Target zone available (X Y : 1020 454 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25369.191999999999,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25369.192992,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25372.589983999998,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25372.590976,Reward at 15,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25372.592000000001,Pump ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25372.848000000002,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25377.248,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25377.265984000001,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25377.266975999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25377.272991999998,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25377.272991999998,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25377.273983999999,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25378.282975999999,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25382.141984000002,Target zone available (X Y : 955 381 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25395.991999999998,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25395.992992,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25398.814495999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25398.814976000001,Reward at 15,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25398.815999999999,Pump ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25399.076224,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25403.488000000001,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25403.508000000002,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25403.508991999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25403.514496,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25403.514975999999,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25403.516,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25404.517983999998,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25412.542976000001,Target zone available (X Y : 878 340 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25416.240991999999,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25416.241984,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25419.072992000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25419.073983999999,Reward at 15,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25419.074976,Pump ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25419.326976,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25424.702976,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25424.720000000001,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25424.720991999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25424.726304,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25424.726304,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25424.726976000002,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25425.737983999999,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25432.456991999999,Target zone available (X Y : 787 555 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25437.141984000002,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25437.142975999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25442.150976000001,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25442.151999999998,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25442.151999999998,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25451.149984,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25451.166976,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25451.168991999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25451.173503999999,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25451.173503999999,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25451.174496,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25452.192992,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25457.804,Target zone available (X Y : 653 703 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25465.192992,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25465.193984000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25470.214496000001,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25470.216,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25470.216,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25474.572992000001,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25474.589983999998,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25474.596991999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25474.601984000001,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25474.601984000001,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25474.602975999998,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25475.612000000001,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25482.346976000001,Target zone available (X Y : 929 570 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25485.743999999999,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25485.744992,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25490.758976000001,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25490.760992,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25490.760992,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25497.371999999999,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25497.387999999999,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25497.389984000001,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25497.394976,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25497.394976,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25497.402976000001,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25498.412,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25506.226976000002,Target zone available (X Y : 766 605 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25507.392,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25507.392992000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25510.381504000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25510.381984,Reward at 15,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25510.382976000001,Pump ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25510.648000000001,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25514.538976,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25514.556,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25514.556992000002,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25514.562495999999,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25514.562495999999,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25514.562976000001,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25515.560991999999,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25520.540991999998,Target zone available (X Y : 784 574 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25523.142975999999,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25523.144,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25525.786975999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25525.788,Reward at 15,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25525.789983999999,Pump ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25526.053983999998,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25529.658975999999,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25529.674975999998,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25529.675999999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25529.681983999999,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25529.681983999999,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25529.682976,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25530.700000000001,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25539.738976000001,Target zone available (X Y : 725 606 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25547.092992000002,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25547.093983999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25550.047999999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25550.048992,Reward at 15,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25550.049984000001,Pump ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25550.306976,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25553.892992000001,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25553.916000000001,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25553.916991999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25553.922495999999,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25553.922495999999,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25553.923999999999,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25554.944,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25562.169984,Target zone available (X Y : 713 574 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25567.742976000001,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25567.743999999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25572.754976,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25572.756000000001,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25572.756000000001,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25580.104992,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25580.128000000001,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25580.128992000002,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25580.135488,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25580.135488,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25580.136480000001,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25581.140992000001,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25586.508000000002,Target zone available (X Y : 799 268 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25591.342976,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25591.342976,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25595.504000000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25595.504991999998,Reward at 15,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25595.505983999999,Pump ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25595.761984000001,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25599.528992,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25599.552992000001,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25599.553983999998,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25599.559487999999,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25599.559487999999,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25599.560000000001,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25600.560991999999,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25607.191999999999,Target zone available (X Y : 638 457 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25611.392,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25611.392992000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25615.895487999998,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25615.896000000001,Reward at 15,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25615.896000000001,Pump ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25616.164000000001,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25620.504000000001,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25620.52,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25620.520992000002,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25620.526495999999,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25620.526495999999,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25620.527072000001,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25621.538976,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25627.140992000001,Target zone available (X Y : 935 476 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25635.440992,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25635.442975999998,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25640.464,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25640.464992000001,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25640.464992000001,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25646.950976,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25646.970976000001,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25646.972000000002,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25646.977984000001,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25646.977984000001,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25646.979488000001,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25647.984,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25655.041984,Target zone available (X Y : 662 553 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25662.092000000001,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25662.092000000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25667.094976,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25667.096000000001,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25667.096000000001,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25678.133984,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25678.151999999998,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25678.152991999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25678.158496,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25678.158496,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25678.158975999999,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25679.173984000001,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25686.213984000002,Target zone available (X Y : 776 509 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25693.092992000002,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25693.094976,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25697.867999999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25697.868992,Reward at 15,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25697.869984000001,Pump ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25698.127359999999,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25702.148991999999,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25702.164000000001,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25702.164992000002,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25702.169984,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25702.169984,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25702.171999999999,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25703.180992000001,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25710.392,Target zone available (X Y : 685 319 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25715.892992000001,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25715.894976,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25719.692992,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25719.693984000001,Reward at 15,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25719.694975999999,Pump ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25719.958976000002,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25724.356,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25724.371999999999,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25724.373984000002,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25724.377983999999,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25724.377983999999,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25724.380000000001,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25725.383999999998,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25731.603999999999,Target zone available (X Y : 964 564 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25739.892,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25739.892992000001,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25743.848991999999,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25743.849984,Reward at 15,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25743.850976000002,Pump ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25744.117984,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25748.564992,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25748.582976000002,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25748.583999999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25748.589983999998,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25748.589983999998,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25748.592000000001,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25749.599999999999,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25755.641984000002,Target zone available (X Y : 638 752 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25765.490976000001,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25765.491999999998,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25770.508000000002,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25770.508991999999,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25770.508991999999,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25781.873984000002,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25781.892,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25781.893983999998,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25781.903999999999,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25781.904480000001,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25781.905984000001,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25782.919999999998,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25789.498975999999,Target zone available (X Y : 899 534 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25790.392992000001,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25790.393983999998,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25794.396000000001,"Poke: {Success=True, ChosenPort=15, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25794.397983999999,Reward at 15,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25794.397983999999,Pump ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25794.651999999998,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25799.265984000001,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25799.281984000001,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25799.284,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25799.295488,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25799.295488,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25799.295999999998,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25800.306976,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25805.867999999999,Target zone available (X Y : 876 596 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25808.941984000001,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25808.942975999998,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25813.962975999999,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25813.964,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25813.964,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25821.280992,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25821.304992000001,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25821.306976,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25821.312000000002,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25821.312000000002,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25821.312991999999,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25822.315999999999,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25828.128992000002,Target zone available (X Y : 912 389 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25832.490976000001,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25832.492992,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25837.504991999998,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25837.505983999999,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25837.506976000001,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25844.495999999999,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25844.516992000001,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25844.518975999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25844.524000000001,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25844.524000000001,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25844.524991999999,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25845.521983999999,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25854.740000000002,Target zone available (X Y : 840 376 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25859.040991999998,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25859.041984,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25864.058976,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25864.060000000001,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25864.060000000001,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25868.974976000001,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25868.994976000002,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25868.995999999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25869.001983999999,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25869.001983999999,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25869.002976,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25870.014975999999,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25872.038976,Target zone available (X Y : 999 472 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25882.193984000001,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25882.194975999999,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25884.497503999999,"Poke: {Success=False, ChosenPort=17, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25884.498975999999,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25884.498975999999,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25890.925984000001,Rotations complete,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25890.945984000002,Mask Sound ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25890.946975999999,NosePokes & CueTone OFF,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25890.950976,Start Trial,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25890.950976,Rotating nosepoke,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25890.952000000001,Start mismatch rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25891.961984000001,Performing outer rotations,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25896.648991999999,Target zone available (X Y : 1045 475 - Radius : 150),ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25909.541984,Target zone triggered,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25909.544000000002,Await poke - Cue Tone ON,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25914.544991999999,"Poke: {Success=False, ChosenPort=-1, CorrectPort=15-}",ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25914.545984,No reward at 15-,ExperimentEvents_1904-01-01T070000Z.csv
+FloorRotation,25914.545984,Performing inner rotations,ExperimentEvents_1904-01-01T070000Z.csv
