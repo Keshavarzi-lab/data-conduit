@@ -466,8 +466,6 @@ def default_harp_catalog(
     #       want importing this module to fail when it isn't installed;
     #    b) it keeps the package's import graph light for callers who only use
     #       the spec/catalog types above and never call this helper.
-    import pandas as pd
-
     from data_conduit.datasources.monosource import (
         ExperimentEvents,
         SessionSettings,
@@ -478,22 +476,17 @@ def default_harp_catalog(
         Nosepoke,
         SoundCard,
     )
+    from data_conduit.utils.utils_core import _concat_split_dataframes
 
-    # 1b| FileType .df returns a DataFrame for a single-file session, or a
-    #     nested dict mapping file-stem -> DataFrame when a session has
-    #     multiple files (e.g. an ExperimentEvents CSV split by a mid-session
-    #     restart). We want ONE DataFrame per session per spec so that
-    #     combine_sessions' name-based intersection lands the structure, so
-    #     concatenate the dict into one DataFrame, sorted by Time index.
-    def _flatten_dfs(df_or_dict):
-        if isinstance(df_or_dict, pd.DataFrame):
-            return df_or_dict
-        if isinstance(df_or_dict, dict):
-            frames = []
-            for value in df_or_dict.values():
-                frames.append(_flatten_dfs(value))
-            return pd.concat(frames).sort_index()
-        return df_or_dict
+    # 1b| FileType .df returns a DataFrame for a single-file session, or a nested
+    #     dict mapping file-stem -> DataFrame when a session has multiple files
+    #     (e.g. an ExperimentEvents CSV split by a mid-session restart). We want ONE
+    #     DataFrame per session per spec so combine_sessions' name-based intersection
+    #     lands the structure. ``_concat_split_dataframes`` collapses any such dict
+    #     into one frame, joined by FILENAME FIRST then by Time WITHIN each file, with
+    #     NO global time sort (so a clock rollback between files stays visible as a
+    #     non-monotonic index, and is warned about). See its definition in utils_core
+    #     for the full rationale.
 
     # 2| Each spec wraps a preset in a tiny lambda of the form
     #    ``lambda p: Preset(...)``. The lambda takes the session path ``p``
@@ -518,7 +511,7 @@ def default_harp_catalog(
     specs = [
         DataStructureSpec(
             name='events',
-            reader=lambda p: _flatten_dfs(ExperimentEvents(experiment_directory_path=p).df),
+            reader=lambda p: _concat_split_dataframes(ExperimentEvents(experiment_directory_path=p).df),
             required=True,
         ),
         DataStructureSpec(
@@ -541,7 +534,7 @@ def default_harp_catalog(
         specs.append(
             DataStructureSpec(
                 name='video',
-                reader=lambda p: _flatten_dfs(VideoData(experiment_directory_path=p).df),
+                reader=lambda p: _concat_split_dataframes(VideoData(experiment_directory_path=p).df),
             )
         )
     if include_session_settings:

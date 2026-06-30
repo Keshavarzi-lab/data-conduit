@@ -14,6 +14,7 @@ Contents:
 # Imports
 ################################################################################
 
+import warnings
 from collections.abc import Callable
 
 import pandas as pd
@@ -72,6 +73,92 @@ def _flatten_nested_dict(
     return items
 
 #===============================================================================
+
+
+#===============================================================================
+# 1b| Concatenate a Split (Multi-File) Stream Into One DataFrame, Filename-First
+#===============================================================================
+def _concat_split_dataframes(
+        df_or_dict,
+        *,
+        on_rollback: str = 'warn',
+):
+    '''
+    Collapse a (possibly nested) dict of per-file DataFrames into one DataFrame.
+
+    A data-conduit FileType reader returns a plain DataFrame for a single-file
+    stream, but a (possibly nested) dict of DataFrames when a stream was split
+    across several files (for example an ExperimentEvents CSV that rolled over
+    mid-session, or several VideoData segments). Several call sites need exactly
+    one DataFrame per stream, so this collapses any such dict into one. It is the
+    single home of the filename-first policy that used to be copied per call site.
+
+    Ordering policy (deliberate):
+        The pieces are joined by FILENAME FIRST, then by the Time index WITHIN
+        each file. The dict is walked in sorted key order (the keys are file
+        stems whose zero-padded ISO timestamps make lexical order chronological),
+        each file's own rows are sorted by Time, and the files are concatenated
+        in that filename order. The combined frame is NOT sorted globally by Time.
+        That matters because a stream's clock can reset toward 0 between files in
+        edge cases: a global time sort would hoist the later file's small
+        timestamps in front of the earlier file and silently MASK the rollback,
+        fabricating a monotonic-but-wrong index. Keeping filename order leaves a
+        reset visible as a non-monotonic Time index, surfaced per ``on_rollback``.
+
+    ----------
+    Parameters:
+        df_or_dict (pandas.DataFrame | dict | object):
+            Either a DataFrame (its rows are sorted by Time and returned), a
+            (possibly nested) dict of DataFrames (ordered by filename, each
+            sorted by Time within itself, then concatenated), or any other
+            object (returned unchanged so non-DataFrame readers are unaffected).
+        on_rollback (str):
+            What to do when the concatenated Time index is not monotonic
+            increasing (the clock reset between files): ``'warn'`` (default) to
+            warn, ``'error'`` to raise, or ``'ignore'`` to do neither (used when
+            a later step performs its own rollback check).
+    Returns:
+        pandas.DataFrame | object:
+            One DataFrame for the DataFrame/dict cases, otherwise the input as-is.
+    '''
+
+    # A single file: order its own rows by the Time index so the time logs WITHIN
+    # this file are ordered. A within-file sort is safe (one continuous write); it
+    # is only the CROSS-file global sort that we avoid (see the dict branch).
+    if isinstance(df_or_dict, pd.DataFrame):
+        return df_or_dict.sort_index()
+
+    # A multi-file stream arrives as a dict keyed by file stem. Walk it in sorted
+    # KEY (filename) order so the files join chronologically, flattening each value
+    # first (the recursion also handles any nested dict), then concatenate in that
+    # order with NO global time sort.
+    if isinstance(df_or_dict, dict):
+        frames = [
+            _concat_split_dataframes(value, on_rollback=on_rollback)
+            for _, value in sorted(df_or_dict.items(), key=lambda kv: kv[0])
+        ]
+        combined = pd.concat(frames)
+        # After ordering by filename, the Time index can only DECREASE if the clock
+        # actually reset between files, so a non-monotonic result is the rollback
+        # showing through. Surface it per the caller's policy.
+        if on_rollback != 'ignore' and not combined.index.is_monotonic_increasing:
+            message = (
+                'multi-file stream has a non-monotonic Time index after ordering by '
+                'filename; the recording clock appears to have reset between files. '
+                'Rows are kept in filename order (not globally time-sorted) so the '
+                'reset stays visible; downstream steps assuming monotonic time may '
+                'need attention.'
+            )
+            if on_rollback == 'error':
+                raise ValueError(message)
+            warnings.warn(message, stacklevel=2)
+        return combined
+
+    # Anything else (should not happen for the FileType readers) is passed through.
+    return df_or_dict
+
+#===============================================================================
+
 
 
 #===============================================================================
