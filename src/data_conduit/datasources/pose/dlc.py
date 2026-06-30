@@ -1,43 +1,55 @@
 '''
-DeepLabCut pose loading, aligned to camera frame times.
--------------------------------------------------------
+DeepLabCut pose loading (frame-indexed) and alignment to camera frame times.
+----------------------------------------------------------------------------
 
 Description:
     DeepLabCut (DLC) writes one row of pose estimates per VIDEO FRAME, indexed
     by frame number (0, 1, 2, ...). It carries no wall-clock / experiment time
     of its own. The experiment clock for those frames lives elsewhere: the
     Bonsai ``VideoData`` CSV logs one row per frame too, and its ``Seconds``
-    column is the HARP/Bonsai timestamp of each frame -- the SAME clock that
-    ExperimentEvents, Nosepoke, SoundCard, etc. are on.
+    column is the HARP/Bonsai timestamp of each frame (the SAME clock that
+    ExperimentEvents, Nosepoke, SoundCard, etc. are on).
 
-    So aligning DLC to the rest of a session is NOT a cross-clock TTL problem;
-    it is a positional join: DLC row i takes the camera frame time of
-    ``VideoData`` row i. Once that join is done the pose data sits on the shared
-    session clock and flows through the ordinary sessiongroups pipeline
-    (load_session -> [normalise_to_zero] -> combine_sessions) like any other
-    same-clock structure.
+    This module keeps those two jobs separate, by design:
 
-    A session may split its recording into several file segments (e.g. Bonsai
-    rolls the video / CSV partway through), producing several DLC outputs and
-    several ``VideoData`` CSVs. Each DLC file is paired with the ``VideoData``
-    file of matching length and the segments are concatenated in time order.
-    The length match is also a sanity check: a DLC file whose row count does
-    not match any VideoData file hints at a dropped-frame / wrong-file problem,
-    so it is surfaced (raise or warn).
+      * READING (a datasource).  ``DLCPose`` / ``read_dlc_pose`` read a session's
+        DLC output(s) into FRAME-INDEXED arrays. They know nothing about video or
+        time. A session split across several DLC files is concatenated in FILENAME
+        order and given one continuous ``0..N-1`` frame index (so the assembled
+        pose is monotonic, not a per-file reset). This is an ordinary source
+        object exposing ``.data_arrays``, just like the HARP presets.
+
+      * ALIGNING (a datastructure step).  ``align_pose_to_video`` takes a loaded
+        ``VideoData`` (or its flattened table) and a loaded ``DLCPose`` (or its
+        arrays), checks the two carry the SAME number of frames, and stamps the
+        video's per-frame ``Seconds`` onto the pose by position, returning
+        TIME-INDEXED arrays on the shared session clock. Because DLC is run per
+        video file, frame i of the concatenated pose is frame i of the
+        concatenated video, so the equal-length check is the alignment guarantee:
+        if the counts match, the positional join is sound.
+
+    Splitting the two responsibilities means there is ONE read of the VideoData
+    per session (the alignment reuses the already-loaded video rather than
+    re-reading the CSVs), the segment ordering is decided ONCE (filename order,
+    on both sides), and the frame -> time join lives at the datastructure level
+    where both streams are visible, instead of being buried inside the pose
+    reader.
 
     Output shape (movement-friendly):
-      * ``position``   : xr.DataArray (Time x keypoints x space[x, y])
-      * ``confidence`` : xr.DataArray (Time x keypoints)
-    These two arrays are the natural split used by the neuroinformatics
-    ``movement`` package (position vs. likelihood), kept here on data-conduit's
-    ``Time`` axis so they combine with the rest of a session. ``pose_to_movement``
-    converts the pair into a ``movement``-schema ``xr.Dataset`` when needed.
+      * ``position``   : xr.DataArray (frame|Time x keypoints x space[x, y])
+      * ``confidence`` : xr.DataArray (frame|Time x keypoints)
+    ``read_dlc_pose`` returns these on a ``frame`` axis; ``align_pose_to_video``
+    returns them on a ``Time`` axis. These two arrays are the natural split used
+    by the neuroinformatics ``movement`` package (position vs. likelihood);
+    ``pose_to_movement`` converts the pair into a ``movement``-schema
+    ``xr.Dataset`` when needed.
 
 Contents:
 --------------------------------
-- read_dlc_pose:    Load + frame-time-align one session's DLC pose.
-- DLCPose:          Source-style wrapper exposing ``.data_arrays`` for the catalog.
-- pose_to_movement: Convert (position, confidence) into a movement-schema Dataset.
+- read_dlc_pose:       Load one session's DLC pose as frame-indexed arrays.
+- DLCPose:             Source-style wrapper exposing ``.data_arrays`` for the catalog.
+- align_pose_to_video: Stamp VideoData frame times onto frame-indexed pose (with checks).
+- pose_to_movement:    Convert (position, confidence) into a movement-schema Dataset.
 '''
 
 
@@ -54,6 +66,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import xarray as xr
+
+from data_conduit.utils.utils_core import _concat_split_dataframes
 
 ################################################################################
 
@@ -95,7 +109,8 @@ def _dlc_files(
             ``'h5'``, ``'csv'``, or ``'auto'`` (h5 if any, else csv).
     Returns:
         list[Path]:
-            Matching DLC files, sorted by name.
+            Matching DLC files, sorted by name (so a multi-file session is read
+            in filename, hence chronological, order).
     '''
 
     # Resolve 'auto' to whichever format actually has files present.
@@ -149,132 +164,30 @@ def _read_dlc_table(
 
 
 #===============================================================================
-# 3| Read Per-Segment Camera Frame Times From the VideoData CSVs
+# 3| Turn One DLC Table Into Frame-Indexed position / confidence Arrays
 #===============================================================================
-def _video_frame_times(
-        video_dir: Path,
-        time_column: str,
-) -> list[tuple[Path, np.ndarray]]:
-    '''
-    Return ``(path, frame_times)`` for each VideoData CSV in ``video_dir``.
-
-    ``frame_times`` is the CSV's ``time_column`` (default ``'Seconds'``): the
-    HARP/Bonsai timestamp of every camera frame, one value per row. These are
-    the times the DLC rows are aligned to.
-
-    ----------
-    Parameters:
-        video_dir (Path):
-            The session's ``VideoData`` subdirectory.
-        time_column (str):
-            Column holding the per-frame timestamp. Default ``'Seconds'``.
-    Returns:
-        list[tuple[Path, np.ndarray]]:
-            One ``(csv_path, times)`` pair per VideoData CSV.
-    '''
-
-    segments = []
-    for csv_path in sorted(video_dir.glob('*.csv')):
-        times = pd.read_csv(csv_path, usecols=[time_column])[time_column].to_numpy(dtype=float)
-        segments.append((csv_path, times))
-    return segments
-
-#===============================================================================
-
-
-
-#===============================================================================
-# 4| Pair Each DLC File With the VideoData Segment of Matching Length
-#===============================================================================
-def _pair_by_length(
-        dlc_paths: list[Path],
-        video_segments: list[tuple[Path, np.ndarray]],
-        *,
-        on_length_mismatch: str,
-) -> list[tuple[pd.DataFrame, np.ndarray]]:
-    '''
-    Match each DLC table to the VideoData segment with the same frame count.
-
-    Each ``VideoData`` segment is consumed at most once. A DLC file whose row
-    count matches no remaining segment is a discrepancy (likely a dropped
-    frame, a stale DLC re-run, or a mis-paired file); ``on_length_mismatch``
-    decides whether that raises or merely warns (and skips the file).
-
-    ----------
-    Parameters:
-        dlc_paths (list[Path]):
-            The session's DLC output files.
-        video_segments (list[tuple[Path, np.ndarray]]):
-            ``(path, frame_times)`` pairs from ``_video_frame_times``.
-        on_length_mismatch (str):
-            ``'error'`` to raise, ``'warn'`` to warn and skip the unmatched
-            DLC file.
-    Returns:
-        list[tuple[pd.DataFrame, np.ndarray]]:
-            ``(dlc_table, frame_times)`` pairs, one per matched DLC file,
-            ordered by each segment's first frame time.
-    '''
-
-    # Index the still-available video segments by their frame count. A list per
-    # length handles the (rare) case of two segments sharing a length.
-    available: dict[int, list[tuple[Path, np.ndarray]]] = {}
-    for path, times in video_segments:
-        available.setdefault(len(times), []).append((path, times))
-
-    pairs: list[tuple[pd.DataFrame, np.ndarray]] = []
-    for dlc_path in dlc_paths:
-        table = _read_dlc_table(dlc_path)
-        n = len(table)
-
-        # No remaining VideoData segment of this length -> discrepancy.
-        if n not in available or not available[n]:
-            video_lengths = sorted(len(t) for _, t in video_segments)
-            message = (
-                f'DLC file {dlc_path.name!r} has {n} frames, which matches no '
-                f'remaining VideoData segment (segment frame counts: {video_lengths}). '
-                f'This usually means a dropped-frame mismatch or a wrong/stale DLC file.'
-            )
-            if on_length_mismatch == 'error':
-                raise ValueError(message)
-            warnings.warn(message, stacklevel=2)
-            continue
-
-        _, times = available[n].pop(0)
-        pairs.append((table, times))
-
-    if not pairs:
-        raise ValueError('no DLC file could be paired with a VideoData segment of matching length.')
-
-    # Concatenate segments in chronological (camera-time) order.
-    pairs.sort(key=lambda pair: float(pair[1][0]) if pair[1].size else np.inf)
-    return pairs
-
-#===============================================================================
-
-
-
-#===============================================================================
-# 5| Build Per-Segment position / confidence DataArrays
-#===============================================================================
-def _segment_to_arrays(
+def _table_to_arrays(
         table: pd.DataFrame,
-        frame_times: np.ndarray,
-        time_coord: str,
+        frame_dim: str,
 ) -> tuple[xr.DataArray, xr.DataArray]:
     '''
-    Turn one (DLC table, frame_times) pair into position + confidence arrays.
+    Turn one DLC table into frame-indexed ``position`` + ``confidence`` arrays.
+
+    No times are attached here. The arrays carry a bare ``frame_dim`` axis with
+    NO coordinate; a continuous frame index is assigned once in
+    ``read_dlc_pose`` after all of a session's files are concatenated.
 
     ----------
     Parameters:
         table (pd.DataFrame):
-            One segment's DLC table with ``(bodyparts, coords)`` columns.
-        frame_times (np.ndarray):
-            The camera frame times for this segment (becomes the time axis).
-        time_coord (str):
-            Name to give the time dimension (default caller-supplied ``'Time'``).
+            One DLC file's table with ``(bodyparts, coords)`` columns.
+        frame_dim (str):
+            Name to give the per-frame dimension (e.g. ``'frame'``).
     Returns:
         tuple[xr.DataArray, xr.DataArray]:
-            ``(position, confidence)`` for this segment.
+            ``(position, confidence)`` for this file, where ``position`` is
+            ``(frame x keypoints x space)`` and ``confidence`` is
+            ``(frame x keypoints)``.
     '''
 
     # Split out x / y / likelihood; each is (frames x bodyparts). Reindex y and
@@ -286,21 +199,75 @@ def _segment_to_arrays(
     likelihood = table.xs(_LIKELIHOOD_COORD, level='coords', axis=1)[keypoints]
 
     # position: stack x and y along a new 'space' axis -> (frames, keypoints, 2).
+    # We deliberately leave frame_dim coordinate-free; it is filled after concat.
     position_values = np.stack([xs.to_numpy(dtype=float), ys.to_numpy(dtype=float)], axis=-1)
     position = xr.DataArray(
         position_values,
-        dims=(time_coord, 'keypoints', 'space'),
-        coords={time_coord: frame_times, 'keypoints': keypoints, 'space': list(_SPACE_COORDS)},
+        dims=(frame_dim, 'keypoints', 'space'),
+        coords={'keypoints': keypoints, 'space': list(_SPACE_COORDS)},
         name='position',
     )
 
     confidence = xr.DataArray(
         likelihood.to_numpy(dtype=float),
-        dims=(time_coord, 'keypoints'),
-        coords={time_coord: frame_times, 'keypoints': keypoints},
+        dims=(frame_dim, 'keypoints'),
+        coords={'keypoints': keypoints},
         name='confidence',
     )
     return position, confidence
+
+#===============================================================================
+
+
+
+#===============================================================================
+# 4| Extract Per-Frame Video Times From a VideoData Object / Table
+#===============================================================================
+def _video_times(
+        video,
+) -> np.ndarray:
+    '''
+    Pull the per-frame camera times out of a VideoData object (or table).
+
+    Accepts whatever the caller has to hand: a ``VideoData`` source object (its
+    ``.df`` is used), a pre-flattened DataFrame (its ``Time`` index is the
+    per-frame clock, because VideoData is read with the ``Seconds`` column as
+    ``index_col=0`` and renamed to ``Time``), a Series, or a bare array of
+    times. The result is the one-value-per-frame timestamp vector the pose is
+    aligned to.
+
+    Only a raw ``VideoData`` object is flattened here (its ``.df`` may be a
+    multi-file dict), using the filename-first policy. Anything already flattened
+    (e.g. a loaded ``video`` bundle member) is trusted in the order given and is
+    NOT re-sorted: re-sorting could mask a camera-clock reset that the flattening
+    deliberately left visible as a non-monotonic index.
+
+    ----------
+    Parameters:
+        video (object | pandas.DataFrame | pandas.Series | array-like):
+            A ``VideoData`` source object, its flattened table, or a times array.
+    Returns:
+        numpy.ndarray:
+            1D float array of per-frame times, one per camera frame.
+    '''
+
+    # A VideoData source object carries the table on ``.df`` and may be split
+    # across files (a dict), so flatten it with the shared filename-first policy.
+    # on_rollback='ignore' because align_pose_to_video does its own (configurable)
+    # rollback check on the final Time axis, so we do not want a second warning here.
+    # Anything else is assumed to be ALREADY flattened, so we trust its order.
+    if hasattr(video, 'df'):
+        table = _concat_split_dataframes(video.df, on_rollback='ignore')
+    else:
+        table = video
+
+    # The per-frame clock is the Time index for a DataFrame, the values for a
+    # Series, or the array itself otherwise.
+    if isinstance(table, pd.DataFrame):
+        return table.index.to_numpy(dtype=float)
+    if isinstance(table, pd.Series):
+        return table.to_numpy(dtype=float)
+    return np.asarray(table, dtype=float)
 
 #===============================================================================
 
@@ -318,80 +285,70 @@ def _segment_to_arrays(
 
 
 #===============================================================================
-# 1| read_dlc_pose (Load + Frame-Time-Align One Session's Pose)
+# 1| read_dlc_pose (Load One Session's Pose as Frame-Indexed Arrays)
 #===============================================================================
 def read_dlc_pose(
         experiment_directory_path: str | Path,
         *,
         dlc_subdir: str = 'DLC',
-        video_subdir: str = 'VideoData',
-        time_column: str = 'Seconds',
-        time_coord: str = 'Time',
         file_format: str = 'auto',
-        on_length_mismatch: str = 'error',
+        frame_dim: str = 'frame',
 ) -> dict[str, xr.DataArray]:
     '''
-    Load one session's DLC pose, aligned to camera frame times.
+    Load one session's DLC pose into frame-indexed arrays (no times attached).
 
-    Reads every DLC output in ``<session>/<dlc_subdir>``, pairs each with the
-    ``<session>/<video_subdir>`` CSV of matching frame count, attaches that
-    CSV's per-frame timestamps as the time axis, and concatenates the segments
-    in time order. The result sits on the shared session clock (the same clock
-    as ExperimentEvents), so it merges with the rest of the session directly.
+    Reads every DLC output in ``<session>/<dlc_subdir>`` in filename order,
+    concatenates them, and gives the whole session one continuous ``0..N-1``
+    frame index. This is a pure reader: it does not look at VideoData and does
+    not put pose on the session clock. Use ``align_pose_to_video`` for that.
 
     ----------
     Parameters:
         experiment_directory_path (str | Path):
-            One session directory (the folder that contains ``DLC`` and
-            ``VideoData`` subfolders).
+            One session directory (the folder that contains the ``DLC``
+            subfolder).
         dlc_subdir (str):
             Name of the DLC output subfolder. Default ``'DLC'``.
-        video_subdir (str):
-            Name of the camera-metadata subfolder. Default ``'VideoData'``.
-        time_column (str):
-            Column in the VideoData CSV holding each frame's timestamp.
-            Default ``'Seconds'``.
-        time_coord (str):
-            Name to give the time dimension. Default ``'Time'`` (matches the
-            sessiongroups alignment pipeline).
         file_format (str):
             ``'h5'``, ``'csv'``, or ``'auto'`` (h5 if present, else csv).
-        on_length_mismatch (str):
-            ``'error'`` (default) to raise when a DLC file matches no
-            VideoData segment by length; ``'warn'`` to warn and skip it.
+        frame_dim (str):
+            Name to give the per-frame dimension. Default ``'frame'``.
     Returns:
         dict[str, xr.DataArray]:
-            ``{'position': (Time x keypoints x space), 'confidence':
-            (Time x keypoints)}``.
+            ``{'position': (frame x keypoints x space), 'confidence':
+            (frame x keypoints)}``, with ``frame_dim`` a continuous ``0..N-1``
+            index spanning all of the session's DLC files.
     '''
 
     session = Path(experiment_directory_path)
     dlc_dir = session / dlc_subdir
-    video_dir = session / video_subdir
 
     if not dlc_dir.is_dir():
         raise FileNotFoundError(f'no {dlc_subdir!r} folder in session {session}.')
-    if not video_dir.is_dir():
-        raise FileNotFoundError(f'no {video_subdir!r} folder in session {session}.')
 
     dlc_paths = _dlc_files(dlc_dir, file_format)
     if not dlc_paths:
         raise FileNotFoundError(f'no DLC {file_format!r} files in {dlc_dir}.')
 
-    video_segments = _video_frame_times(video_dir, time_column)
-    if not video_segments:
-        raise FileNotFoundError(f'no VideoData CSVs in {video_dir}.')
-
-    # Pair, build per-segment arrays, then concatenate along the time axis.
-    pairs = _pair_by_length(dlc_paths, video_segments, on_length_mismatch=on_length_mismatch)
+    # 1| Read each DLC file (filename order) into frame-indexed arrays.
     positions, confidences = [], []
-    for table, frame_times in pairs:
-        position, confidence = _segment_to_arrays(table, frame_times, time_coord)
+    for path in dlc_paths:
+        table = _read_dlc_table(path)
+        position, confidence = _table_to_arrays(table, frame_dim)
         positions.append(position)
         confidences.append(confidence)
 
-    position = positions[0] if len(positions) == 1 else xr.concat(positions, dim=time_coord)
-    confidence = confidences[0] if len(confidences) == 1 else xr.concat(confidences, dim=time_coord)
+    # 2| Concatenate the files along the frame axis (a no-op for a single file).
+    position = positions[0] if len(positions) == 1 else xr.concat(positions, dim=frame_dim)
+    confidence = confidences[0] if len(confidences) == 1 else xr.concat(confidences, dim=frame_dim)
+
+    # 3| Give the assembled pose one continuous 0..N-1 frame index, so it is
+    #    monotonic rather than restarting at 0 per file. This is the index the
+    #    aligner replaces with the matching video Times.
+    frame_index = np.arange(position.sizes[frame_dim])
+    position = position.assign_coords({frame_dim: frame_index})
+    confidence = confidence.assign_coords({frame_dim: frame_index})
+
     return {'position': position, 'confidence': confidence}
 
 #===============================================================================
@@ -406,8 +363,8 @@ class DLCPose:
     Thin source-style wrapper around ``read_dlc_pose``.
 
     Exposes the loaded pose as a ``.data_arrays`` mapping, the same interface
-    the HARP presets (Nosepoke, SoundCard, ...) expose. That means it drops
-    straight into a ``DataStructureCatalog`` spec::
+    the HARP presets (Nosepoke, SoundCard, ...) expose, so it drops straight
+    into a ``DataStructureCatalog`` spec::
 
         catalog.add(DataStructureSpec(
             name='dlc',
@@ -415,22 +372,24 @@ class DLCPose:
         ))
 
     and the loader turns its two arrays into the bundle members
-    ``'dlc:position'`` and ``'dlc:confidence'``. Because the data already
-    carries camera-frame times on the session clock, ``sync`` stays ``None``
-    (it is a same-clock structure -- no TTL conversion needed).
+    ``'dlc:position'`` and ``'dlc:confidence'``. NOTE that those members are
+    FRAME-INDEXED: this wrapper does not attach camera times. To put pose on the
+    session clock, pass this object (or its arrays) together with the session's
+    ``VideoData`` to ``align_pose_to_video``.
 
     ----------
     Parameters:
         experiment_directory_path (str | Path):
             One session directory. Required.
         **kwargs:
-            Forwarded to ``read_dlc_pose`` (``dlc_subdir``, ``video_subdir``,
-            ``time_column``, ``time_coord``, ``file_format``,
-            ``on_length_mismatch``).
+            Forwarded to ``read_dlc_pose`` (``dlc_subdir``, ``file_format``,
+            ``frame_dim``).
 
     Attributes:
+        experiment_directory_path (Path):
+            The session directory this pose was read from.
         data_arrays (dict[str, xr.DataArray]):
-            ``{'position': ..., 'confidence': ...}``.
+            ``{'position': ..., 'confidence': ...}``, frame-indexed.
     '''
 
     def __init__(
@@ -438,7 +397,18 @@ class DLCPose:
             experiment_directory_path: str | Path | None = None,
             **kwargs,
     ) -> None:
-        '''Load the session's pose into ``self.data_arrays``.'''
+        '''
+        Load the session's frame-indexed pose into ``self.data_arrays``.
+
+        ----------
+        Parameters:
+            experiment_directory_path (str | Path | None):
+                One session directory. Required (None raises).
+            **kwargs:
+                Forwarded to ``read_dlc_pose``.
+        Returns:
+            None.
+        '''
         if experiment_directory_path is None:
             raise ValueError('experiment_directory_path is required.')
         self.experiment_directory_path = Path(experiment_directory_path)
@@ -449,7 +419,102 @@ class DLCPose:
 
 
 #===============================================================================
-# 3| pose_to_movement (Convert to a movement-Schema Dataset)
+# 3| align_pose_to_video (Stamp VideoData Times Onto Frame-Indexed Pose)
+#===============================================================================
+def align_pose_to_video(
+        video,
+        pose,
+        *,
+        frame_dim: str = 'frame',
+        time_coord: str = 'Time',
+        on_rollback: str = 'warn',
+) -> dict[str, xr.DataArray]:
+    '''
+    Put frame-indexed pose on the session clock using the VideoData frame times.
+
+    This is the datastructure-level join that the datasource deliberately does
+    NOT do. It takes a session's loaded ``VideoData`` and ``DLCPose`` (the two
+    streams of camera frames), checks they have the SAME number of frames, and
+    stamps the video's per-frame time onto the pose by position. Because DLC is
+    run per video file, frame i of the (filename-ordered) pose is frame i of the
+    (filename-ordered) video, so equal total length is the alignment guarantee.
+
+    ----------
+    Parameters:
+        video (object | pandas.DataFrame | pandas.Series | array-like):
+            The session's camera frame times. Either a ``VideoData`` source
+            object (its ``.df`` is used), its flattened ``Time``-indexed table,
+            or a bare array of per-frame times. Whatever is given is flattened
+            in filename order and read as one time-per-frame vector.
+        pose (object | dict[str, xr.DataArray]):
+            The session's frame-indexed pose. Either a ``DLCPose`` object (its
+            ``.data_arrays`` is used) or a ``{'position': ..., 'confidence':
+            ...}`` mapping, both on a ``frame_dim`` axis.
+        frame_dim (str):
+            Name of the pose's per-frame dimension to convert. Default
+            ``'frame'`` (matches ``read_dlc_pose``).
+        time_coord (str):
+            Name to give the resulting time dimension. Default ``'Time'``
+            (matches the sessiongroups alignment pipeline).
+        on_rollback (str):
+            What to do when the resulting time axis is not increasing (the
+            camera clock reset between video files): ``'warn'`` (default) to
+            warn and keep the data in filename order, ``'error'`` to raise, or
+            ``'ignore'`` to do neither.
+    Returns:
+        dict[str, xr.DataArray]:
+            ``{'position': (Time x keypoints x space), 'confidence':
+            (Time x keypoints)}`` on the shared session clock.
+    '''
+
+    # 1| Per-frame video times (flattened, filename order, one value per frame).
+    times = _video_times(video)
+
+    # 2| Frame-indexed pose arrays (accept a DLCPose object or a bare dict).
+    arrays = pose.data_arrays if hasattr(pose, 'data_arrays') else pose
+    position, confidence = arrays['position'], arrays['confidence']
+
+    # 3| The equal-entries check: this IS the alignment guarantee. If the pose
+    #    and the video carry the same number of frames, the positional join is
+    #    sound; if not, we cannot align them, so fail loudly with the counts.
+    n_pose = position.sizes[frame_dim]
+    if n_pose != len(times):
+        raise ValueError(
+            f'cannot align pose to video: pose has {n_pose} frames but VideoData has '
+            f'{len(times)} frame times. DLC is run per video file, so the two must '
+            f'correspond one-to-one; a mismatch points to a dropped frame, a '
+            f'wrong/stale DLC file, or a missing VideoData segment.'
+        )
+
+    # 4| Stamp the times onto the pose by POSITION: rename the frame axis to the
+    #    time axis and attach the per-frame times as its coordinate. Both arrays
+    #    share the frame axis, so the same times land on both.
+    position = position.rename({frame_dim: time_coord}).assign_coords({time_coord: times})
+    confidence = confidence.rename({frame_dim: time_coord}).assign_coords({time_coord: times})
+
+    # 5| Surface a camera-clock reset: ordered by filename, the only way the time
+    #    axis can step backwards is an actual rollback between video files. We
+    #    leave the data in filename order (not time-sorted) so the reset stays
+    #    visible, and announce it per the caller's policy.
+    if on_rollback != 'ignore' and np.any(np.diff(times) < 0):
+        message = (
+            'aligned pose Time axis steps backwards; the camera clock appears to '
+            'have reset between VideoData files. Pose is left in filename order '
+            '(not time-sorted) so the reset stays visible; downstream steps '
+            'assuming monotonic time may need attention.'
+        )
+        if on_rollback == 'error':
+            raise ValueError(message)
+        warnings.warn(message, stacklevel=2)
+
+    return {'position': position, 'confidence': confidence}
+
+#===============================================================================
+
+
+
+#===============================================================================
+# 4| pose_to_movement (Convert to a movement-Schema Dataset)
 #===============================================================================
 def pose_to_movement(
         position: xr.DataArray,
