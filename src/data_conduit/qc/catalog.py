@@ -168,13 +168,18 @@ def build_qc_catalog(
         # no trial table to build, so leave the objects untouched.
         if 'events' not in objects:
             return objects
+        # Drop the raw events IN PLACE before parsing. The full event log is huge
+        # and only an intermediate, so it never belongs in the output. Popping it
+        # up front also means that if parsing raises (e.g. a truncated log with no
+        # "Start trial logic" marker), read_session skips this configurator with a
+        # warning and the raw events cannot leak into the combined result.
+        events = objects.pop('events')
         trials = parse_events_to_trials(
-            objects['events'],
+            events,
             nosepoke_count=nosepoke_count,
             trial_start_buffer=trial_start_buffer,
         )
-        kept = {name: obj for name, obj in objects.items() if name != 'events'}
-        return {**kept, 'trials': trials}
+        return {**objects, 'trials': trials}
 
     catalog.add_configurator('trials', _build_trials)
 

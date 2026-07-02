@@ -242,8 +242,21 @@ class Catalog:
         # 2| Run the configurators, in order, threading the (possibly modified)
         #    object mapping through each. A configurator sees every object, so it
         #    can do cross-stream work (e.g. stamp video times onto DLC frames).
-        for configurator in self._configurators.values():
-            objects = configurator(objects)
+        #    A configurator that fails for this session (e.g. its events are too
+        #    truncated to build a trial table) is SKIPPED with a warning rather
+        #    than aborting the whole load, exactly like a failed reader above: the
+        #    derived stream is simply missing for this session. Configurators are
+        #    expected to leave the object mapping consistent even when they raise
+        #    (see the trials configurator, which drops its raw events up front).
+        for name, configurator in self._configurators.items():
+            try:
+                objects = configurator(objects)
+            except Exception as error:
+                warnings.warn(
+                    f'configurator {name!r} skipped for session {path.name!r}: '
+                    f'{type(error).__name__}: {error}',
+                    stacklevel=2,
+                )
         return objects
 
 

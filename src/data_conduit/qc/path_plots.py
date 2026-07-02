@@ -309,7 +309,7 @@ def _plot_paths_on_ax(
 
         # movement's scatter: recast to its schema; passing ``c`` overrides its
         # default time-gradient with our solid per-trial colour.
-        movement_pose = sliced.rename({time_coord: 'time'}).expand_dims({'individuals': ['ind']})
+        movement_pose = sliced.rename({time_coord: 'time', 'keypoints': 'keypoint'}).expand_dims({'individual': ['ind']})
         _plot_centroid_trajectory(movement_pose, keypoints=keypoints, ax=ax, c=colour, s=marker_size)
 
     # movement writes a title / axis labels on every call; clear them so the grid
@@ -467,6 +467,21 @@ def plot_path_grid(
     all_trials = result[trials_key]
     pose = result[pose_key]
     trials = all_trials.copy()
+
+    # 1a| Normalise and validate centroid_points. A bare string is ONE keypoint,
+    #     not a per-character list (``list('nose')`` -> ['n','o','s','e']), and an
+    #     unknown keypoint should fail loudly here rather than as a cryptic KeyError
+    #     deep inside movement's ``.sel(keypoint=...)``.
+    if isinstance(centroid_points, str):
+        centroid_points = (centroid_points,)
+    centroid_points = tuple(centroid_points)
+    available_keypoints = set(pose['keypoints'].values.tolist())
+    unknown = [kp for kp in centroid_points if kp not in available_keypoints]
+    if unknown:
+        raise ValueError(
+            f'unknown centroid_points {unknown}; '
+            f'available keypoints: {sorted(available_keypoints)}.'
+        )
 
     # 2| Optional grouping and mouse restriction.
     if groups is not None:
