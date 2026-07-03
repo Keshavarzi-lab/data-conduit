@@ -72,6 +72,7 @@ def build_qc_catalog(
         soundcard_yaml: str | Path = './soundcard.yml',
         nosepoke_count: int = 18,
         trial_start_buffer: float = 0.0,
+        dlc_file_format: str = 'auto',
 ):
     '''
     Assemble the Q_C Catalog: the requested readers plus the trial / DLC configurators.
@@ -92,6 +93,10 @@ def build_qc_catalog(
         trial_start_buffer (float):
             Seconds between one trial's end and the next trial's start, forwarded
             to the trial parser. Default 0.0 (no buffer, unlike Q_C_Analysis_Workflow).
+        dlc_file_format (str):
+            Which DLC export the pose reader loads from each session's ``DLC``
+            folder: ``'csv'``, ``'h5'``, or ``'auto'`` (csv if any present, else
+            h5). Default ``'auto'`` so a session holding only ``.h5`` still loads.
     Returns:
         Catalog:
             The assembled catalog, ready to hand to a DataStructure.
@@ -157,7 +162,7 @@ def build_qc_catalog(
         from data_conduit.datasources.pose import DLCPose
         catalog.add_reader(
             'dlc',
-            lambda p: DLCPose(experiment_directory_path=p),
+            lambda p: DLCPose(experiment_directory_path=p, file_format=dlc_file_format),
         )
 
     # 4| Configurator: build the trial table and DROP the raw events. The distilled
@@ -224,6 +229,7 @@ def qc_datastructure(
         soundcard_yaml: str | Path = './soundcard.yml',
         nosepoke_count: int = 18,
         trial_start_buffer: float = 0.0,
+        dlc_file_format: str = 'auto',
         **level_selectors,
 ):
     '''
@@ -257,6 +263,9 @@ def qc_datastructure(
             Arena port count for the trial parser. Default 18.
         trial_start_buffer (float):
             Inter-trial buffer for the trial parser. Default 0.0.
+        dlc_file_format (str):
+            DLC export the pose reader loads: ``'csv'``, ``'h5'``, or ``'auto'``
+            (csv if present, else h5). Default ``'auto'``.
         **level_selectors:
             ``l{n}_selector`` filters for the intermediate levels (e.g.
             ``l1_selector='Testing'`` to keep only the Testing phase).
@@ -272,6 +281,7 @@ def qc_datastructure(
         soundcard_yaml=soundcard_yaml,
         nosepoke_count=nosepoke_count,
         trial_start_buffer=trial_start_buffer,
+        dlc_file_format=dlc_file_format,
     )
     return DataStructure(
         root,

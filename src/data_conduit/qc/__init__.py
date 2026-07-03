@@ -22,6 +22,13 @@ from typing import TYPE_CHECKING
 
 from data_conduit.qc.catalog import QC_STREAMS, build_qc_catalog, qc_datastructure
 from data_conduit.qc.slicing import slice_pose, slice_pose_for_trial, slice_pose_per_trial
+from data_conduit.qc.training_filter import (
+    TRAINING_DETAIL,
+    filter_trials,
+    summarise_training_filter,
+    training_session_names,
+    training_spec,
+)
 from data_conduit.qc.trials import parse_events_to_trials
 
 if TYPE_CHECKING:
@@ -37,6 +44,11 @@ __all__ = [
     'slice_pose',
     'slice_pose_for_trial',
     'slice_pose_per_trial',
+    'TRAINING_DETAIL',
+    'training_spec',
+    'training_session_names',
+    'summarise_training_filter',
+    'filter_trials',
     'plot_path_grid',
     'diagnose_path_grid',
     'add_group_column',

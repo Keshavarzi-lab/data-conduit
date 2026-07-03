@@ -642,6 +642,7 @@ def plot_path_grid(
         pose_key: str = 'dlc:position',
         mouse_column: str = 'mouseID',
         session_column: str = 'session',
+        trial_number_column: str = 'trial_index',
         session_coord: str = 'session',
         time_coord: str = 'Time',
         video_subdir: str = 'VideoData',
@@ -701,6 +702,12 @@ def plot_path_grid(
             Keys of the trials table and pose array in ``result``.
         mouse_column, session_column (str):
             Trials-table columns naming the mouse and session.
+        trial_number_column (str):
+            Column whose min / max label each colourbar's trial ticks. Default
+            ``'trial_index'`` (the per-session number). Pass a contiguous per-row-
+            group counter such as ``'day_trial_index'`` so the labelled range
+            matches the panel's plotted count on combined (multi-session) days;
+            falls back to ``'trial_index'`` when the given column is absent.
         session_coord (str):
             Pose coordinate naming the session. Default ``'session'``.
         time_coord (str):
@@ -860,9 +867,17 @@ def plot_path_grid(
             # panel (one per label present; ticks mark this cell's first / last
             # trial number).
             if colorbar:
+                # Ticks label the first / last plotted trial number. Prefer
+                # ``trial_number_column`` when the table carries it (e.g.
+                # ``day_trial_index``, a contiguous 1..N per row group), so the
+                # labelled range matches the panel's plotted count; ``trial_index``
+                # (the per-session number) restarts and gaps across a combined day,
+                # so its min..max would not. Fall back to it when the column is absent.
+                number_column = (trial_number_column if trial_number_column in plotted_trials.columns
+                                 else 'trial_index')
                 for label in counts.index:
                     sub = plotted_trials[plotted_trials[color_column] == label]
-                    tlo, thi = int(sub['trial_index'].min()), int(sub['trial_index'].max())
+                    tlo, thi = int(sub[number_column].min()), int(sub[number_column].max())
                     sm = plt.cm.ScalarMappable(
                         norm=mcolors.Normalize(tlo, thi if thi > tlo else tlo + 1),
                         cmap=_truncate_cmap(resolved_cmaps[label], cmap_range),
