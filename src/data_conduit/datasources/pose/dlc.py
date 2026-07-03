@@ -97,8 +97,8 @@ def _dlc_files(
     '''
     Return the DLC output files in ``dlc_dir`` for the requested format.
 
-    Prefers ``.h5`` (faster, exact dtypes) and falls back to ``.csv`` when no
-    HDF5 files are present, unless a format is pinned explicitly. DLC also
+    Prefers ``.csv`` and falls back to ``.h5`` when no CSV files are present,
+    unless a format is pinned explicitly. DLC also
     writes ``*_meta.pickle`` / ``*_full.pickle`` sidecars; those are ignored.
 
     ----------
@@ -106,16 +106,17 @@ def _dlc_files(
         dlc_dir (Path):
             The session's ``DLC`` subdirectory.
         file_format (str):
-            ``'h5'``, ``'csv'``, or ``'auto'`` (h5 if any, else csv).
+            ``'csv'``, ``'h5'``, or ``'auto'`` (csv if any, else h5).
     Returns:
         list[Path]:
             Matching DLC files, sorted by name (so a multi-file session is read
             in filename, hence chronological, order).
     '''
 
-    # Resolve 'auto' to whichever format actually has files present.
+    # Resolve 'auto' to whichever format actually has files present, preferring
+    # CSV because that is the lab's canonical DLC export for this workflow.
     if file_format == 'auto':
-        file_format = 'h5' if list(dlc_dir.glob('*.h5')) else 'csv'
+        file_format = 'csv' if list(dlc_dir.glob('*.csv')) else 'h5'
 
     if file_format not in ('h5', 'csv'):
         raise ValueError(f"file_format must be 'h5', 'csv', or 'auto' (got {file_format!r}).")
@@ -291,7 +292,7 @@ def read_dlc_pose(
         experiment_directory_path: str | Path,
         *,
         dlc_subdir: str = 'DLC',
-        file_format: str = 'auto',
+        file_format: str = 'csv',
         frame_dim: str = 'frame',
 ) -> dict[str, xr.DataArray]:
     '''
@@ -310,7 +311,7 @@ def read_dlc_pose(
         dlc_subdir (str):
             Name of the DLC output subfolder. Default ``'DLC'``.
         file_format (str):
-            ``'h5'``, ``'csv'``, or ``'auto'`` (h5 if present, else csv).
+            ``'csv'`` (default), ``'h5'``, or ``'auto'`` (csv if present, else h5).
         frame_dim (str):
             Name to give the per-frame dimension. Default ``'frame'``.
     Returns:

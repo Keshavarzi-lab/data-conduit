@@ -27,11 +27,13 @@ Description:
     Grouping: ``groups={group: {mice}}`` adds a ``group`` column (reverse of the
     mapping), after which ``group`` is just another axis for ``row_by`` / ``col_by``.
 
-    Colouring: each mouse has its own colourmap (so overlaid mice stay
-    distinguishable). Within each ROW GROUP (per mouse), trials ramp across
-    ``cmap_range`` (0.2 -> 1.0) in chronological order (session, then trial), so
-    earlier trials are lighter. Set ``row_by='session'`` for a per-session ramp,
-    ``row_by='day'`` for a per-day ramp across that day's sessions.
+    Colouring: by default each mouse has its own colourmap (so overlaid mice stay
+    distinguishable). When ``groups=...`` is supplied, colouring switches to the
+    ``group`` column unless ``color_by`` overrides it. Within each ROW GROUP (per
+    active colour key), trials ramp across ``cmap_range`` (0.2 -> 1.0) in
+    chronological order (session, then trial), so earlier trials are lighter. Set
+    ``row_by='session'`` for a per-session ramp, ``row_by='day'`` for a per-day
+    ramp across that day's sessions.
 
     Each cell draws that session's first video frame as a static background and
     fixes the axes to the frame's pixel size, so the whole arena is visible and
@@ -42,6 +44,7 @@ Contents:
 --------------------------------
 - DEFAULT_CENTROID_POINTS: the DLC keypoints averaged into the centroid by default.
 - add_group_column:        add a ``group`` column from a {group: {mice}} mapping.
+- diagnose_path_grid:      report whether each selected trial would produce a path.
 - plot_path_grid:          the grid plotter.
 '''
 
@@ -74,9 +77,18 @@ from data_conduit.qc.slicing import slice_pose_for_trial
 # is their mean by default; pass a subset via ``centroid_points`` to change it.
 DEFAULT_CENTROID_POINTS = ('nose', 'lear', 'rear', 'body', 'tailbase')
 
-# Sequential colourmaps assigned to mice in turn when the caller gives none. Each
-# ramps light -> dark, which is what the "earlier trials lighter" rule wants.
+# Sequential colourmaps assigned to colour groups (mice or groups) in turn when
+# the caller gives none. Each ramps light -> dark, which is what the "earlier
+# trials lighter" rule wants.
 _CMAP_ROTATION = ('Blues', 'Oranges', 'Greens', 'Purples', 'Reds', 'Greys', 'YlOrBr', 'PuBuGn')
+
+# Keep this local to the plotter so failed path slices can report the exact trial
+# window that did not produce DLC points.
+_SEGMENT_TIME_COLUMNS = {
+    'outbound': ('outbound_start_time', 'outbound_end_time'),
+    'inbound': ('inbound_start_time', 'inbound_end_time'),
+    'trial': ('start_time', 'end_time'),
+}
 
 
 
@@ -113,30 +125,48 @@ def _plot_centroid_trajectory(*args, **kwargs):
 
 
 #===============================================================================
-# 1| Resolve a Mouse -> Colourmap Mapping
+# 1| Resolve Labels -> Colourmap Mapping
 #===============================================================================
-def _resolve_mouse_cmaps(mouse_cmaps, mice):
+def _resolve_color_cmaps(color_cmaps, labels):
     '''
-    Return a ``{mouse: Colormap}`` mapping, auto-filling any mouse not supplied.
+    Return a ``{label: Colormap}`` mapping, auto-filling any label not supplied.
 
     ----------
     Parameters:
-        mouse_cmaps (dict | None):
-            Caller-supplied ``{mouse: colourmap name or Colormap}``, possibly partial.
-        mice (sequence):
-            The mice that need a colourmap.
+        color_cmaps (dict | None):
+            Caller-supplied ``{label: colourmap name or Colormap}``, possibly partial.
+        labels (sequence):
+            The colour-group labels that need a colourmap.
     Returns:
         dict:
-            ``{mouse: matplotlib.colors.Colormap}`` for every mouse in ``mice``.
+            ``{label: matplotlib.colors.Colormap}`` for every label in ``labels``.
     '''
     resolved = {
-        mouse: mpl.colormaps[_CMAP_ROTATION[i % len(_CMAP_ROTATION)]]
-        for i, mouse in enumerate(mice)
+        label: mpl.colormaps[_CMAP_ROTATION[i % len(_CMAP_ROTATION)]]
+        for i, label in enumerate(labels)
     }
-    if mouse_cmaps:
-        for mouse, cmap in mouse_cmaps.items():
-            resolved[mouse] = mpl.colormaps[cmap] if isinstance(cmap, str) else cmap
+    if color_cmaps:
+        for label, cmap in color_cmaps.items():
+            resolved[label] = mpl.colormaps[cmap] if isinstance(cmap, str) else cmap
     return resolved
+
+
+def _resolve_color_column(
+        color_by: str | None,
+        groups,
+        mouse_column: str,
+        *,
+        group_column: str = 'group',
+) -> str:
+    '''
+    Return the trials-table column that drives colour assignment and ramping.
+
+    Grouped plots default to colouring by ``group`` so every mouse in the same
+    group shares a colour family. Callers can override this with ``color_by``.
+    '''
+    if color_by is not None:
+        return color_by
+    return group_column if groups is not None else mouse_column
 
 
 def _truncate_cmap(cmap, cmap_range, n: int = 128):
@@ -243,7 +273,59 @@ def _axis_combos(axis, trials: pd.DataFrame, segments):
 
 
 #===============================================================================
-# 4| Overlay One Cell's Trial Paths Onto an Axis
+# 4| Trial / Pose Validation Helpers
+#===============================================================================
+def _trial_time_window(row: pd.Series, segment: str):
+    '''Return the start and end time columns for one plotted path segment.'''
+    if segment not in _SEGMENT_TIME_COLUMNS:
+        raise ValueError(f"segment must be one of {sorted(_SEGMENT_TIME_COLUMNS)}, got {segment!r}.")
+    start_col, end_col = _SEGMENT_TIME_COLUMNS[segment]
+    return row[start_col], row[end_col]
+
+
+def _pose_session_values(pose, session_coord: str) -> set:
+    '''Return the session ids present in the combined pose array.'''
+    if session_coord not in pose.coords:
+        raise KeyError(f'pose array has no {session_coord!r} coordinate.')
+    return set(pose.coords[session_coord].values)
+
+
+def _pose_time_summary(pose, *, session, session_coord: str, time_coord: str) -> str:
+    '''Return a compact per-session pose time summary for error messages.'''
+    sessions = pose.coords[session_coord].values
+    times = pose.coords[time_coord].values
+    mask = sessions == session
+    if not np.any(mask):
+        return f'pose has no entries tagged {session_coord}={session!r}'
+    session_times = times[mask]
+    return (
+        f'pose {time_coord} range for {session_coord}={session!r}: '
+        f'{float(np.nanmin(session_times))} to {float(np.nanmax(session_times))} '
+        f'({int(mask.sum())} samples)'
+    )
+
+
+def _has_finite_centroid_points(sliced, centroid_points) -> bool:
+    '''Check whether a sliced trial has any finite x/y centroid source values.'''
+    requested = list(centroid_points)
+    available_keypoints = set(sliced.coords['keypoints'].values)
+    missing = [point for point in requested if point not in available_keypoints]
+    if missing:
+        raise KeyError(f'centroid_points missing from pose keypoints: {missing}.')
+
+    subset = sliced.sel(keypoints=requested)
+    if 'space' in subset.coords:
+        spaces = [space for space in ('x', 'y') if space in set(subset.coords['space'].values)]
+        if spaces:
+            subset = subset.sel(space=spaces)
+    return bool(np.isfinite(subset.to_numpy()).any())
+
+#===============================================================================
+
+
+
+#===============================================================================
+# 5| Overlay One Cell's Trial Paths Onto an Axis
 #===============================================================================
 def _plot_paths_on_ax(
         ax,
@@ -252,20 +334,23 @@ def _plot_paths_on_ax(
         *,
         segment: str,
         centroid_points,
-        mouse_cmaps: dict,
+    color_cmaps: dict,
         cmap_range,
-        mouse_column: str,
+    color_column: str,
+        session_column: str,
+        session_coord: str,
         ramp_column: str,
         time_coord: str,
         marker_size: float,
+        require_pose_for_trials: bool,
 ):
     '''
     Draw every trial in ``cell_trials`` as a centroid path on ``ax``.
 
     Each trial is sliced to its ``segment`` window and drawn with ``movement``'s
     ``plot_centroid_trajectory`` (the centroid of ``centroid_points``) in a single
-    colour: its mouse's colourmap sampled at the trial's precomputed ramp position
-    (``ramp_column``).
+    colour: its active colour-group colourmap sampled at the trial's precomputed
+    ramp position (``ramp_column``).
 
     ----------
     Parameters:
@@ -279,44 +364,99 @@ def _plot_paths_on_ax(
             ``'outbound'``, ``'inbound'``, or ``'trial'``.
         centroid_points (sequence):
             Keypoints averaged into the centroid.
-        mouse_cmaps (dict):
-            ``{mouse: Colormap}``.
+        color_cmaps (dict):
+            ``{label: Colormap}`` for the active colour basis.
         cmap_range (tuple):
             ``(lo, hi)`` fractions of the colourmap the trial ramp spans.
-        mouse_column (str):
-            Trial-table column naming the mouse.
+        color_column (str):
+            Trial-table column naming the active colour basis.
+        session_column (str):
+            Trial-table column naming the session.
+        session_coord (str):
+            Pose coordinate naming the session.
         ramp_column (str):
             Column holding each trial's 0..1 ramp position within its row group.
         time_coord (str):
             Pose time dimension (``'Time'``).
         marker_size (float):
             Scatter marker size passed to ``movement``.
+        require_pose_for_trials (bool):
+            If True, raise when a selected trial from a session present in the
+            pose array does not yield drawable DLC points for its path window.
     Returns:
-        None.
+        pd.DataFrame:
+            The subset of ``cell_trials`` that was actually sent to movement for
+            plotting.
     '''
     lo, hi = cmap_range
     keypoints = list(centroid_points)
-    for _, row in cell_trials.iterrows():
-        # Slice this trial's segment; skip trials with no pose in the window (e.g. a
-        # missing target-zone time, or a session that has no DLC at all).
-        sliced = slice_pose_for_trial(pose, row, segment=segment, time_coord=time_coord)
-        if sliced.sizes.get(time_coord, 0) == 0:
+    pose_sessions = _pose_session_values(pose, session_coord)
+    plotted_indices = []
+
+    for trial_idx, row in cell_trials.iterrows():
+        session = row[session_column]
+        session_has_pose = session in pose_sessions
+        start, end = _trial_time_window(row, segment)
+
+        # A selected session with no DLC in the combined pose array is still left
+        # blank. A selected trial in a session that DOES have DLC must yield points.
+        if not session_has_pose:
             continue
 
-        # Colour: the trial's mouse colourmap at its ramp position (earlier -> lo).
+        if pd.isna(start) or pd.isna(end) or end < start:
+            if require_pose_for_trials:
+                raise ValueError(
+                    f'cannot plot {segment!r} path for session={session!r}, '
+                    f'trial_index={row.get("trial_index", trial_idx)!r}: invalid '
+                    f'time window start={start!r}, end={end!r}.'
+                )
+            continue
+
+        sliced = slice_pose_for_trial(
+            pose,
+            row,
+            segment=segment,
+            session_column=session_column,
+            session_coord=session_coord,
+            time_coord=time_coord,
+        )
+        if sliced.sizes.get(time_coord, 0) == 0:
+            if require_pose_for_trials:
+                raise ValueError(
+                    f'cannot plot {segment!r} path for session={session!r}, '
+                    f'trial_index={row.get("trial_index", trial_idx)!r}: DLC slice is '
+                    f'empty for window {start!r} to {end!r}. '
+                    f'{_pose_time_summary(pose, session=session, session_coord=session_coord, time_coord=time_coord)}.'
+                )
+            continue
+
+        if not _has_finite_centroid_points(sliced, keypoints):
+            if require_pose_for_trials:
+                raise ValueError(
+                    f'cannot plot {segment!r} path for session={session!r}, '
+                    f'trial_index={row.get("trial_index", trial_idx)!r}: DLC slice has '
+                    f'{sliced.sizes.get(time_coord, 0)} samples but no finite x/y '
+                    f'values for centroid_points={tuple(keypoints)!r}.'
+                )
+            continue
+
+        # Colour: the trial's active colour-group colourmap at its ramp position
+        # (earlier -> lo).
         frac = lo + (hi - lo) * row[ramp_column]
-        colour = mcolors.to_hex(mouse_cmaps[row[mouse_column]](frac))
+        colour = mcolors.to_hex(color_cmaps[row[color_column]](frac))
 
         # movement's scatter: recast to its schema; passing ``c`` overrides its
         # default time-gradient with our solid per-trial colour.
         movement_pose = sliced.rename({time_coord: 'time', 'keypoints': 'keypoint'}).expand_dims({'individual': ['ind']})
         _plot_centroid_trajectory(movement_pose, keypoints=keypoints, ax=ax, c=colour, s=marker_size)
+        plotted_indices.append(trial_idx)
 
     # movement writes a title / axis labels on every call; clear them so the grid
     # can set its own row and column labels.
     ax.set_title('')
     ax.set_xlabel('')
     ax.set_ylabel('')
+    return cell_trials.loc[plotted_indices]
 
 #===============================================================================
 
@@ -374,7 +514,115 @@ def add_group_column(
 
 
 #===============================================================================
-# 2| plot_path_grid
+# 2| diagnose_path_grid
+#===============================================================================
+def diagnose_path_grid(
+        result: dict,
+        *,
+        mice=None,
+        groups=None,
+        row_by='session',
+        col_by='segment',
+        segment: str = 'inbound',
+        segments=('outbound', 'inbound'),
+        centroid_points=DEFAULT_CENTROID_POINTS,
+        trials_key: str = 'trials',
+        pose_key: str = 'dlc:position',
+        mouse_column: str = 'mouseID',
+        session_column: str = 'session',
+        session_coord: str = 'session',
+        time_coord: str = 'Time',
+) -> pd.DataFrame:
+    '''
+    Return one diagnostic row per trial selected by the path-grid layout.
+
+    This follows the same row/column/mouse/group filtering as ``plot_path_grid``,
+    then checks the exact trial segment window against the DLC pose array. The
+    ``status`` column is ``'would_plot'`` only when the trial has a session tag
+    in pose, a valid time window, a non-empty pose slice, and finite x/y values
+    for the requested centroid keypoints.
+    '''
+
+    all_trials = result[trials_key]
+    pose = result[pose_key]
+    trials = all_trials.copy()
+
+    if groups is not None:
+        trials = add_group_column(trials, groups, mouse_column=mouse_column)
+        trials = trials[trials['group'].notna()]
+    if mice is not None:
+        trials = trials[trials[mouse_column].isin(list(mice))]
+    if trials.empty:
+        raise ValueError('no trials left after mice / groups filtering.')
+
+    _, row_combos = _axis_combos(row_by, trials, segments)
+    _, col_combos = _axis_combos(col_by, trials, segments)
+    pose_sessions = _pose_session_values(pose, session_coord)
+
+    rows = []
+    for row_combo in row_combos:
+        for col_combo in col_combos:
+            seg = segment
+            mask = pd.Series(True, index=trials.index)
+            for key, value in row_combo + col_combo:
+                if key == 'segment':
+                    seg = value
+                else:
+                    mask &= trials[key] == value
+            cell_trials = trials[mask]
+
+            for trial_idx, trial in cell_trials.iterrows():
+                session = trial[session_column]
+                start, end = _trial_time_window(trial, seg)
+                session_has_pose = session in pose_sessions
+                valid_window = pd.notna(start) and pd.notna(end) and end >= start
+                pose_samples = 0
+                finite_centroid_points = False
+
+                if not session_has_pose:
+                    status = 'no_pose_for_session'
+                elif not valid_window:
+                    status = 'invalid_window'
+                else:
+                    sliced = slice_pose_for_trial(
+                        pose,
+                        trial,
+                        segment=seg,
+                        session_column=session_column,
+                        session_coord=session_coord,
+                        time_coord=time_coord,
+                    )
+                    pose_samples = int(sliced.sizes.get(time_coord, 0))
+                    if pose_samples == 0:
+                        status = 'empty_slice'
+                    else:
+                        finite_centroid_points = _has_finite_centroid_points(sliced, centroid_points)
+                        status = 'would_plot' if finite_centroid_points else 'no_finite_centroid_points'
+
+                rows.append({
+                    'row_label': '\n'.join(str(v) for _, v in row_combo),
+                    'col_label': '\n'.join(str(v) for _, v in col_combo),
+                    'segment': seg,
+                    'mouseID': trial[mouse_column],
+                    'session': session,
+                    'trial_index': trial.get('trial_index', trial_idx),
+                    'start': start,
+                    'end': end,
+                    'session_has_pose': session_has_pose,
+                    'valid_window': valid_window,
+                    'pose_samples': pose_samples,
+                    'finite_centroid_points': finite_centroid_points,
+                    'status': status,
+                })
+
+    return pd.DataFrame(rows)
+
+#===============================================================================
+
+
+
+#===============================================================================
+# 3| plot_path_grid
 #===============================================================================
 def plot_path_grid(
         result: dict,
@@ -384,6 +632,7 @@ def plot_path_grid(
         groups=None,
         row_by='session',
         col_by='segment',
+    color_by: str | None = None,
         segment: str = 'inbound',
         segments=('outbound', 'inbound'),
         centroid_points= ('nose', 'lear', 'rear', 'body', 'tailbase'),
@@ -393,12 +642,14 @@ def plot_path_grid(
         pose_key: str = 'dlc:position',
         mouse_column: str = 'mouseID',
         session_column: str = 'session',
+        session_coord: str = 'session',
         time_coord: str = 'Time',
         video_subdir: str = 'VideoData',
         colorbar: bool = True,
         marker_size: float = 1.0,
         fontsize: int = 13,
         figsize_per_cell=(6.4, 5.2),
+        require_pose_for_trials: bool = True,
 ):
     '''
     Plot per-trial DLC centroid paths on a grid over the arena video frame.
@@ -407,7 +658,8 @@ def plot_path_grid(
     An axis is a trials-table column (``'session'``, ``'day'``, ``'group'``,
     ``'mouseID'``) or ``'segment'`` (the ``segments`` pair). A cell overlays every
     trial matching its row and column values, drawn for the cell's segment, each
-    trial coloured by its mouse colourmap at its within-row-group ramp position.
+    trial coloured by the active colour basis at its within-row-group ramp
+    position.
 
     ----------
     Parameters:
@@ -423,11 +675,15 @@ def plot_path_grid(
             outside any group are dropped.
         row_by (str | list[str]):
             Row axis or nested axes. Default ``'session'``. The colour ramp spans
-            each row group (per mouse).
+            each row group (per active colour key).
         col_by (str | list[str]):
             Column axis or nested axes. Default ``'segment'`` (outbound|inbound).
             Use e.g. ``['mouseID', 'segment']`` for mouse columns each split into
             outbound|inbound.
+        color_by (str | None):
+            Trials-table column controlling colourmap assignment and trial ramping.
+            Defaults to ``'group'`` when ``groups`` is supplied, otherwise
+            ``mouse_column``.
         segment (str):
             The segment drawn when no axis is ``'segment'``. Default ``'inbound'``.
         segments (sequence):
@@ -436,7 +692,8 @@ def plot_path_grid(
         centroid_points (sequence):
             Keypoints averaged into the centroid. Default ``('nose', 'lear', 'rear', 'body', 'tailbase')``.
         mouse_cmaps (dict | None):
-            ``{mouse: colourmap}``; any mouse omitted is auto-assigned.
+            Explicit colourmaps keyed by the active colour basis; omitted labels
+            are auto-assigned.
         cmap_range (tuple):
             ``(lo, hi)`` colourmap fractions the trial ramp spans. Default
             ``(0.2, 1.0)``.
@@ -444,13 +701,16 @@ def plot_path_grid(
             Keys of the trials table and pose array in ``result``.
         mouse_column, session_column (str):
             Trials-table columns naming the mouse and session.
+        session_coord (str):
+            Pose coordinate naming the session. Default ``'session'``.
         time_coord (str):
             Pose time dimension. Default ``'Time'``.
         video_subdir (str):
             Per-session video subfolder. Default ``'VideoData'``.
         colorbar (bool):
-            If True (default), add a slim per-mouse colourbar to each subpanel
-            showing the trial ramp, plus a mouse-id / trial-count annotation.
+            If True (default), add a slim per-colour-group colourbar to each
+            subpanel showing the trial ramp, plus a label / trial-count
+            annotation.
         marker_size (float):
             Scatter marker size passed to ``movement``. Default 1.
         fontsize (int):
@@ -458,6 +718,11 @@ def plot_path_grid(
             (colourbar ticks use ``fontsize - 2``). Default 13.
         figsize_per_cell (tuple):
             ``(width, height)`` inches per cell.
+        require_pose_for_trials (bool):
+            If True (default), raise when a selected trial from a session present
+            in the DLC pose array does not produce drawable pose points for its
+            path window. Sessions absent from the pose array still render as a
+            bare frame, preserving the "missing DLC is visible" behaviour.
     Returns:
         tuple[matplotlib.figure.Figure, numpy.ndarray]:
             The figure and its 2D array of axes.
@@ -491,24 +756,27 @@ def plot_path_grid(
         trials = trials[trials[mouse_column].isin(list(mice))]
     if trials.empty:
         raise ValueError('no trials left after mice / groups filtering.')
+    color_column = _resolve_color_column(color_by, groups, mouse_column)
+    if color_column not in trials.columns:
+        raise KeyError(f'color_by={color_column!r} is not present in the selected trials table.')
     panel_fontsize = fontsize
     header_fontsize = fontsize + 1
     colorbar_fontsize = max(fontsize - 2, 1)
 
     # 3| Per-trial colour ramp, computed WITHIN each row group (its non-segment
-    #    axes) per mouse, in chronological order (the table is already ordered by
-    #    session then trial). So earlier trials in a row are lighter, and a per-day
-    #    row ramps continuously across that day's sessions.
+    #    axes) per active colour key, in chronological order (the table is already
+    #    ordered by session then trial). So earlier trials in a row are lighter,
+    #    and a per-day row ramps continuously across that day's sessions.
     row_specs = [row_by] if isinstance(row_by, str) else list(row_by)
-    ramp_columns = list(dict.fromkeys([s for s in row_specs if s != 'segment'] + [mouse_column]))
+    ramp_columns = list(dict.fromkeys([s for s in row_specs if s != 'segment'] + [color_column]))
     grouped = trials.groupby(ramp_columns, sort=False)
     rank = grouped.cumcount()
     size = grouped[mouse_column].transform('size')
     trials = trials.copy()
     trials['_ramp'] = (rank / (size - 1).clip(lower=1)).astype(float)
 
-    # 4| Per-mouse colourmaps for every mouse still present.
-    resolved_cmaps = _resolve_mouse_cmaps(mouse_cmaps, list(pd.unique(trials[mouse_column])))
+    # 4| Per-colour-group colourmaps for every label still present.
+    resolved_cmaps = _resolve_color_cmaps(mouse_cmaps, list(pd.unique(trials[color_column])))
 
     # 5| Resolve the row and column cell combinations (nested axes -> product).
     _, row_combos = _axis_combos(row_by, trials, segments)
@@ -561,36 +829,43 @@ def plot_path_grid(
                     ax.imshow(frame, origin='upper')
 
             # 7c| Overlay the trial paths.
-            _plot_paths_on_ax(
+            plotted_trials = _plot_paths_on_ax(
                 ax, pose, cell_trials,
                 segment=seg,
                 centroid_points=centroid_points,
-                mouse_cmaps=resolved_cmaps,
+                color_cmaps=resolved_cmaps,
                 cmap_range=cmap_range,
-                mouse_column=mouse_column,
+                color_column=color_column,
+                session_column=session_column,
+                session_coord=session_coord,
                 ramp_column='_ramp',
                 time_coord=time_coord,
                 marker_size=marker_size,
+                require_pose_for_trials=require_pose_for_trials,
             )
 
-            # 7c-2| Annotate each panel: per-mouse id + trial count (top-left).
-            counts = cell_trials.groupby(mouse_column, sort=False).size()
+            # 7c-2| Annotate each panel: per-colour-group label + plotted-trial
+            #       count
+            #       (top-left). This is deliberately based on traces actually sent
+            #       to movement, not merely trial-table rows selected for the panel.
+            counts = plotted_trials.groupby(color_column, sort=False).size()
             if len(counts):
                 ax.text(
                     0.02, 0.98,
-                    '\n'.join(f'{mouse}  n={int(counts[mouse])}' for mouse in counts.index),
+                    '\n'.join(f'{label}  n={int(counts[label])}' for label in counts.index),
                     transform=ax.transAxes, va='top', ha='left', fontsize=fontsize, color='white',
                     bbox=dict(boxstyle='round', facecolor='black', alpha=0.45, edgecolor='none'),
                 )
-            # Per-mouse trial colourbar(s), placed to the RIGHT of the panel (one per
-            # mouse present; ticks mark this cell's first / last trial number).
+            # Per-colour-group trial colourbar(s), placed to the RIGHT of the
+            # panel (one per label present; ticks mark this cell's first / last
+            # trial number).
             if colorbar:
-                for mouse in counts.index:
-                    sub = cell_trials[cell_trials[mouse_column] == mouse]
+                for label in counts.index:
+                    sub = plotted_trials[plotted_trials[color_column] == label]
                     tlo, thi = int(sub['trial_index'].min()), int(sub['trial_index'].max())
                     sm = plt.cm.ScalarMappable(
                         norm=mcolors.Normalize(tlo, thi if thi > tlo else tlo + 1),
-                        cmap=_truncate_cmap(resolved_cmaps[mouse], cmap_range),
+                        cmap=_truncate_cmap(resolved_cmaps[label], cmap_range),
                     )
                     cbar = fig.colorbar(sm, ax=ax, fraction=0.045, pad=0.025)
                     cbar.set_ticks([tlo, thi] if thi > tlo else [tlo])

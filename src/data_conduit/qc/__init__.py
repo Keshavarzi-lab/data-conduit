@@ -25,9 +25,9 @@ from data_conduit.qc.slicing import slice_pose, slice_pose_for_trial, slice_pose
 from data_conduit.qc.trials import parse_events_to_trials
 
 if TYPE_CHECKING:
-    from data_conduit.qc.path_plots import DEFAULT_CENTROID_POINTS, add_group_column, plot_path_grid
+    from data_conduit.qc.path_plots import DEFAULT_CENTROID_POINTS, add_group_column, diagnose_path_grid, plot_path_grid
 
-_PLOT_EXPORTS = {'DEFAULT_CENTROID_POINTS', 'add_group_column', 'plot_path_grid'}
+_PLOT_EXPORTS = {'DEFAULT_CENTROID_POINTS', 'add_group_column', 'diagnose_path_grid', 'plot_path_grid'}
 
 __all__ = [
     'parse_events_to_trials',
@@ -38,6 +38,7 @@ __all__ = [
     'slice_pose_for_trial',
     'slice_pose_per_trial',
     'plot_path_grid',
+    'diagnose_path_grid',
     'add_group_column',
     'DEFAULT_CENTROID_POINTS',
 ]

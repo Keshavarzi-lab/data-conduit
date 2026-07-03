@@ -462,6 +462,8 @@ class DataStructure:
         self.exclude = exclude
         self.extractors = extractors
         self.level_selectors = level_selectors
+        # Populated by load(); None until then.
+        self.data: Bundle | None = None
 
 
     #---------------------------------------------------------------------------
@@ -580,7 +582,55 @@ class DataStructure:
             session_to_value = {sid: info.get(level) for sid, info in metadata.items()}
             result = _attach_level(result, level, session_to_value, dim=dim, base=session_coord)
 
+        self.data = result
         return result
+
+
+    #---------------------------------------------------------------------------
+    # 1.4| Dict-like access (delegates to self.data after load)
+    #---------------------------------------------------------------------------
+    def _require_loaded(self):
+        # Internal guard: raises if load() has not been called yet.
+        if self.data is None:
+            raise RuntimeError('call .load() before accessing data.')
+
+    def keys(self):
+        '''
+        Return the stream names in the loaded bundle.
+
+        Equivalent to ``datastructure.data.keys()``. Raises ``RuntimeError``
+        if ``.load()`` has not been called yet.
+
+        Returns:
+            KeysView: the stream names (e.g. ``'events'``, ``'dlc:position'``).
+        '''
+        self._require_loaded()
+        return self.data.keys()
+
+    def __getitem__(self, key: str):
+        '''
+        Return a single stream from the loaded bundle by name.
+
+        Raises ``RuntimeError`` if ``.load()`` has not been called yet.
+
+        Parameters:
+            key (str): stream name (e.g. ``'events'``, ``'dlc:position'``).
+        Returns:
+            xr.DataArray | xr.Dataset | pd.DataFrame: the concatenated stream.
+        '''
+        self._require_loaded()
+        return self.data[key]
+
+    def __iter__(self):
+        '''Iterate over stream names. Raises ``RuntimeError`` if not loaded.'''
+        self._require_loaded()
+        return iter(self.data)
+
+    def __len__(self) -> int:
+        '''Return the number of streams in the loaded bundle. Raises ``RuntimeError`` if not loaded.'''
+        self._require_loaded()
+        return len(self.data)
+
 
 #===============================================================================
 
