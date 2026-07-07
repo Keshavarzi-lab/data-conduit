@@ -24,6 +24,8 @@ from data_conduit.qc.catalog import QC_STREAMS, build_qc_catalog, qc_datastructu
 from data_conduit.qc.slicing import slice_pose, slice_pose_for_trial, slice_pose_per_trial
 from data_conduit.qc.training_filter import (
     TRAINING_DETAIL,
+    TRAINING_FIRST_MID_LAST_DETAIL,
+    TRAINING_PHASE_LABELS,
     filter_trials,
     summarise_training_filter,
     training_session_names,
@@ -45,6 +47,8 @@ __all__ = [
     'slice_pose_for_trial',
     'slice_pose_per_trial',
     'TRAINING_DETAIL',
+    'TRAINING_FIRST_MID_LAST_DETAIL',
+    'TRAINING_PHASE_LABELS',
     'training_spec',
     'training_session_names',
     'summarise_training_filter',
