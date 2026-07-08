@@ -282,8 +282,8 @@ TRAINING_FIRST_MID_LAST_DETAIL: dict[str, list[tuple[int, str, int, bool]]] = {
         (2, '2026-04-29T171313Z', 11, False),
         (2, '2026-04-29T172239Z', 11, False),
         (2, '2026-04-29T174637Z', 2, False),
-        # (4, '2026-05-11T125643Z', 16, False),
-        (3, '2026-05-12T164637Z', 24, False),
+        (3, '2026-05-11T125643Z', 16, False),
+        # (5, '2026-05-12T164637Z', 24, False),
 
 
         # (1, '2026-04-25T194933Z', 11, False),   # first
@@ -300,8 +300,8 @@ TRAINING_FIRST_MID_LAST_DETAIL: dict[str, list[tuple[int, str, int, bool]]] = {
         # (2, '2026-04-25T190915Z', 11, False),
         (2, '2026-04-28T124013Z',  6, False),   # day 3: COMBINE TWO SESSIONS
         (2, '2026-04-28T124547Z', 11, False),
-        # (4, '2026-04-29T161826Z', 11, False),
-        (3, '2026-04-30T151438Z',  6, False),
+        (3, '2026-04-29T161826Z', 11, False),
+        # (5, '2026-04-30T151438Z',  6, False),
     
     #     (1, '2026-04-23T160907Z', 11, False),   # first
     #     (2, '2026-04-28T124013Z',  6, False),   # middle
@@ -315,10 +315,10 @@ TRAINING_FIRST_MID_LAST_DETAIL: dict[str, list[tuple[int, str, int, bool]]] = {
         # (3, '2026-04-25T181535Z', 11, False),   # day 3: COMBINE TWO SESSIONS
         # (3, '2026-04-25T182521Z', 11, False),
         (2, '2026-04-28T163449Z', 21, False),   # day 4: COMBINE THREE SESSIONS
-        # (4, '2026-04-28T164540Z', 12, False),
-        # (4, '2026-04-28T165257Z', 16, False),
-        (3, '2026-04-29T153239Z', 23, False),   # day 5: COMBINE TWO SESSIONS
-        (3, '2026-04-29T155431Z', 14, False),
+        (3, '2026-04-28T164540Z', 12, False),
+        (3, '2026-04-28T165257Z', 16, False),
+        # (5, '2026-04-29T153239Z', 23, False),   # day 5: COMBINE TWO SESSIONS
+        # (5, '2026-04-29T155431Z', 14, False),
 
         # (1, '2026-04-21T155201Z', 26, False),   # first: COMBINE TWO SESSIONS
         # (1, '2026-04-21T162256Z',  6, False),
@@ -334,8 +334,8 @@ TRAINING_FIRST_MID_LAST_DETAIL: dict[str, list[tuple[int, str, int, bool]]] = {
         (2, '2026-05-20T112502Z', 24, False),   # day 4
         # (5, '2026-05-21T120827Z', 24, False),
         # (6, '2026-05-22T150830Z', 24, False),
-        # (7, '2026-05-28T154840Z', 24, False),
-        (3, '2026-05-29T155941Z', 24, False),   # day 8
+        (3, '2026-05-28T154840Z', 24, False),
+        # (8, '2026-05-29T155941Z', 24, False),   # day 8
 
         # (1, '2026-04-25T161723Z', 40, False),   # first: COMBINE TWO SESSIONS
         # (1, '2026-04-25T163456Z', 22, False),
@@ -359,8 +359,8 @@ TRAINING_FIRST_MID_LAST_DETAIL: dict[str, list[tuple[int, str, int, bool]]] = {
         # (3, '2026-05-14T135225Z', 24, True),
         (2, '2026-05-16T155926Z', 24, True),   # day 4
         # (5, '2026-05-17T154506Z', 24, True),
-        # (6, '2026-05-19T110125Z', 24, True),
-        (3, '2026-05-20T102711Z', 24, True),   # day 7
+        (3, '2026-05-19T110125Z', 24, True),
+        # (7, '2026-05-20T102711Z', 24, True),   # day 7
 
         # (1, '2026-04-25T144913Z', 11, False),   # first: COMBINE THREE SESSIONS (pre-block protocol, no ON exclusion)
         # (1, '2026-04-25T150252Z', 11, False),
