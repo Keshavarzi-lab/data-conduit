@@ -260,52 +260,113 @@ TRAINING_DETAIL: dict[str, list[tuple[int, str, int, bool]]] = {
 #     ],
 # }
 
-# First / middle / last training day per mouse (training_day 1 / 2 / 3). A SEPARATE
-# curation from the 5-day progression above -- it includes earlier Day-1 sessions the
-# 5-day list omits -- used by the phase (first/mid/last) plots. Reconstructed
-# 2026-07-07 from the working-copy table that had been mislabelled ``TRAINING_DETAIL``.
+# First / middle / last training day per mouse. ``training_day`` here is the PHASE
+# RANK -- 1 = first, 2 = mid, 3 = last (see ``TRAINING_PHASE_LABELS``) -- NOT the
+# calendar day; any inline ``# day N`` comments below refer to the original calendar
+# day from Celia's sheet and are kept only for provenance. A SEPARATE curation from
+# the 5-day progression above -- it includes earlier Day-1 sessions the 5-day list
+# omits -- used by the phase (first/mid/last) plots. Reconstructed 2026-07-07 from the
+# working-copy table that had been mislabelled ``TRAINING_DETAIL``.
 TRAINING_FIRST_MID_LAST_DETAIL: dict[str, list[tuple[int, str, int, bool]]] = {
     'FL_M01569519': [
-        (1, '2026-04-25T194933Z', 11, False),   # first
-        (1, '2026-04-25T200011Z', 11, False),   # first  
-        (1, '2026-04-25T200705Z', 11, False),    # first  
-        (1, '2026-04-25T201616Z', 11, False),    # first 
-        (1, '2026-04-25T202109Z', 6, False),    # first 
-        (2, '2026-05-11T125643Z', 16, False),   # middle
-        (3, '2026-05-14T165819Z', 24, False),   # last
+        (1, '2026-04-25T194933Z', 11, False),
+        (1, '2026-04-25T200011Z', 11, False),
+        (1, '2026-04-25T200705Z', 11, False),
+        (1, '2026-04-25T201616Z', 11, False),
+        (1, '2026-04-25T202109Z', 6, False),
+        # (2, '2026-04-28T172539Z', 21, False),
+        # (2, '2026-04-28T173816Z', 6, False),
+        # (2, '2026-04-28T174249Z', 6, False),
+        # (2, '2026-04-28T174922Z', 2, False),
+        (2, '2026-04-29T170501Z', 11, True),
+        (2, '2026-04-29T171313Z', 11, False),
+        (2, '2026-04-29T172239Z', 11, False),
+        (2, '2026-04-29T174637Z', 2, False),
+        # (4, '2026-05-11T125643Z', 16, False),
+        (3, '2026-05-12T164637Z', 24, False),
+
+
+        # (1, '2026-04-25T194933Z', 11, False),   # first
+        # (1, '2026-04-25T200011Z', 11, False),   # first  
+        # (1, '2026-04-25T200705Z', 11, False),    # first  
+        # (1, '2026-04-25T201616Z', 11, False),    # first 
+        # (1, '2026-04-25T202109Z', 6, False),    # first 
+        # (2, '2026-05-11T125643Z', 16, False),   # middle
+        # (3, '2026-05-14T165819Z', 24, False),   # last
     ],
     'FLR_M01569521': [
-        (1, '2026-04-23T160907Z', 11, False),   # first
-        (2, '2026-04-28T124013Z',  6, False),   # middle
-        (2, '2026-04-28T124547Z', 11, False),   # middle
-        (3, '2026-04-30T151438Z',  6, False),   # last
+        (1, '2026-04-23T160907Z', 11, False),
+        # (2, '2026-04-25T190120Z', 11, False),   # day 2: COMBINE TWO SESSIONS
+        # (2, '2026-04-25T190915Z', 11, False),
+        (2, '2026-04-28T124013Z',  6, False),   # day 3: COMBINE TWO SESSIONS
+        (2, '2026-04-28T124547Z', 11, False),
+        # (4, '2026-04-29T161826Z', 11, False),
+        (3, '2026-04-30T151438Z',  6, False),
+    
+    #     (1, '2026-04-23T160907Z', 11, False),   # first
+    #     (2, '2026-04-28T124013Z',  6, False),   # middle
+    #     (2, '2026-04-28T124547Z', 11, False),   # middle
+    #     (3, '2026-04-30T151438Z',  6, False),   # last
     ],
     'FbR_M01569522': [
-        (1, '2026-04-21T155201Z', 26, False),   # first: COMBINE TWO SESSIONS
+        (1, '2026-04-21T155201Z', 26, False),   # day 1: COMBINE TWO SESSIONS
         (1, '2026-04-21T162256Z',  6, False),
-        (2, '2026-04-25T181535Z', 11, False),   # middle: COMBINE TWO SESSIONS
-        (2, '2026-04-25T182521Z', 11, False),
-        (3, '2026-04-29T153239Z', 23, False),   # last: COMBINE TWO SESSIONS
+        # (2, '2026-04-23T165237Z', 11, False),
+        # (3, '2026-04-25T181535Z', 11, False),   # day 3: COMBINE TWO SESSIONS
+        # (3, '2026-04-25T182521Z', 11, False),
+        (2, '2026-04-28T163449Z', 21, False),   # day 4: COMBINE THREE SESSIONS
+        # (4, '2026-04-28T164540Z', 12, False),
+        # (4, '2026-04-28T165257Z', 16, False),
+        (3, '2026-04-29T153239Z', 23, False),   # day 5: COMBINE TWO SESSIONS
         (3, '2026-04-29T155431Z', 14, False),
+
+        # (1, '2026-04-21T155201Z', 26, False),   # first: COMBINE TWO SESSIONS
+        # (1, '2026-04-21T162256Z',  6, False),
+        # (2, '2026-04-25T181535Z', 11, False),   # middle: COMBINE TWO SESSIONS
+        # (2, '2026-04-25T182521Z', 11, False),
+        # (3, '2026-04-29T153239Z', 23, False),   # last: COMBINE TWO SESSIONS
+        # (3, '2026-04-29T155431Z', 14, False),
     ],
     'MbL_M01569517': [
-        (1, '2026-04-25T161723Z', 40, False),   # first: COMBINE TWO SESSIONS
-        (1, '2026-04-25T163456Z', 22, False),
-        (2, '2026-05-22T150830Z', 24, False),   # middle
-        (3, '2026-05-29T155941Z', 24, False),   # last
+        (1, '2026-05-16T165921Z', 24, False),
+        # (2, '2026-05-17T144445Z', 24, False),
+        # (3, '2026-05-19T091455Z', 24, False),
+        (2, '2026-05-20T112502Z', 24, False),   # day 4
+        # (5, '2026-05-21T120827Z', 24, False),
+        # (6, '2026-05-22T150830Z', 24, False),
+        # (7, '2026-05-28T154840Z', 24, False),
+        (3, '2026-05-29T155941Z', 24, False),   # day 8
+
+        # (1, '2026-04-25T161723Z', 40, False),   # first: COMBINE TWO SESSIONS
+        # (1, '2026-04-25T163456Z', 22, False),
+        # (2, '2026-05-22T150830Z', 24, False),   # middle
+        # (3, '2026-05-29T155941Z', 24, False),   # last
     ],
     # Block-protocol mouse: 24-to-end AND drop the mid-session ON (cue) trials.
     'MR_M01569515': [
-        (1, '2026-05-12T150308Z', 24, True),    # first  (spreadsheet: exclude 3 ON)
-        (2, '2026-05-29T171621Z', 24, True),    # middle (exclude ON)
-        (3, '2026-06-21T093349Z', 24, True),    # last   (exclude ON)
+        (1, '2026-05-12T150308Z', 24, True),
+        (2, '2026-05-13T121852Z', 24, True),
+        # (3, '2026-05-14T122109Z', 24, True),
+        (3, '2026-05-16T173516Z', 24, True),   # day 4
+
+        # (1, '2026-05-12T150308Z', 24, True),    # first  (spreadsheet: exclude 3 ON)
+        # (2, '2026-05-29T171621Z', 24, True),    # middle (exclude ON)
+        # (3, '2026-06-21T093349Z', 24, True),    # last   (exclude ON)
     ],
     'MbR_M01569518': [
-        (1, '2026-04-25T144913Z', 11, False),   # first: COMBINE THREE SESSIONS (pre-block protocol, no ON exclusion)
-        (1, '2026-04-25T150252Z', 11, False),
-        (1, '2026-04-25T151326Z', 11, False),
-        (2, '2026-05-14T135225Z', 24, True),    # middle (exclude 1 ON)
-        (3, '2026-06-09T132359Z', 24, True),    # last   (exclude ON)
+        (1, '2026-05-12T132304Z', 24, True),
+        # (2, '2026-05-13T135855Z', 24, True),
+        # (3, '2026-05-14T135225Z', 24, True),
+        (2, '2026-05-16T155926Z', 24, True),   # day 4
+        # (5, '2026-05-17T154506Z', 24, True),
+        # (6, '2026-05-19T110125Z', 24, True),
+        (3, '2026-05-20T102711Z', 24, True),   # day 7
+
+        # (1, '2026-04-25T144913Z', 11, False),   # first: COMBINE THREE SESSIONS (pre-block protocol, no ON exclusion)
+        # (1, '2026-04-25T150252Z', 11, False),
+        # (1, '2026-04-25T151326Z', 11, False),
+        # (2, '2026-05-14T135225Z', 24, True),    # middle (exclude 1 ON)
+        # (3, '2026-06-09T132359Z', 24, True),    # last   (exclude ON)
     ],
 }
 
