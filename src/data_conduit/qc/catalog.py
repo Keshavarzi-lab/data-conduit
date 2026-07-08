@@ -48,6 +48,19 @@ from pathlib import Path
 ################################################################################
 
 
+def _resolve_harp_yaml_path(path: str | Path) -> Path:
+    '''Resolve a HARP YAML path robustly for notebooks/scripts run outside the repo root.'''
+    candidate = Path(path)
+    if candidate.is_absolute() or candidate.exists():
+        return candidate
+
+    repo_root_candidate = Path(__file__).resolve().parents[3] / candidate
+    if repo_root_candidate.exists():
+        return repo_root_candidate
+
+    return candidate
+
+
 
 # The full set of streams the Q_C catalog knows how to read. 'events' is always
 # loaded (the trial table needs it); the rest are opt-in via the ``streams`` arg.
@@ -101,6 +114,9 @@ def build_qc_catalog(
         Catalog:
             The assembled catalog, ready to hand to a DataStructure.
     '''
+
+    device_yaml = _resolve_harp_yaml_path(device_yaml)
+    soundcard_yaml = _resolve_harp_yaml_path(soundcard_yaml)
 
     # 1| Import lazily: the HARP presets pull in optional packages, and keeping the
     #    imports inside the function keeps ``import data_conduit.qc`` light.
