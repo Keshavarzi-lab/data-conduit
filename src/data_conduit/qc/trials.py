@@ -188,6 +188,38 @@ def _get_tz_triggered_time(
 
 
 
+
+#===============================================================================
+# 4b| "Target Zone Available" Time Within a Trial Window
+#===============================================================================
+def _get_tz_available_time(
+        window: pd.DataFrame,
+) -> float:
+    '''
+    Return the time of the first "Target zone available" event in a trial window.
+
+    This is when the target zone is set up / announced for the trial (the same
+    event ``_get_target_zone_size`` reads the radius from), which fires shortly
+    after the trial start and before "Target zone triggered". It provides an
+    alternate outbound-path end (start -> zone available). Unlike the triggered
+    time it is present even on a true miss, since the zone is announced whether
+    or not the animal reaches it. NaN only when the window has no such event.
+
+    ----------
+    Parameters:
+        window (pd.DataFrame):
+            The trial's events, restricted to its [start, end] window.
+    Returns:
+        float:
+            The first "Target zone available" timestamp, or NaN if absent.
+    '''
+    matches = window[window['Event'].str.contains('Target zone available', na=False)]
+    return matches.index[0] if not matches.empty else np.nan
+
+#===============================================================================
+
+
+
 #===============================================================================
 # 5| LED State During a Trial
 #===============================================================================
@@ -339,6 +371,9 @@ def parse_events_to_trials(
               * start_time           : trial start (see buffer rule above).
               * end_time             : trial end (the closing poke time).
               * tz_triggered_time    : "Target zone triggered" time, or NaN.
+              * tz_available_time    : "Target zone available" time (alternate
+                                       outbound end: start -> zone announced), or
+                                       NaN.
               * outbound_start_time  : = start_time.
               * outbound_end_time    : = tz_triggered_time.
               * inbound_start_time   : = tz_triggered_time.
@@ -374,6 +409,8 @@ def parse_events_to_trials(
         # 2b| The outbound/inbound boundary: when the animal first triggered the
         #     target zone. Reused both for the path-segment times and for TTP.
         tz_triggered_time = _get_tz_triggered_time(window)
+        # Alternate outbound end: when the zone was announced (start -> available).
+        tz_available_time = _get_tz_available_time(window)
 
         # 2c| Assemble the trial row.
         trials.append({
@@ -381,6 +418,7 @@ def parse_events_to_trials(
             'start_time': start_time,
             'end_time': end_time,
             'tz_triggered_time': tz_triggered_time,
+            'tz_available_time': tz_available_time,
             # Outbound = start -> target-zone-triggered; inbound = triggered -> poke.
             'outbound_start_time': start_time,
             'outbound_end_time': tz_triggered_time,
