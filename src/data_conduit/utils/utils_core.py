@@ -4,6 +4,57 @@ Utils subpackage for data-conduit.
 Contents:
 --------------------------------
 
+1| Private Helper Functions
+
+    1.1| _flatten_nested_dict: 
+            Recursively flattens arbitrarily nested dictionaries of DataFrames or DataArrays.
+    
+    1.2| _concat_split_dataframes:
+            Collapse a (possibly nested) dict of per-file DataFrames into one DataFrame.
+
+2| _get_nested_dict_depth:
+        Return the maximum nesting depth of a dictionary (1 = flat dict with no nested dicts).
+
+3| _apply_level_selectors:
+        Return a filtered copy of `d`, keeping only keys listed in `selectors[depth]` at each depth.
+
+4| Check Key Matches Selector
+
+    4.1| starts_with(prefix):
+            Return true if the key starts with the given prefix.
+    
+    4.2| ends_with(suffix):
+            Return true if the key ends with the given suffix.
+    
+    4.3| contains(substring):
+            Return true if the key contains the given substring.
+    
+    4.4| exclude(*names):
+            Return true if the key is not in the given list of names.
+    
+    4.5| _matches_selector(key, selector):
+            Check if a key matches a selector. Callable is used to allow for flexible matching logic 
+            (e.g., regex, custom functions) beyond simple list or string matching. 
+            If selector is None, it matches everything.
+
+5| _parse_selectors:
+        Validate and parse level selector kwargs into a dictionary mapping depth levels to their corresponding selector values.
+
+6| _is_readable:
+        Check if file has matching reader. If no readers defined, read everything.
+
+7| _passes_selector:
+        Check if name passes selector at given level. If no selector for that level, pass everything.
+
+8| _attempt_read:
+        Attempt to read file with matching reader. Returns DataFrame, Path, or None if no reader matches or read fails.
+
+9| _walk_dirtree:
+        Walk Directory Tree and Collect DataFrames/DataArrays. 
+
+        
+
+
 '''
 
 
