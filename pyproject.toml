@@ -3,7 +3,28 @@ name = "data-conduit"
 version = "0.1.0"
 description = "A Python toolkit for modular data processing workflows for experimental neuroscience labs"
 readme = "README.md"
-authors = [{name = "CS-2425"}]
+authors = [{name = "Keshavarzi Lab"}]
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = [
+  "data pipelines",
+  "experimental neuroscience",
+  "multimodal data",
+  "time-series analysis",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
 requires-python = ">=3.11.0"
 dependencies = [
   "numpy",
@@ -27,17 +48,54 @@ notebooks = ["itables", "jupyterlab", "ipykernel", "matplotlib"]
 # Everything above, for a full analysis environment.
 all = ["harp-python", "tables", "movement", "itables", "jupyterlab", "ipykernel", "matplotlib"]
 
+[project.urls]
+Homepage = "https://keshavarzi-lab.github.io/data-conduit/"
+Documentation = "https://keshavarzi-lab.github.io/data-conduit/"
+Repository = "https://github.com/Keshavarzi-lab/data-conduit"
+Issues = "https://github.com/Keshavarzi-lab/data-conduit/issues"
+Changelog = "https://github.com/Keshavarzi-lab/data-conduit/blob/main/CHANGELOG.md"
+
 [build-system]
 requires = ["uv_build>=0.10.4,<0.11.0"]
 build-backend = "uv_build"
 
+[tool.uv.build-backend]
+source-exclude = [
+  "/src/data_conduit/data_conduit_demos",
+  "/src/data_conduit/test_celia",
+  "/src/data_conduit/tests",
+  "/src/data_conduit/qc/*.ipynb",
+  "/src/data_conduit/qc/*.bmp",
+  "/src/data_conduit/qc/*.gif",
+  "/src/data_conduit/qc/*.jpeg",
+  "/src/data_conduit/qc/*.jpg",
+  "/src/data_conduit/qc/*.md",
+  "/src/data_conduit/qc/*.png",
+  "/src/data_conduit/qc/*.svg",
+  "/src/data_conduit/qc/*.tif",
+  "/src/data_conduit/qc/*.tiff",
+  "/src/data_conduit/qc/*.webp",
+  "/src/data_conduit/qc/*.csv",
+  "/src/data_conduit/qc/*.ods",
+  "/src/data_conduit/qc/*.tsv",
+  "/src/data_conduit/qc/*.xls",
+  "/src/data_conduit/qc/*.xlsx",
+]
+
 [dependency-groups]
 dev = [
-  "mkdocs>=1.6.1",
-  "mkdocs-material>=9.7.2",
   "pre-commit>=4.5.1",
   "pytest>=9.0.2",
   "ruff>=0.15.2",
+]
+docs = [
+  "linkify-it-py",
+  "myst-parser",
+  "nbsphinx",
+  "pydata-sphinx-theme",
+  "sphinx",
+  "sphinx-autodoc-typehints",
+  "sphinx-sitemap",
 ]
 
 [tool.ruff]
