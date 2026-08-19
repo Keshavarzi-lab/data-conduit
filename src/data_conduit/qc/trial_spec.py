@@ -40,7 +40,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from data_conduit._refactor_template.datastructures.trials import TrialSpec, first_matching, parse_trials
+from data_conduit.datastructures import TrialSpec, first_matching, parse_trials
 
 ################################################################################
 
@@ -315,7 +315,7 @@ def qc_trials_reader(
     # Imported here so importing this module stays light and free of reader
     # dependencies (the spec itself only needs pandas).
     from data_conduit.datasources.monosource import ExperimentEvents
-    from data_conduit.utils.utils_core import _concat_split_dataframes
+    from data_conduit.core.utils import _concat_split_dataframes
 
     def read_trials(path: Path) -> pd.DataFrame:
         # Flatten first: a split session logs several CSVs, and the trial parser

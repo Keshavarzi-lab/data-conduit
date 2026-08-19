@@ -41,7 +41,7 @@ Contents:
 import numpy as np
 import pandas as pd
 
-from data_conduit._refactor_template.datastructures.trials import TrialSpec, segment_bounds
+from data_conduit.datastructures import TrialSpec, segment_bounds
 from data_conduit.qc.trial_spec import QC_TRIALS
 
 ################################################################################

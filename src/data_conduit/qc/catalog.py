@@ -120,10 +120,10 @@ def build_qc_catalog(
 
     # 1| Import lazily: the HARP presets pull in optional packages, and keeping the
     #    imports inside the function keeps ``import data_conduit.qc`` light.
-    from data_conduit.datastructure import Catalog
+    from data_conduit.datastructures import StreamCatalog as Catalog
     from data_conduit.datasources.monosource import ExperimentEvents, SessionSettings, VideoData
     from data_conduit.qc.trials import parse_events_to_trials
-    from data_conduit.utils.utils_core import _concat_split_dataframes
+    from data_conduit.core.utils import _concat_split_dataframes
 
     # 2| Normalise the requested stream set: events is mandatory; dlc implies video
     #    (the aligner needs the camera frame times). Remember whether video was asked
@@ -149,13 +149,13 @@ def build_qc_catalog(
         lambda p: _concat_split_dataframes(ExperimentEvents(experiment_directory_path=p).df),
     )
     if 'nosepoke' in requested:
-        from data_conduit.datasources.presets.harp import Nosepoke
+        from data_conduit.integrations.harp.datasource_presets import Nosepoke
         catalog.add_reader(
             'nosepoke',
             lambda p: Nosepoke(experiment_directory_path=p, harp_device_yaml_path=device_yaml),
         )
     if 'soundcard' in requested:
-        from data_conduit.datasources.presets.harp import SoundCard
+        from data_conduit.integrations.harp.datasource_presets import SoundCard
         catalog.add_reader(
             'soundcard',
             lambda p: SoundCard(experiment_directory_path=p, harp_device_yaml_path=soundcard_yaml),
@@ -175,7 +175,7 @@ def build_qc_catalog(
             lambda p: _concat_split_dataframes(VideoData(experiment_directory_path=p).df),
         )
     if 'dlc' in requested:
-        from data_conduit.datasources.pose import DLCPose
+        from data_conduit.integrations.DLC.pose import DLCPose
         catalog.add_reader(
             'dlc',
             lambda p: DLCPose(experiment_directory_path=p, file_format=dlc_file_format),
@@ -207,7 +207,7 @@ def build_qc_catalog(
     # 5| Configurator: put DLC pose on the session clock using the video frame times.
     #    Only added when DLC was requested (it needs the video object too).
     if 'dlc' in requested:
-        from data_conduit.datasources.pose import align_pose_to_video
+        from data_conduit.integrations.DLC.pose import align_pose_to_video
 
         def _align_dlc(objects: dict) -> dict:
             result = dict(objects)
@@ -289,7 +289,7 @@ def qc_datastructure(
         DataStructure:
             The configured DataStructure; call ``.load()`` to run it.
     '''
-    from data_conduit.datastructure import DataStructure
+    from data_conduit.datastructures import DataStructure
 
     catalog = build_qc_catalog(
         streams=streams,
