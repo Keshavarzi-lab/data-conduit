@@ -26,8 +26,8 @@ import numpy as np
 import xarray as xr
 
 from data_conduit.datasources.monosource.monosource_core import _obtain_dfs_dict
-from data_conduit.timestamps import collect_timestamps_nested
-from data_conduit.virtualarrays import (
+from data_conduit.core.timestamps import collect_timestamps_nested
+from data_conduit.core.virtualarrays import (
     construct_data_array,
     construct_lookup_array,
     update_data_array,

@@ -24,8 +24,8 @@ from pathlib import Path
 import pandas as pd
 import xarray as xr
 
-from data_conduit.io import collect_dfs
-from data_conduit.utils import _apply_level_selectors, _flatten_nested_dict, _parse_selectors
+from data_conduit.core.io import collect_dfs
+from data_conduit.core.utils import _apply_level_selectors, _flatten_nested_dict, _parse_selectors
 
 ################################################################################
 
@@ -426,6 +426,5 @@ class MonoSource:
                 monosource_data_arrays=monosource_data_arrays,
                 verbose= self.verbose,
             )
-
 
 

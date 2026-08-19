@@ -40,8 +40,8 @@ import numpy as np
 import pandas as pd
 
 from data_conduit.datasources.monosource.monosource_core import MonoSource, _build_data_arrays
-from data_conduit.io import collect_dfs, read_csv, read_json, split_jsonl, split_yaml
-from data_conduit.utils import starts_with
+from data_conduit.core.io import collect_dfs, read_csv, read_json, split_jsonl, split_yaml
+from data_conduit.core.utils import starts_with
 
 ################################################################################
 
