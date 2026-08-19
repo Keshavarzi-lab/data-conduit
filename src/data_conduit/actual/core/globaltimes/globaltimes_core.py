@@ -55,12 +55,17 @@ def _match_idx(
 	if match_type not in {'nearest', 'before', 'after', 'exact'}:
 		raise ValueError("match_type must be one of: 'nearest', 'before', 'after', 'exact'.")
 
+	if len(target_array) == 0:
+		return np.full(len(base_array), -1, dtype=int)
+
 	idx = np.searchsorted(target_array, base_array, side='left')
 
 	if match_type == 'exact':
 		out = np.full(len(base_array), -1, dtype=int)
-		ok = (idx < len(target_array)) & (target_array[idx] == base_array)
-		out[ok] = idx[ok]
+		in_bounds = idx < len(target_array)
+		valid_positions = np.flatnonzero(in_bounds)
+		exact_positions = valid_positions[target_array[idx[valid_positions]] == base_array[valid_positions]]
+		out[exact_positions] = idx[exact_positions]
 		return out
 
 	if match_type == 'before':
@@ -80,8 +85,6 @@ def _match_idx(
 	right_diff = np.abs(base_array - target_array[right])
 	out = np.where((idx > 0) & (right_diff < left_diff), right, left)
 
-	if len(target_array) == 0:
-		return np.full(len(base_array), -1, dtype=int)
 	return out.astype(int)
 
 
@@ -131,6 +134,12 @@ def create_global_clock(
 
 	if step == 0:
 		raise ValueError('timestep_interval must be non-zero.')
+
+	if start == end:
+		return np.array([start], dtype=float) if include_end_time else np.array([], dtype=float)
+
+	if (end > start and step < 0) or (end < start and step > 0):
+		raise ValueError('timestep_interval must point from start_time toward end_time.')
 
 	times = np.arange(start, end, step)
 	if times.size == 0:
@@ -202,6 +211,9 @@ def index_map_util(
 			'full': pd.DataFrame({'global_index': global_idx, 'stream_index': missing_idx.astype(float), 'global_time': g, 'stream_time': missing, 'delta': missing}),
 		}
 
+	if s.size > 1 and not np.all(s[:-1] <= s[1:]):
+		raise ValueError('stream_times must be monotonically non-decreasing.')
+
 	stream_idx = _match_idx(g, s, match_type=match_type)
 	matched = np.where(stream_idx >= 0, s[np.clip(stream_idx, 0, len(s) - 1)], np.nan)
 
@@ -217,4 +229,3 @@ def index_map_util(
 
 
 ################################################################################
-

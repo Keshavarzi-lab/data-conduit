@@ -6,7 +6,7 @@ when a real reader is built, and the ``harp_bin`` reader is registered on the IO
 registry explicitly via ``register_harp_reader()`` rather than at import time.
 '''
 
-from data_conduit.actual.core.io import add_reader
+from data_conduit.actual.core.io import add_reader, get_reader
 from data_conduit.actual.integrations.harp.harptools.harptools_core import (
     collect_harp_dfs,
     collect_registers,
@@ -22,7 +22,16 @@ def register_harp_reader() -> None:
     Callers (or the HARP datasource presets) invoke this explicitly when they
     want ``collect_dfs`` to recognise ``.bin`` HARP files.
     '''
-    add_reader("harp_bin", read_harp_bin)
+    try:
+        registered_reader = get_reader("harp_bin")
+    except KeyError:
+        add_reader("harp_bin", read_harp_bin)
+        return
+
+    if registered_reader is read_harp_bin:
+        return
+
+    raise ValueError("A different reader is already registered as 'harp_bin'.")
 
 
 __all__ = [

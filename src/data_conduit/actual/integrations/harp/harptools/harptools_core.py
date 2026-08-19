@@ -74,7 +74,7 @@ import yaml
 import pandas as pd
 
 from data_conduit.actual.core.io import collect_dfs
-from data_conduit.actual.core.utils import starts_with
+from data_conduit.actual.core.utils import _matches_selector, starts_with
 
 
 ################################################################################
@@ -484,12 +484,22 @@ def collect_harp_dfs(
     >>> dfs['Behavior0']['32']  # DataFrame with Time index
     '''
 
+    caller_l0_selector = kwargs.pop('l0_selector', None)
+    device_type_selector = starts_with(device_type)
+
+    if caller_l0_selector is None:
+        level_zero_selector = device_type_selector
+    else:
+
+        def level_zero_selector(name: str) -> bool:
+            return device_type_selector(name) and _matches_selector(name, caller_l0_selector)
+
     # 1. Generic walk + read
     dfs_dict = collect_dfs(
         base_path=base_path,
         readers={'.bin': read_harp_bin},
         reader_kwargs={'.bin': {'harp_device_yaml_path': harp_device_yaml_path}},
-        l0_selector=starts_with(device_type),
+        l0_selector=level_zero_selector,
         keep_empty=keep_empty,
         verbose=verbose,
         **kwargs,

@@ -281,11 +281,16 @@ def fit_linear_timebase(
 	Raises
 	------
 	ValueError
-		If aligned inputs are empty.
+		If ``use`` is invalid or fewer than two aligned pulses are available.
 	'''																														# noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring
+	if not isinstance(use, str) or use.lower() not in {'start', 'end'}:
+		raise ValueError("use must be either 'start' or 'end'.")
+
 	ref, tgt = align_pulse_tables(reference_df, target_df, normalise_start=False)
 	if ref.empty or tgt.empty:
 		raise ValueError('Cannot fit model with empty pulse tables.')
+	if len(ref) < 2:
+		raise ValueError('At least two aligned pulses are required to fit a linear timebase.')
 
 	col = 'Start' if use.lower() == 'start' else 'End'
 	x = tgt[col].to_numpy(dtype=float)
@@ -542,4 +547,3 @@ class TTLSyncModel:
 
 
 ################################################################################
-

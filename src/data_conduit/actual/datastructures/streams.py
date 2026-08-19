@@ -693,7 +693,7 @@ def _stream_container_combine(
 # ===============================================================================
 
 
-@dataclass(init=False)
+@dataclass(init=False, eq=False)
 class StreamContainer:
     """
     Gather one named stream from every selected session that provides it.
@@ -707,10 +707,11 @@ class StreamContainer:
     stores the actual DataObjects; the latter stores the matching ``SessionRef``
     so combination can access explicit levels and retained metadata.
 
-    ``dataclass(init=False)`` is intentional. Dataclass-generated repr/equality
-    remain useful, while the custom ``__init__`` implementation is defined
-    immediately above and exposed by the class body so validation still runs
-    at construction.
+    ``dataclass(init=False, eq=False)`` is intentional. The generated repr remains
+    useful, while identity-based equality avoids applying scalar ``==`` semantics
+    to DataFrame/xarray members. The custom ``__init__`` implementation is defined
+    immediately above and exposed by the class body so validation still runs at
+    construction.
 
     Parameters
     ----------

@@ -21,6 +21,7 @@ Contents:
 # Imports
 ################################################################################
 
+from copy import deepcopy
 from pathlib import Path
 
 from data_conduit.actual.integrations.harp.harptools import collect_harp_dfs
@@ -132,6 +133,13 @@ class MultiDevice(MultiSource):
         **kwargs,
     ):
         '''Initialise MultiDevice and optionally load/build maps before MultiSource.'''
+        device_list = deepcopy(device_list)
+        device_IDs = deepcopy(device_IDs)
+        device_registers = deepcopy(device_registers)
+        virtual_maps = deepcopy(virtual_maps)
+        data_keys = deepcopy(data_keys)
+        virtual_coord_names = deepcopy(virtual_coord_names)
+
         self.experiment_directory_path = experiment_directory_path
         self.harp_device_yaml_path = harp_device_yaml_path
         self.device_type = device_type

@@ -28,6 +28,7 @@ from data_conduit.actual.core.utils import (
     _apply_level_selectors,
     _flatten_nested_dict,
     _get_nested_dict_depth,
+    _parse_selectors,
 )
 
 ################################################################################
@@ -96,7 +97,10 @@ def collect_timestamps(df: pd.DataFrame | xr.DataArray | None = None,
         return None
     
     if isinstance(df, xr.DataArray):                   # Type check, convert to DataFrame if it's an xarray DataArray
-        df = df.to_dataframe().reset_index()                         
+        value_name = "__data_conduit_value__"
+        while value_name in df.coords or value_name in df.dims:
+            value_name = f"_{value_name}"
+        df = df.to_dataframe(name=value_name).reset_index()
     elif not isinstance(df, pd.DataFrame):
         raise TypeError(f"Error in function collect_timestamps: Expected df to be a pandas DataFrame or xarray DataArray, but got {type(df)}")
     
@@ -305,32 +309,20 @@ def collect_timestamps_nested(dfs_dict: dict[str, Any],
     if return_type not in ('list', 'dict', 'both'):
         raise ValueError("return_type must be one of 'list', 'dict', or 'both'.")
     
-    # Check all keyword arguments have the correct naming convention
-    for key in kwargs:
-        if not key.startswith('l') or not key.endswith('_selector'):
-            raise ValueError(
-                f"Invalid keyword argument '{key}'. "
-                "All selectors must follow the naming convention "
-                "'l{n}_selector' (e.g., l0_selector, l1_selector, etc.)."
-            )
+    # Parse selectors without wrapping callables in a list, so predicates remain callable.
+    level_selectors = _parse_selectors(kwargs)
 
     # Check that depth of selectors matches the depth of the nested dictionary
     max_depth = _get_nested_dict_depth(dfs_dict)
-    selector_levels = [key for key in kwargs if key.startswith('l') and key.endswith('_selector')]
-    for selector in selector_levels:
-        level_num = int(selector[1:-9])  # Extract the level number from the selector name
+    for level_num in level_selectors:
         if level_num >= max_depth:
             raise ValueError(
-                f"Selector '{selector}' is defined for level {level_num}, "
+                f"Selector 'l{level_num}_selector' is defined for level {level_num}, "
                 f"but the nested dictionary only has a maximum depth of {max_depth}."
             )
 
     #=== ii| Apply level selectors before flattening
-    if kwargs:
-        level_selectors = {
-            int(k[1:-9]): (v if isinstance(v, list) else [v])
-            for k, v in kwargs.items()
-        }
+    if level_selectors:
         dfs_dict = _apply_level_selectors(dfs_dict, level_selectors)
 
     #=== iii| Flatten the nested dictionary
@@ -421,6 +413,5 @@ def collect_timestamps_nested(dfs_dict: dict[str, Any],
 #         separator=':',
 #         verbose=verbose
 #    )
-
 
 

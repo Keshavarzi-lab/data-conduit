@@ -309,8 +309,6 @@ def plot_stacked_pulses(
 	tuple[matplotlib.figure.Figure, list[matplotlib.axes.Axes]] or tuple[None, None]
 		``(fig, axes)`` — or ``(None, None)`` if there are no pulses to plot.
 	'''																														# noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring
-	import matplotlib.pyplot as plt
-
 	ref_starts, ref_durs = _prep_pulse_arrays(reference_pulses)
 	tgt_starts, tgt_durs = _prep_pulse_arrays(target_pulses)
 
@@ -318,9 +316,13 @@ def plot_stacked_pulses(
 	if n == 0:
 		print('No pulses to plot.')
 		return None, None
+	if pulses_per_row is not None and pulses_per_row <= 0:
+		raise ValueError('pulses_per_row must be a positive integer.')
+
+	import matplotlib.pyplot as plt
 
 	if pulses_per_row is None and autofit_pulses_per_row:
-		pulses_to_use = min(len(ref_starts), len(tgt_starts))
+		pulses_to_use = n
 		if pulses_to_use <= 32:
 			pulses_per_row = pulses_to_use
 		else:
@@ -331,7 +333,7 @@ def plot_stacked_pulses(
 			if pulses_per_row is None:
 				pulses_per_row = pulses_to_use
 	elif pulses_per_row is None:
-		pulses_per_row = min(len(ref_starts), len(tgt_starts))
+		pulses_per_row = n
 
 	n_rows = int(np.ceil(n / pulses_per_row))
 	fig, axes = plt.subplots(n_rows, 1, figsize=(12, 2.2 * n_rows), constrained_layout=True)
@@ -386,16 +388,20 @@ def plot_conversion_error_tools(
 
 	Returns
 	-------
-	tuple[matplotlib.figure.Figure, numpy.ndarray]
-		``(fig, axs)`` where ``axs`` is a 3×2 array of axes.
+	tuple[matplotlib.figure.Figure, numpy.ndarray] or tuple[None, None]
+		``(fig, axs)`` where ``axs`` is a 3×2 array of axes, or
+		``(None, None)`` when no aligned pulses are available.
 	'''																														# noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring
-	import matplotlib.pyplot as plt
-
 	ref_aligned, tgt_aligned = align_pulse_tables(
 		reference_pulses,
 		converted_target_pulses,
 		normalise_start=True,
 	)
+	if ref_aligned.empty:
+		print('No pulses to plot.')
+		return None, None
+
+	import matplotlib.pyplot as plt
 
 	start_err_ms = (tgt_aligned['Start'].to_numpy(float) - ref_aligned['Start'].to_numpy(float)) * 1000
 	end_err_ms = (tgt_aligned['End'].to_numpy(float) - ref_aligned['End'].to_numpy(float)) * 1000
