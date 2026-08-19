@@ -10,7 +10,9 @@ Description:
 
 Contents:
 --------------------------------
-- parse_events_to_trials: ExperimentEvents log -> one row per trial.
+- parse_events_to_trials: ExperimentEvents log -> one row per trial (original parser).
+- QC_TRIALS / qc_trial_spec / qc_trials_reader:
+                          The same task as a TrialSpec for the general parser.
 - build_qc_catalog:       Assemble the Q_C Catalog (readers + configurators).
 - qc_datastructure:       Configured DataStructure for a given root + layout.
 - QC_STREAMS:             The stream names the Q_C catalog can read.
@@ -31,6 +33,7 @@ from data_conduit.qc.training_filter import (
     training_session_names,
     training_spec,
 )
+from data_conduit.qc.trial_spec import QC_TRIALS, qc_trial_spec, qc_trials_reader
 from data_conduit.qc.trials import parse_events_to_trials
 
 if TYPE_CHECKING:
@@ -40,6 +43,9 @@ _PLOT_EXPORTS = {'DEFAULT_CENTROID_POINTS', 'add_group_column', 'diagnose_path_g
 
 __all__ = [
     'parse_events_to_trials',
+    'QC_TRIALS',
+    'qc_trial_spec',
+    'qc_trials_reader',
     'build_qc_catalog',
     'qc_datastructure',
     'QC_STREAMS',

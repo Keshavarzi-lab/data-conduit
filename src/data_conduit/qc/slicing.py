@@ -15,7 +15,10 @@ Description:
     what ``slice_pose`` does; the trial-oriented helpers read the window straight
     off a trial row.
 
-    Path segments map to the trial table's time columns:
+    Which segments exist, and which two columns bound each, is NOT restated here:
+    it is read off the ``TrialSpec`` that built the table (``segment_bounds``), so
+    adding a segment is a one-line change to the spec and nothing else. For the
+    Q_C spec that currently gives:
         outbound -> (outbound_start_time, outbound_end_time)
         inbound  -> (inbound_start_time,  inbound_end_time)
         trial    -> (start_time,          end_time)          # whole trial
@@ -38,16 +41,10 @@ Contents:
 import numpy as np
 import pandas as pd
 
+from data_conduit._refactor_template.datastructures.trials import TrialSpec, segment_bounds
+from data_conduit.qc.trial_spec import QC_TRIALS
+
 ################################################################################
-
-
-
-# Map a path-segment name to the (start, end) time columns on a trial row.
-_SEGMENT_COLUMNS = {
-    'outbound': ('outbound_start_time', 'outbound_end_time'),
-    'inbound': ('inbound_start_time', 'inbound_end_time'),
-    'trial': ('start_time', 'end_time'),
-}
 
 
 
@@ -120,6 +117,7 @@ def slice_pose_for_trial(
         trial_row: pd.Series,
         *,
         segment: str = 'trial',
+        spec: TrialSpec = QC_TRIALS,
         session_column: str = 'session',
         session_coord: str = 'session',
         time_coord: str = 'Time',
@@ -138,8 +136,12 @@ def slice_pose_for_trial(
             One row of a trials table (e.g. ``trials.iloc[0]``), carrying the
             session column and the segment's time columns.
         segment (str):
-            Which window to take: ``'outbound'``, ``'inbound'``, or ``'trial'``
-            (the whole start->poke span). Default ``'trial'``.
+            Which window to take: any segment named by ``spec`` (for Q_C,
+            ``'outbound'`` or ``'inbound'``), or ``'trial'`` for the whole
+            start->poke span. Default ``'trial'``.
+        spec (TrialSpec):
+            The spec whose ``segments`` built the trial table, supplying the
+            segment -> column mapping. Default ``QC_TRIALS``.
         session_column (str):
             Column on ``trial_row`` holding its session id. Default ``'session'``.
         session_coord (str):
@@ -150,9 +152,12 @@ def slice_pose_for_trial(
         xr.DataArray | xr.Dataset:
             The pose slice for this trial's segment (possibly empty).
     '''
-    if segment not in _SEGMENT_COLUMNS:
-        raise ValueError(f"segment must be one of {sorted(_SEGMENT_COLUMNS)}, got {segment!r}.")
-    start_col, end_col = _SEGMENT_COLUMNS[segment]
+    # The segment list comes from the spec that built the table, so it cannot
+    # drift out of step with the columns the trial table actually has.
+    bounds = segment_bounds(spec)
+    if segment not in bounds:
+        raise ValueError(f'segment must be one of {sorted(bounds)}, got {segment!r}.')
+    start_col, end_col = bounds[segment]
     return slice_pose(
         pose,
         session=trial_row[session_column],
@@ -174,6 +179,7 @@ def slice_pose_per_trial(
         trials: pd.DataFrame,
         *,
         segment: str = 'trial',
+        spec: TrialSpec = QC_TRIALS,
         session_column: str = 'session',
         session_coord: str = 'session',
         time_coord: str = 'Time',
@@ -191,7 +197,9 @@ def slice_pose_per_trial(
         trials (pd.DataFrame):
             A trials table (or a filtered subset).
         segment (str):
-            ``'outbound'``, ``'inbound'``, or ``'trial'``. Default ``'trial'``.
+            Any segment named by ``spec``, or ``'trial'``. Default ``'trial'``.
+        spec (TrialSpec):
+            The spec that built the trial table. Default ``QC_TRIALS``.
         session_column, session_coord, time_coord (str):
             As in ``slice_pose_for_trial``.
     Returns:
@@ -203,6 +211,7 @@ def slice_pose_per_trial(
             pose,
             row,
             segment=segment,
+            spec=spec,
             session_column=session_column,
             session_coord=session_coord,
             time_coord=time_coord,
