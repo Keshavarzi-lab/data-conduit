@@ -66,8 +66,7 @@ Contents:
 ################################################################################
 
 import warnings
-from collections.abc import Callable, Collection
-from typing import Any
+from collections.abc import Callable
 
 import pandas as pd
 import xarray as xr
@@ -281,7 +280,7 @@ def exclude(*names: str) -> Callable[[str], bool]:
 
 def _matches_selector(
         key: str,
-    selector: list | tuple | set | frozenset | Callable | str | None
+    selector: list | Callable | str | None
 )-> bool:
     '''
     Check if a key matches a selector. 
@@ -299,9 +298,9 @@ def _matches_selector(
     Parameters
         key : str
             The key to check (folder name or file stem).
-        selector : list, tuple, set, frozenset, callable, str, or None
+        selector : list, callable, str, or None
             - None: matches everything (wildcard)
-            - list, tuple, set, frozenset: key must be in the collection
+            - list: key must be in the list
             - callable: must return True for the key
             - str: exact match
 
@@ -314,13 +313,13 @@ def _matches_selector(
     
     if callable(selector):         
         return selector(key)
-    if isinstance(selector, (list, tuple, set, frozenset)):
+    if isinstance(selector, list):
         return key in selector
     if isinstance(selector, str):
         return key == selector
 
     else:
-        raise ValueError(f"Invalid selector type: {type(selector)}. Must be list, tuple, set, frozenset, callable, str, or None.")
+        raise ValueError(f"Invalid selector type: {type(selector)}. Must be list, callable, str, or None.")
 
 #=============================================================================== 
 
@@ -360,20 +359,13 @@ def _parse_selectors(
                 '''
             )
         try:
-            level = int(key[1:-9]) # Extract n from 'l{n}_selector' and check if it's an integer
+            int(key[1:-9]) # Extract n from 'l{n}_selector' and check if it's an integer
         except ValueError as e:
             raise ValueError(f'''
                              Invalid selector key: '{key}'. 
                              The part between 'l' and '_selector' must be a non-negative integer (e.g., 'l0_selector', 'l1_selector').
                 '''
             ) from e
-
-        if level < 0:
-            raise ValueError(f'''
-                             Invalid selector key: '{key}'. 
-                             The part between 'l' and '_selector' must be a non-negative integer (e.g., 'l0_selector', 'l1_selector').
-                '''
-            )
         
     return {int(key[1:-9]): value for key, value in kwargs.items()}
 

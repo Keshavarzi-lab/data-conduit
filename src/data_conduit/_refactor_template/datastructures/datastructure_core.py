@@ -64,9 +64,8 @@ import xarray as xr
 #   * select_sessions   : directory walk with include / exclude / all + level filters.
 #   * _object_to_bundle : coerce one source object into named members.
 #   * combine_bundles   : concatenate matching members across sessions, in order.
-from data_conduit.sessiongroups.builders import _object_to_bundle
-from data_conduit.sessiongroups.bundle import Bundle, combine_bundles
-from data_conduit.sessiongroups.selection import select_sessions
+from data_conduit._refactor_template.datastructures.bundle import _object_to_bundle, Bundle, combine_bundles
+from data_conduit._refactor_template.datastructures.selection import select_sessions
 
 ################################################################################
 

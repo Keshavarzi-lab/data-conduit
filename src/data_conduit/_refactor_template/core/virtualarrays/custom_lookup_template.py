@@ -4,8 +4,8 @@
 ################################################################################
 import xarray as xr
 
-from data_conduit.virtualarrays.base_queries import ulookup
-from data_conduit.virtualarrays.virtual_arrays_core import construct_lookup_array
+from data_conduit._refactor_template.core.virtualarrays.base_queries import ulookup
+from data_conduit._refactor_template.core.virtualarrays.virtual_arrays_core import construct_lookup_array
 
 ################################################################################
 
