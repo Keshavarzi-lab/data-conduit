@@ -316,8 +316,6 @@ def plot_stacked_pulses(
 	if n == 0:
 		print('No pulses to plot.')
 		return None, None
-	if pulses_per_row is not None and pulses_per_row <= 0:
-		raise ValueError('pulses_per_row must be a positive integer.')
 
 	import matplotlib.pyplot as plt
 

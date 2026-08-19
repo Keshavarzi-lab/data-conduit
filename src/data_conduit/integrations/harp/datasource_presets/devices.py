@@ -28,7 +28,6 @@ Contents:
 # Imports
 ################################################################################
 
-from copy import deepcopy
 from pathlib import Path
 
 import xarray as xr
@@ -171,11 +170,6 @@ class Device(MonoSource):
         **kwargs
             Additional selector kwargs passed through to MonoSource.
         """
-        device_list = deepcopy(device_list)
-        device_IDs = deepcopy(device_IDs)
-        device_registers = deepcopy(device_registers)
-        device_data_arrays = deepcopy(device_data_arrays)
-
         self.harp_device_yaml_path = harp_device_yaml_path
         self.device_type = device_type
         self.device_list = device_list

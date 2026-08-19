@@ -31,6 +31,7 @@ Contents
 # Imports
 ################################################################################
 
+import warnings
 from dataclasses import dataclass
 from typing import Any
 
@@ -281,20 +282,33 @@ def fit_linear_timebase(
 	Raises
 	------
 	ValueError
-		If ``use`` is invalid or fewer than two aligned pulses are available.
-	'''																														# noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring
-	if not isinstance(use, str) or use.lower() not in {'start', 'end'}:
-		raise ValueError("use must be either 'start' or 'end'.")
+		If the aligned pulse tables are empty.
 
+	Warns
+	-----
+	UserWarning
+		If only one aligned pulse is available. In that case the fit assumes
+		equal clock rates (``slope = 1``) and estimates offset only.
+	'''																														# noqa: D206 | Justification: Not really relevant whether indentation uses tabs or spaces in docstring
 	ref, tgt = align_pulse_tables(reference_df, target_df, normalise_start=False)
 	if ref.empty or tgt.empty:
 		raise ValueError('Cannot fit model with empty pulse tables.')
-	if len(ref) < 2:
-		raise ValueError('At least two aligned pulses are required to fit a linear timebase.')
 
 	col = 'Start' if use.lower() == 'start' else 'End'
 	x = tgt[col].to_numpy(dtype=float)
 	y = ref[col].to_numpy(dtype=float)
+	if len(ref) == 1:
+		warnings.warn(
+			'Only one aligned TTL pulse is available; assuming equal clock rates '
+			'(slope = 1) and estimating offset only.',
+			UserWarning,
+			stacklevel=2,
+		)
+		return {
+			'slope': 1.0,
+			'intercept': float(y[0] - x[0]),
+			'r2': float('nan'),
+		}
 
 	slope, intercept = np.polyfit(x, y, 1)
 	y_hat = slope * x + intercept

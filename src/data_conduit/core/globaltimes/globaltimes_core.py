@@ -12,6 +12,8 @@ Description:
 # Imports
 ################################################################################
 
+import warnings
+
 import numpy as np
 import pandas as pd
 import xarray as xr
@@ -184,6 +186,12 @@ def index_map_util(
 			- 'matched_global_times': DataFrame where each row contains the global time and the matched stream time (NaN if no match).
 			- 'global_stream_time_delta': Series containing the difference between global time and matched stream time (NaN if no match).
 			- 'full': DataFrame where each row contains global_index, stream_index, global_time, stream_time, and delta.
+
+	Warns
+	-----
+	UserWarning
+		If stream timestamps are not monotonically non-decreasing. Matching then
+		uses a stable time-sorted view and returns indices into the original input.
 	'''
 	g = np.asarray(global_clock_times, dtype=float)
 	if g.ndim != 1:
@@ -212,9 +220,21 @@ def index_map_util(
 		}
 
 	if s.size > 1 and not np.all(s[:-1] <= s[1:]):
-		raise ValueError('stream_times must be monotonically non-decreasing.')
+		warnings.warn(
+			'stream_times are not monotonically non-decreasing; matching will use '
+			'a stable time-sorted view and return indices into the original input. '
+			'Clock resets or overlapping time ranges may make matches ambiguous.',
+			UserWarning,
+			stacklevel=2,
+		)
+		sorted_to_original = np.argsort(s, kind='stable')
+		sorted_stream_idx = _match_idx(g, s[sorted_to_original], match_type=match_type)
+		stream_idx = np.full_like(sorted_stream_idx, -1)
+		has_match = sorted_stream_idx >= 0
+		stream_idx[has_match] = sorted_to_original[sorted_stream_idx[has_match]]
+	else:
+		stream_idx = _match_idx(g, s, match_type=match_type)
 
-	stream_idx = _match_idx(g, s, match_type=match_type)
 	matched = np.where(stream_idx >= 0, s[np.clip(stream_idx, 0, len(s) - 1)], np.nan)
 
 	global_idx = np.arange(len(g))

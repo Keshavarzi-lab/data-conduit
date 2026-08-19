@@ -475,9 +475,11 @@ def parse_trials(
         if start_time > close_time:
             raise ValueError(f"trial {i + 1} has start_time {start_time!r} after its closing event at {close_time!r}; check event ordering and TrialSpec.start_buffer.")
 
-        # Preserve the documented inclusive window. Excluding the lower timestamp
-        # would also discard distinct later events that share that timestamp.
-        window = within(events, start_time, close_time)
+        # With a zero buffer the next trial's numeric start equals the previous
+        # close. The previous closing event belongs only to the trial it closed,
+        # so exclude that shared boundary row from the next field-extraction
+        # window while retaining the contiguous start_time value in the table.
+        window = events[(events.index > start_time) & (events.index <= close_time)] if i and start_time == previous_end else within(events, start_time, close_time)
 
         # === 2.2| Create the Universal Base Trial Columns =========================
 
