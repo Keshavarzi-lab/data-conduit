@@ -51,10 +51,6 @@ extensions = [
     "nbsphinx",
 ]
 
-# Notebook pages document workflows that depend on lab data which is not
-# available in the documentation build environment.
-nbsphinx_execute = "never"
-
 # Configure the myst parser to enable cool markdown features
 # See https://sphinx-design.readthedocs.io
 myst_enable_extensions = [
@@ -82,6 +78,7 @@ templates_path = ["_templates"]
 autosummary_generate = True
 autodoc_default_options = {
     "members": True,
+    "inherited-members": True,
 }
 
 # List of patterns, relative to source directory, that match files and
@@ -89,8 +86,6 @@ autodoc_default_options = {
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = [
     "**.ipynb_checkpoints",
-    "README.md",
-    "data_conduit_demo_new.ipynb",
     # to ensure that include files (partial pages) aren't built, exclude them
     # https://github.com/sphinx-doc/sphinx/issues/1965#issuecomment-124732907
     "**/includes/**",

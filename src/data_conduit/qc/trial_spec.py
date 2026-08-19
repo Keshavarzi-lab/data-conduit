@@ -4,7 +4,7 @@ The Q_C nosepoke task as a TrialSpec.
 
 Description:
     Everything experiment-specific about a Q_C trial, expressed as data for the
-    general parser in ``data_conduit.datastructures``. The event
+    general parser in ``data_conduit._refactor.datastructures.trials``. The event
     vocabulary ("Poke:", "Target zone triggered", ...), the arena port count and
     the TTT / TTP durations all live HERE, next to the experiment, rather than in
     the library.
