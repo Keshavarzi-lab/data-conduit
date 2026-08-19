@@ -1,49 +1,41 @@
-.. data-conduit documentation master file.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 data-conduit
 ============
 
-**A Python Toolkit for Constructing Standardised, Reusable Data Pipelines for Multi-Stream Experimental Data**
+**Reusable data pipelines for multi-stream experimental data**
+
+``data-conduit`` separates session discovery, source-specific loading,
+cross-source configuration, and cross-session combination. Its core workflow
+produces named pandas and xarray streams while retaining session provenance.
 
 .. warning::
 
-   **This library is still a work in progress!**
-   APIs, interfaces, and documentation are subject to change without notice.
-   Many features, particularly documentation, are not finalised and may only
-   exist as placeholders. As this code is still pre-release, we do not
-   guarantee that extensive changelogs will be included prior to v1.0.
+   The project is in alpha. Public interfaces and documentation may change
+   before a stable release.
 
-`📖 User Guide <data_conduit_demo_new.html>`__
-| `🖼️ Example Gallery <examples.html>`__
-| `📋 API Reference <api_index.html>`__
-| `📝 Change Log <CHANGELOG.html>`__
-| `🗺️ Roadmap <ROADMAP.html>`__
-
-.. image:: data_conduit_overview_revised_SK.svg
-   :alt: data-conduit pipeline overview
+.. image:: _static/images/data-flow.svg
+   :alt: Data flow through the data-conduit orchestration layer
    :width: 100%
 
----
-
 .. toctree::
-   :maxdepth: 1
-   :caption: Contents:
+   :maxdepth: 2
+   :caption: User guide
 
    getting_started
-   README
+   overview
+   workflow
    examples
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Reference
+
    api_index
    CHANGELOG
    ROADMAP
 
-.. toctree::
-   :hidden:
+Index and search
+----------------
 
-   data_conduit_demo_new
-
-Index & Search
---------------
 * :ref:`genindex`
+* :ref:`modindex`
 * :ref:`search`

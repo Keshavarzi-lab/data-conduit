@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 790" role="img" aria-labelledby="title description">
+  <title id="title">Data flow through data-conduit</title>
+  <desc id="description">A session root is selected by DataStructure, processed per session by StreamCatalog readers and configurators, normalised into stream maps, combined through StreamContainers, and returned as a cross-session StreamMap for trial slicing and analysis.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+    <marker id="arrow-accent" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0f766e"/>
+    </marker>
+    <style>
+      .title { font: 700 28px system-ui, sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 15px system-ui, sans-serif; fill: #475569; }
+      .box-title { font: 700 19px system-ui, sans-serif; fill: #0f172a; }
+      .box-copy { font: 400 14px system-ui, sans-serif; fill: #334155; }
+      .code { font: 600 13px ui-monospace, SFMono-Regular, Consolas, monospace; fill: #0f172a; }
+      .label { font: 700 13px system-ui, sans-serif; fill: #0f766e; letter-spacing: .04em; }
+      .main-box { fill: #ffffff; stroke: #64748b; stroke-width: 2; }
+      .catalog-box { fill: #f0fdfa; stroke: #0f766e; stroke-width: 2.5; }
+      .inner-box { fill: #ffffff; stroke: #5eead4; stroke-width: 1.5; }
+      .tool-box { fill: #eff6ff; stroke: #3b82f6; stroke-width: 1.5; }
+      .analysis-box { fill: #fff7ed; stroke: #f97316; stroke-width: 1.5; }
+      .arrow { fill: none; stroke: #334155; stroke-width: 2.5; marker-end: url(#arrow); }
+      .assist { fill: none; stroke: #0f766e; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#arrow-accent); }
+    </style>
+  </defs>
+
+  <rect x="1" y="1" width="1438" height="788" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+
+  <text class="title" x="42" y="48">From session folders to analysis-ready streams</text>
+  <text class="subtitle" x="42" y="75">The master objects coordinate selection and per-session processing; specialised modules supply readers, alignment, and downstream operations.</text>
+
+  <!-- Selection -->
+  <rect class="main-box" x="40" y="118" width="235" height="235" rx="14"/>
+  <text class="label" x="62" y="148">SELECT</text>
+  <text class="box-title" x="62" y="178">DataStructure</text>
+  <text class="box-copy" x="62" y="208">
+    <tspan x="62" dy="0">root + depth</tspan>
+    <tspan x="62" dy="23">level names + selectors</tspan>
+    <tspan x="62" dy="23">include / exclude</tspan>
+  </text>
+  <line x1="62" y1="280" x2="252" y2="280" stroke="#cbd5e1"/>
+  <text class="code" x="62" y="307">select_sessions(...)</text>
+  <text class="box-copy" x="62" y="333">→ SessionRef per session</text>
+
+  <path class="arrow" d="M275 235 H320"/>
+
+  <!-- Per-session catalog -->
+  <rect class="catalog-box" x="320" y="100" width="545" height="350" rx="16"/>
+  <text class="label" x="344" y="132">PROCESS EACH SESSION</text>
+  <text class="box-title" x="344" y="163">StreamCatalog</text>
+
+  <rect class="inner-box" x="344" y="188" width="150" height="166" rx="10"/>
+  <text class="box-title" x="362" y="218">Readers</text>
+  <text class="code" x="362" y="246">Path → object</text>
+  <text class="box-copy" x="362" y="276">
+    <tspan x="362" dy="0">Load independent</tspan>
+    <tspan x="362" dy="21">session sources</tspan>
+  </text>
+  <text class="box-copy" x="362" y="329">required / optional</text>
+
+  <path class="arrow" d="M494 271 H523"/>
+
+  <rect class="inner-box" x="523" y="188" width="165" height="166" rx="10"/>
+  <text class="box-title" x="541" y="218">Configurators</text>
+  <text class="code" x="541" y="246">dict → dict</text>
+  <text class="box-copy" x="541" y="276">
+    <tspan x="541" dy="0">Align, derive,</tspan>
+    <tspan x="541" dy="21">replace, or remove</tspan>
+  </text>
+  <text class="box-copy" x="541" y="329">ordered stages</text>
+
+  <path class="arrow" d="M688 271 H717"/>
+
+  <rect class="inner-box" x="717" y="188" width="124" height="166" rx="10"/>
+  <text class="box-title" x="735" y="218">Normalise</text>
+  <text class="code" x="735" y="246">object_to_</text>
+  <text class="code" x="735" y="265">streams</text>
+  <text class="box-copy" x="735" y="300">
+    <tspan x="735" dy="0">pandas /</tspan>
+    <tspan x="735" dy="21">xarray only</tspan>
+  </text>
+
+  <line x1="344" y1="381" x2="841" y2="381" stroke="#99f6e4"/>
+  <text class="code" x="344" y="414">one session → StreamMap {stream_name: data}</text>
+
+  <path class="arrow" d="M865 235 H910"/>
+
+  <!-- Regroup and combine -->
+  <rect class="main-box" x="910" y="118" width="220" height="235" rx="14"/>
+  <text class="label" x="932" y="148">REGROUP</text>
+  <text class="box-title" x="932" y="178">StreamContainer</text>
+  <text class="box-copy" x="932" y="210">
+    <tspan x="932" dy="0">Gather one stream from</tspan>
+    <tspan x="932" dy="22">every session providing it</tspan>
+  </text>
+  <line x1="932" y1="275" x2="1108" y2="275" stroke="#cbd5e1"/>
+  <text class="box-copy" x="932" y="304">combine + attach:</text>
+  <text class="code" x="932" y="330">session, mouse, day…</text>
+
+  <path class="arrow" d="M1130 235 H1175"/>
+
+  <!-- Final output -->
+  <rect x="1175" y="118" width="225" height="235" rx="14" fill="#ecfdf5" stroke="#10b981" stroke-width="2.5"/>
+  <text class="label" x="1197" y="148">RETURN</text>
+  <text class="box-title" x="1197" y="178">Combined StreamMap</text>
+  <text class="box-copy" x="1197" y="210">
+    <tspan x="1197" dy="0">Named cross-session</tspan>
+    <tspan x="1197" dy="22">DataFrames, DataArrays,</tspan>
+    <tspan x="1197" dy="22">and Datasets</tspan>
+  </text>
+  <line x1="1197" y1="286" x2="1378" y2="286" stroke="#a7f3d0"/>
+  <text class="code" x="1197" y="316">pipeline.load()</text>
+
+  <!-- Supporting modules -->
+  <text class="label" x="40" y="510">SPECIALISED MODULES PLUG INTO THE MASTER FLOW</text>
+
+  <rect class="tool-box" x="40" y="538" width="335" height="182" rx="14"/>
+  <text class="box-title" x="62" y="570">Build readers</text>
+  <text class="code" x="62" y="600">core.io</text>
+  <text class="code" x="62" y="624">datasources</text>
+  <text class="code" x="62" y="648">integrations.harp / DLC</text>
+  <text class="box-copy" x="62" y="684">Files and devices → session objects</text>
+  <path class="assist" d="M207 538 V482 H419 V355"/>
+
+  <rect class="tool-box" x="430" y="538" width="400" height="182" rx="14"/>
+  <text class="box-title" x="452" y="570">Configure and align</text>
+  <text class="code" x="452" y="600">core.timestamps / core.sync</text>
+  <text class="code" x="452" y="624">core.globaltimes</text>
+  <text class="code" x="452" y="648">core.virtualarrays</text>
+  <text class="box-copy" x="452" y="684">Cross-source transforms remain explicit</text>
+  <path class="assist" d="M630 538 V482 H605 V355"/>
+
+  <rect class="analysis-box" x="885" y="538" width="515" height="182" rx="14"/>
+  <text class="box-title" x="907" y="570">Query, parse, and analyse</text>
+  <text class="code" x="907" y="600">TrialSpec / parse_trials</text>
+  <text class="code" x="907" y="624">slice_stream_for_trial</text>
+  <text class="code" x="907" y="648">ulookup / custom analysis</text>
+  <text class="box-copy" x="907" y="684">Filter trials first, then slice the corresponding streams</text>
+  <path class="assist" d="M1142 538 V482 H1287 V355"/>
+
+  <text class="subtitle" x="40" y="760">Configuration is reusable: change the root or selection rules without rewriting the per-session catalog.</text>
+</svg>
