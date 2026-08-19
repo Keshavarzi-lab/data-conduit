@@ -17,6 +17,7 @@ wheels/
 /src/data_conduit/deprecated/
 /src/data_conduit/qc/
 /src/data_conduit/test_celia/
+/src/data_conduit/tests/test_qc_path_plots.py
 /src/data_conduit/validators/
 /refactor_archive/
 /BUG_FIX_LINE_LEDGER.md
