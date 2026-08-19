@@ -15,6 +15,7 @@ wheels/
 /device.yml
 /soundcard.yml
 /src/data_conduit/deprecated/
+/src/data_conduit/qc/
 /1mouse-Poke
 /2mice
 /2mice.zip
