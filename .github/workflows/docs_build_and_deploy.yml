@@ -31,9 +31,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r docs/requirements.txt
 
+      - name: Check generated API pages
+        run: python tools/generate_api_md.py --check
+
       - name: Build docs
-        run: |
-          cd docs && make html
+        run: make -C docs html
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
