@@ -1,56 +1,16 @@
-API Reference
+API reference
 =============
 
-IO
---
+The public API is grouped by responsibility. Most workflows use
+``data_conduit.datastructures`` to select sessions and assemble streams, then
+add readers from ``data_conduit.datasources`` or ``data_conduit.integrations``.
+Lower-level loading, time alignment, and array helpers live under
+``data_conduit.core``.
 
-.. automodule:: data_conduit.core.io
-   :members:
+.. toctree::
+   :maxdepth: 2
 
-MonoSource
-----------
-
-.. automodule:: data_conduit.datasources.monosource
-   :members:
-
-MultiSource
------------
-
-.. automodule:: data_conduit.datasources.multisource
-   :members:
-
-Virtual Arrays
---------------
-
-.. automodule:: data_conduit.core.virtualarrays
-   :members:
-
-Synchronisation
----------------
-
-.. automodule:: data_conduit.core.sync
-   :members:
-
-Global Times
-------------
-
-.. automodule:: data_conduit.core.globaltimes
-   :members:
-
-Segmentation
-------------
-
-.. automodule:: data_conduit.core.segment
-   :members:
-
-Timestamps
-----------
-
-.. automodule:: data_conduit.core.timestamps
-   :members:
-
-Utils
------
-
-.. automodule:: data_conduit.core.utils
-   :members:
+   api/core
+   api/datasources
+   api/datastructures
+   api/integrations

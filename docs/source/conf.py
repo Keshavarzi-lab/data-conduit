@@ -51,6 +51,9 @@ extensions = [
     "nbsphinx",
 ]
 
+# Notebook pages depend on lab data that is unavailable to documentation builds.
+nbsphinx_execute = "never"
+
 # Configure the myst parser to enable cool markdown features
 # See https://sphinx-design.readthedocs.io
 myst_enable_extensions = [
@@ -86,6 +89,10 @@ autodoc_default_options = {
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = [
     "**.ipynb_checkpoints",
+    "README.md",
+    "data_conduit_demo_new.ipynb",
+    "CHANGELOG.md",
+    "ROADMAP.md",
     # to ensure that include files (partial pages) aren't built, exclude them
     # https://github.com/sphinx-doc/sphinx/issues/1965#issuecomment-124732907
     "**/includes/**",
