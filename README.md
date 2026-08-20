@@ -151,9 +151,9 @@ Users control behaviour with two things:
 - **`l{n}_selector`**: level selectors that filter which folders/files are included at each depth
 
 ```python
-from data_conduit.io import collect_dfs
-from data_conduit.io.readers import read_csv
-from data_conduit.utils import starts_with
+from data_conduit.core.io import collect_dfs
+from data_conduit.core.io.readers import read_csv
+from data_conduit.core.utils import starts_with
 
 dfs = collect_dfs(
     experiment_directory_path="path/to/experiment",
@@ -183,7 +183,7 @@ Level selectors filter at any depth of the directory tree. They accept:
 `Device` extends `MonoSource` for HARP devices. Presets like `SoundCard`, `CameraStart`, and `Camera0Frames` set sensible defaults so common devices are one-liners:
 
 ```python
-from data_conduit.datasources.presets.harp import Device, SoundCard
+from data_conduit.integrations.harp.datasource_presets import Device, SoundCard
 
 soundcard = SoundCard(experiment_directory_path="path/to/experiment")
 play_freq = soundcard.data_arrays["PlaySoundFreq"]  # xr.DataArray
@@ -222,7 +222,7 @@ Consider a rig with 2 HARP Behavior boards, each with 3 nosepoke ports. The acti
 `MultiDevice` combines `collect_harp_dfs` (for loading) with `MultiSource` (for virtual-map construction). `Nosepoke` is a preset subclass with pre-built defaults for a standard 6-board × 3-port layout:
 
 ```python
-from data_conduit.datasources.presets.harp import Nosepoke
+from data_conduit.integrations.harp.datasource_presets import Nosepoke
 
 nosepoke = Nosepoke(experiment_directory_path="path/to/experiment")
 
@@ -238,7 +238,7 @@ A **TTL square-wave pulse train** is generated and recorded on both systems simu
 
 ```python
 import numpy as np
-from data_conduit.sync.ttl import build_pulse_table, extract_ttl_segments, get_ttl_timebase_conversion
+from data_conduit.core.sync.ttl import build_pulse_table, extract_ttl_segments, get_ttl_timebase_conversion
 
 # Build Bonsai-side pulse table from HARP digital output events
 rise_times = sync_device.data_arrays["DO1_rise"].coords["Time"].values
@@ -270,7 +270,7 @@ npx_spike_times_in_bonsai = model.transform(npx_spike_times)
 `create_global_clock` builds a uniformly-spaced time axis (e.g. at 1-second resolution) that serves as the shared index for all data streams. `index_map_util` then maps any stream's timestamps onto this global axis using nearest-match, giving you aligned indices across all modalities.
 
 ```python
-from data_conduit.globaltimes import create_global_clock, index_map_util
+from data_conduit.core.globaltimes import create_global_clock, index_map_util
 
 global_clock = create_global_clock(reference_times)
 index_map = index_map_util(global_clock, stream_times)
@@ -279,7 +279,7 @@ index_map = index_map_util(global_clock, stream_times)
 ### 4. Segment
 
 ```python
-from data_conduit.segment import get_segment
+from data_conduit.core.segment import get_segment
 
 trial_data = get_segment(
     data_array=activations,

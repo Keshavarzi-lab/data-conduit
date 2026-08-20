@@ -4,7 +4,7 @@ API Reference
 IO
 --
 
-.. automodule:: data_conduit.io
+.. automodule:: data_conduit.core.io
    :members:
 
 MonoSource
@@ -22,41 +22,35 @@ MultiSource
 Virtual Arrays
 --------------
 
-.. automodule:: data_conduit.virtualarrays
+.. automodule:: data_conduit.core.virtualarrays
    :members:
 
 Synchronisation
 ---------------
 
-.. automodule:: data_conduit.sync
+.. automodule:: data_conduit.core.sync
    :members:
 
 Global Times
 ------------
 
-.. automodule:: data_conduit.globaltimes
+.. automodule:: data_conduit.core.globaltimes
    :members:
 
 Segmentation
 ------------
 
-.. automodule:: data_conduit.segment
+.. automodule:: data_conduit.core.segment
    :members:
 
 Timestamps
 ----------
 
-.. automodule:: data_conduit.timestamps
+.. automodule:: data_conduit.core.timestamps
    :members:
 
 Utils
 -----
 
-.. automodule:: data_conduit.utils
-   :members:
-
-Validators
-----------
-
-.. automodule:: data_conduit.validators
+.. automodule:: data_conduit.core.utils
    :members:

@@ -9,7 +9,7 @@ pip install data-conduit
 ## Quick example
 
 ```python
-from data_conduit.io import collect_dfs
+from data_conduit.core.io import collect_dfs
 
 dfs = collect_dfs("path/to/experiment")
 ```
