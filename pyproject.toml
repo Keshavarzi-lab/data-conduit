@@ -1,6 +1,6 @@
 [project]
 name = "data-conduit"
-version = "0.1.0"
+version = "0.2.0"
 description = "A Python toolkit for modular data processing workflows for experimental neuroscience labs"
 readme = "README.md"
 authors = [{name = "CS-2425"}]
