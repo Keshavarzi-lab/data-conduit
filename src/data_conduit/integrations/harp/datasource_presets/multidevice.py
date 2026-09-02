@@ -2,6 +2,7 @@
 MultiDevice and preset subclasses.
 ----------------------------------
 
+
 Description:
     MultiDevice extends MultiSource for HARP-style multi-device data.
     It mirrors the role of Device in MonoSource land: resolve/load a

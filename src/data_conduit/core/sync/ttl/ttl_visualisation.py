@@ -11,6 +11,7 @@ Description:
 	Functions are intentionally separated from the core sync logic so that
 	matplotlib is only imported when a plot is actually requested.
 
+	
 Contents:
 ---------
 - `_prep_pulse_arrays`

@@ -285,6 +285,7 @@ def split_jsonl(path: str | Path,
     tuple[pd.DataFrame, pd.DataFrame]
         A tuple of (metadata_df, trials_df).
     '''
+    
     path = Path(path)
     if not path.exists():
         raise FileNotFoundError(f"The specified JSONL file does not exist: {path}")
@@ -356,10 +357,12 @@ def split_yaml(path: str | Path,
     if verbose:
         print(f"Metadata shape: {meta_df.shape}, Trials shape: {trials_df.shape}")
 
+
     return meta_df, trials_df
 
 
 #===============================================================================
 
+#
 
 ################################################################################

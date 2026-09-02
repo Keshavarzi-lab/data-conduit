@@ -190,6 +190,7 @@ def extract_datetime(
 	return reader(Path(location), **reader_kwargs)
 
 
+
 def read_datetime_from_name(
 	location: str | Path,
 	*,

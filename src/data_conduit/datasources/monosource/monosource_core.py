@@ -123,63 +123,6 @@ def _obtain_dfs_dict(
 
 
 
-# #===============================================================================
-# # 2| Build data_arrays from monosource_data_arrays 
-# #===============================================================================
-
-# def _build_data_arrays(
-#     dfs_dict: dict,
-#     monosource_data_arrays: dict,
-#     verbose: bool = False,
-# ) -> dict[str, xr.DataArray]:
-#     """
-#     Build named xarray objects from a nested dfs_dict.
-
-#     Parameters
-#     ----------
-#     dfs_dict : dict
-#         Nested dictionary of DataFrames/DataArrays.
-#     monosource_data_arrays : dict
-#         Mapping of {friendly_name: path_tuple_or_str}.
-#         Example:
-#             {'PlaySoundFreq': ('SoundCard', '32')}
-#     verbose : bool
-#         If True, print warnings for missing or invalid paths.
-
-#     Returns
-#     -------
-#     dict[str, xr.DataArray]
-#         Named DataArrays built from monosource_data_arrays.
-#     """
-#     data_arrays: dict[str, xr.DataArray] = {}
-
-#     for name, path in monosource_data_arrays.items():
-#         if isinstance(path, str):
-#             path = (path,)
-
-#         try:
-#             current = dfs_dict
-#             for key in path:
-#                 current = current[key]
-
-#             if isinstance(current, pd.DataFrame):
-#                 data_arrays[name] = current.to_xarray()
-#             elif isinstance(current, xr.DataArray):
-#                 data_arrays[name] = current
-#             else:
-#                 if verbose:
-#                     print(
-#                         f"Warning: '{name}' at {path} is "
-#                         f"{type(current).__name__}, not DataFrame/DataArray."
-#                     )
-
-#         except KeyError as e:
-#             if verbose:
-#                 print(f"Warning: '{name}' not found at {path}: {e}")
-
-#     return data_arrays
-# #===============================================================================
-
 
 #===============================================================================
 # 2| Build data_arrays from monosource_data_arrays 
@@ -304,7 +247,7 @@ class MonoSource:
         Named DataArrays built from monosource_data_arrays.
     '''
 
-    _verbose_disabled_warning_shown_for: set[type] = set()
+    _verbose_disabled_warning_shown_for: set[type] = set()                          # 
 
     def __init__(
             self,
@@ -386,22 +329,17 @@ class MonoSource:
         super(MonoSource, self).__init__()  # noqa
 
         self.verbose = verbose
-        ms_class = self.__class__
-        if not verbose and ms_class not in self._verbose_disabled_warning_shown_for:
+        ms_class = self.__class__       # Store the class of the current instance for verbose warning checks
+        
+        # Show warning if verbose is disabled for this class without repeating it for subclasses. 
+        # This avoids spamming the user with warnings if they have multiple monosource classes.
+        if not verbose and ms_class not in self._verbose_disabled_warning_shown_for:                
             print(f'''
                   Warning: verbose output disabled for {ms_class.__name__}. 
                   If any files/paths are missing or invalid for the monosource_data_arrays you specified, 
                   you may not see warnings about them. Set verbose=True to enable warnings.
                   ''')
             self._verbose_disabled_warning_shown_for.add(ms_class)
-
-
-        # if self.verbose is False:
-        #     print(f'''
-        #           Warning: verbose output disabled for {self.__class__.__name__}. 
-        #           If any files/paths are missing or invalid for the monosource_data_arrays you specified, 
-        #           you may not see warnings about them. Set verbose=True to enable warnings.
-        #           ''')
         
      
         #=== 1. Obtain dfs_dict 

@@ -22,20 +22,27 @@ Description:
     configurators remain in ``catalog_core.py``; stream combination and level
     attachment remain in ``streams.py``.
 
-    Methods are defined as top-level functions and attached to ``DataStructure``
-    after the class declaration.
+    Per-session ``StreamMap`` objects are transient during ``load``. Their members
+    are regrouped immediately into per-stream containers rather than retained in
+    a second permanent cache.
+
+    Processing helpers and callable implementations of the public operations are
+    defined outside ``DataStructure``. The constructor remains inside the class
+    because it establishes configuration and runtime state; the other operations
+    are bound directly in the compact class body.
 
 Contents:
 --------------------------------
-- DataStructure:                  Store configuration + loaded pipeline state.
-- _datastructure_init:            Configure selection/catalog without doing I/O.
-- _datastructure_select:          Execute only the selection stage.
-- _datastructure_load:            Execute the full select/load/regroup/combine flow.
-- _datastructure_require_loaded:  Guard dict-like loaded-data access.
-- _datastructure_keys:            Return loaded stream names.
-- _datastructure_getitem:         Return one combined stream by name.
-- _datastructure_iter:            Iterate loaded stream names.
-- _datastructure_len:             Return number of combined streams.
+- _build_stream_containers:       Load sessions and group like-named streams.
+- _combine_stream_containers:     Combine every stream-specific container.
+- _require_loaded_data:           Validate and return the loaded StreamMap.
+- _select_datastructure_sessions: Execute only the selection stage.
+- _load_datastructure_streams:    Execute the full orchestration pipeline.
+- _get_loaded_stream_keys:        Return loaded stream names.
+- _get_loaded_stream:             Return one combined stream by name.
+- _iterate_loaded_stream_names:   Iterate loaded stream names.
+- _count_loaded_streams:          Return the number of combined streams.
+- DataStructure:                  Store configuration and loaded pipeline state.
 """
 
 
@@ -43,7 +50,7 @@ Contents:
 # Imports
 ################################################################################
 
-from collections.abc import Iterator, KeysView, Sequence
+from collections.abc import Iterator, KeysView, Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
@@ -56,109 +63,190 @@ from .streams import DataObject, StreamContainer, StreamMap
 
 
 ################################################################################
-# DataStructure Methods
+# DataStructure Processing Helpers
 ################################################################################
 
 
 # ===============================================================================
-# 1| Configure a DataStructure Without Loading Experimental Data
+# 1| Load Sessions and Group Like-Named Streams
 # ===============================================================================
 
 
-def _datastructure_init(
-    self: "DataStructure",  # DataStructure instance being initialised.
-    root: str | Path,  # Root directory containing the experiment hierarchy.
-    catalog: StreamCatalog,  # Per-session reader/configurator recipe.
-    *,
-    depth: int = 0,  # Number of intermediate levels before session folders.
-    level_names: Sequence[str] | None = None,  # Optional names for those intermediate hierarchy levels.
-    include: Sequence[str] | None = None,  # Optional session-folder allow-list.
-    exclude: Sequence[str] | None = None,  # Optional session-folder deny-list.
-    extractors: LabelExtractor | Sequence[LabelExtractor] | None = None,  # Optional session metadata extractor(s).
-    **level_selectors: Any,  # Optional l{n}_selector filters for intermediate hierarchy levels.
-) -> None:  # Stores configuration/state on ``self`` and returns nothing.
+def _build_stream_containers(
+    sessions: Mapping[str, SessionRef],  # Selected session IDs and references.
+    catalog: StreamCatalog,  # Per-session loading and configuration recipe.
+) -> dict[str, StreamContainer]:  # One cross-session container per stream name.
     """
-    Store the datastructure configuration and initialise empty runtime state.
+    Load every selected session and group like-named streams together.
 
-    No selection, reader, configurator, or combination work occurs during
-    construction. Deferring I/O makes a configured ``DataStructure`` cheap to
-    create, inspect, and reuse with repeated ``select``/``load`` calls.
+    ``StreamCatalog.read_session`` returns ``{stream_name: DataObject}`` for one
+    session. By walking the surrounding session mapping, this helper transposes
+    the conceptual ``session -> streams`` orientation into
+    ``stream -> contributing sessions`` without retaining a second per-session
+    cache.
+
+    A stream may not be produced for every session, for example when an optional
+    reader has no source file. Only that stream's container omits the session;
+    other streams from the same session remain unaffected.
 
     Parameters
     ----------
-    self : DataStructure
-        Instance being initialised.
-    root : str | Path
-        Root directory from which session selection will begin. Converted to
-        ``Path`` immediately so downstream code uses one filesystem type.
+    sessions : Mapping[str, SessionRef]
+        Selected sessions in loading order. Mapping keys become the source-session
+        identifiers attached to combined data.
     catalog : StreamCatalog
-        Per-session loading recipe. The same catalog is applied independently to
-        every selected session path.
-    depth : int
-        Number of intermediate directory levels between ``root`` and session
-        folders. Passed unchanged to ``select_sessions``. Default 0.
-    level_names : Sequence[str] | None
-        Names assigned to intermediate hierarchy positions. Stored here as a
-        tuple for stable repeated forwarding to ``select_sessions``. None means
-        selection should generate default ``level_{i}`` names.
-    include : Sequence[str] | None
-        Session-folder include selector passed to ``select_sessions``.
-    exclude : Sequence[str] | None
-        Session-folder exclude selector passed as ``exclude_names`` to
-        ``select_sessions``. Mutually exclusive with ``include`` at selection
-        time.
-    extractors : LabelExtractor | Sequence[LabelExtractor] | None
-        Session metadata extraction configuration forwarded unchanged to
-        ``select_sessions``.
-    **level_selectors : Any
-        Intermediate hierarchy selectors such as ``l0_selector`` or
-        ``l1_selector``. Stored unchanged and parsed later by selection.
+        Reader/configurator recipe applied independently to each session path.
 
     Returns
     -------
-    None
-        Configuration plus empty ``sessions``, ``containers``, and ``data`` state
-        are stored on ``self``.
+    dict[str, StreamContainer]
+        One container per encountered stream name. Stream order follows first
+        appearance across the ordered session walk; member order follows session
+        order.
     """
 
-    # === 1| Normalise and Store Selection/Catalog Configuration ==================
+    # === 1| Initialise the Stream-Oriented Grouping =============================
 
-    self.root = Path(root)  # Normalise root path once at object construction.
-    self.catalog = catalog  # Reused for every selected session during each load.
-    self.depth = depth  # Selection depth semantics are owned by select_sessions.
-    self.level_names = tuple(level_names) if level_names is not None else ()  # Immutable/stable copy of caller-supplied level-name order.
-    self.include = include  # Retain caller's session include rule for future selections.
-    self.exclude = exclude  # Retain caller's session exclude rule for future selections.
-    self.extractors = extractors  # Extractor objects/configuration remain reusable across selections.
-    self.level_selectors = level_selectors  # Raw kwargs are forwarded on every selection call.
+    containers: dict[str, StreamContainer] = {}
 
-    # === 2| Initialise Runtime State Separately from Configuration ================
-    # These attributes represent the most recent pipeline execution. Keeping them
-    # explicit makes debugging possible without adding separate "load sessions"
-    # public methods solely to expose intermediate state.
+    # === 2| Load Each Session Independently =====================================
 
-    self.sessions: dict[str, SessionRef] = {}  # Most recent selected-session mapping.
-    self.containers: dict[str, StreamContainer] = {}  # Most recent per-stream cross-session groupings.
-    self.data: StreamMap | None = None  # Most recent final combined data; None means load has not completed.
+    for session_id, session in sessions.items():
+        stream_map = catalog.read_session(session.path)
+
+        # === 2.1| Add Each Result to its Like-Named Container ====================
+        # The first occurrence establishes the stream's position in the output;
+        # later occurrences extend that container in session order.
+
+        for stream_name, stream in stream_map.items():
+            if stream_name not in containers:
+                containers[stream_name] = StreamContainer(stream_name)
+
+            containers[stream_name].add(
+                session_id,  # Stable selection key becomes source-session identity.
+                session,  # SessionRef supplies explicit levels and retained metadata.
+                stream,  # This session's instance of the named stream.
+            )
+
+    # === 3| Return the Stream-Oriented Grouping =================================
+
+    return containers
 
 
 # ===============================================================================
 
 
 # ===============================================================================
-# 2| Execute Only the Session Selection Stage
+# 2| Combine Every Stream-Specific Container
 # ===============================================================================
 
 
-def _datastructure_select(
+def _combine_stream_containers(
+    containers: Mapping[str, StreamContainer],  # Stream name -> contributing sessions.
+    *,
+    dim: str,  # Concatenation dimension for xarray streams.
+    session_coord: str,  # Source-session coordinate or column name.
+) -> StreamMap:  # Final cross-session stream mapping.
+    """
+    Combine every stream-specific container independently.
+
+    Different streams may contain different session subsets because optional
+    sources can be absent. Independent combination preserves those subsets rather
+    than requiring every selected session to expose the same stream names.
+
+    Parameters
+    ----------
+    containers : Mapping[str, StreamContainer]
+        Stream names mapped to containers holding only the sessions that produced
+        each stream.
+    dim : str
+        Dimension used for xarray concatenation and level attachment. DataFrame
+        containers concatenate rows but still receive this value when levels are
+        attached through the shared container API.
+    session_coord : str
+        Coordinate or column name used for per-element source-session identity.
+
+    Returns
+    -------
+    StreamMap
+        Final ``{stream_name: combined DataObject}`` mapping in container insertion
+        order.
+    """
+
+    # === 1| Combine Each Stream Across its Contributing Sessions =================
+
+    return {
+        name: container.combine(
+            dim=dim,
+            session_coord=session_coord,
+        )
+        for name, container in containers.items()
+    }
+
+
+# ===============================================================================
+
+
+# ===============================================================================
+# 3| Validate Loaded Data Before Dict-Like Access
+# ===============================================================================
+
+
+def _require_loaded_data(
+    data: StreamMap | None,  # Final combined data, or None before successful load.
+) -> StreamMap:  # Validated loaded mapping with Optional removed from its type.
+    """
+    Return loaded data or raise when no full load has completed.
+
+    ``None`` means the datastructure has not completed ``load`` since construction
+    or its latest standalone selection. An empty dictionary is different: it is a
+    valid loaded result containing no streams and must remain accessible.
+
+    Parameters
+    ----------
+    data : StreamMap | None
+        Current final-data state.
+
+    Returns
+    -------
+    StreamMap
+        The same loaded mapping passed by the caller.
+
+    Raises
+    ------
+    RuntimeError
+        If ``data`` is None.
+    """
+
+    if data is None:
+        raise RuntimeError("call .load() before accessing data.")
+
+    return data
+
+
+# ===============================================================================
+
+
+################################################################################
+# DataStructure Bound Operations
+################################################################################
+
+
+# ===============================================================================
+# 1| Execute Only the Session Selection Stage
+# ===============================================================================
+
+
+def _select_datastructure_sessions(
     self: "DataStructure",  # Configured DataStructure whose selection rules should be applied.
 ) -> dict[str, SessionRef]:  # Returns and stores selected SessionRefs in deterministic walk order.
     """
     Select session directories using the configuration stored on ``self``.
 
-    This is a thin orchestration wrapper around ``select_sessions``. It exists so
-    callers can inspect what would be loaded without executing readers, while the
-    standalone selection function remains independently usable/testable.
+    Selection performs no reader, configurator, or combination work. On success,
+    the selected mapping is stored in ``self.sessions`` and any previous
+    ``containers`` and ``data`` are invalidated because they may describe a
+    different selection.
 
     Parameters
     ----------
@@ -169,14 +257,14 @@ def _datastructure_select(
     Returns
     -------
     dict[str, SessionRef]
-        Ordered selection mapping. The same mapping is also stored in
-        ``self.sessions`` for later inspection.
+        Ordered selection mapping. This is the same mapping stored in
+        ``self.sessions``.
     """
 
     # === 1| Forward Stored Configuration to the Standalone Selection Function ====
 
     sessions = select_sessions(
-        self.root,  # Validated/normalised root stored during construction.
+        self.root,  # Path-normalised root stored during construction.
         depth=self.depth,  # Number of intermediate hierarchy levels.
         include=self.include,  # Session-folder allow-list or None.
         exclude_names=self.exclude,  # Selection's public argument uses the explicit ``exclude_names`` name.
@@ -186,13 +274,15 @@ def _datastructure_select(
     )
 
     # === 2| Commit Selection and Invalidate Results from a Previous Load =========
+    # State changes only after selection succeeds, so a selection error leaves the
+    # preceding state intact.
 
     self.sessions = sessions
     self.containers = {}
     self.data = None
 
     # === 3| Return the Same Mapping Stored for Introspection ======================
-
+ 
     return self.sessions
 
 
@@ -200,11 +290,11 @@ def _datastructure_select(
 
 
 # ===============================================================================
-# 3| Execute Selection -> Per-Session Loading -> Regrouping -> Combination
+# 2| Execute Selection -> Per-Session Loading -> Regrouping -> Combination
 # ===============================================================================
 
 
-def _datastructure_load(
+def _load_datastructure_streams(
     self: "DataStructure",  # Configured DataStructure whose full pipeline should execute.
     *,
     dim: str = "Time",  # Alignment dimension used by xarray StreamContainers.
@@ -213,12 +303,10 @@ def _datastructure_load(
     """
     Run the complete datastructure pipeline and return the combined streams.
 
-    The method intentionally regroups while loading rather than first storing a
-    second permanent ``dict[str, StreamMap]`` object. Each per-session StreamMap
-    is transiently available as ``stream_map``; its members are immediately added
-    to the appropriate ``StreamContainer``. This preserves the conceptual
-    session->streams stage without creating another long-lived wrapper solely for
-    orchestration.
+    This operation performs a fresh selection, builds stream-oriented containers,
+    combines those containers independently, and commits the resulting runtime
+    state only after every stage succeeds. A failure therefore leaves the most
+    recent successful ``sessions``, ``containers``, and ``data`` intact.
 
     Parameters
     ----------
@@ -240,6 +328,11 @@ def _datastructure_load(
         Final mapping ``{stream_name: combined DataObject}``. Different stream
         names may represent different subsets of sessions because optional sources
         are allowed to be absent from individual sessions.
+
+    Raises
+    ------
+    ValueError
+        If the fresh selection contains no sessions.
     """
 
     # === 1| Select the Session Directories =======================================
@@ -260,46 +353,28 @@ def _datastructure_load(
     if not sessions:  # A full load with no sessions almost always indicates bad configuration.
         raise ValueError(f"no sessions selected under {self.root} (check depth / include / exclude / level selectors).")
 
-    # === 2| Apply the Catalog Independently to Every Selected Session =============
-    # As each session returns a StreamMap, transpose orientation immediately from
-    # ``session -> streams`` into ``stream -> contributing sessions`` by adding
-    # each member to the corresponding StreamContainer.
+    # === 2| Load Sessions and Regroup Like-Named Streams =========================
 
-    containers: dict[str, StreamContainer] = {}
+    containers = _build_stream_containers(
+        sessions,
+        self.catalog,
+    )
 
-    for session_id, session in sessions.items():
-        stream_map = self.catalog.read_session(session.path)  # ONE session -> its named configured/normalised streams.
+    # === 3| Combine Every Stream Independently ==================================
 
-        # === 2.1| Regroup Like-Named Streams into Cross-Session Containers ========
+    data = _combine_stream_containers(
+        containers,
+        dim=dim,
+        session_coord=session_coord,
+    )
 
-        for stream_name, stream in stream_map.items():
-            if stream_name not in containers:  # First occurrence of this stream creates its cross-session group.
-                containers[stream_name] = StreamContainer(stream_name)
+    # === 4| Commit the Complete Runtime State ===================================
 
-            containers[stream_name].add(
-                session_id,  # Stable selection key becomes eventual per-element session identity.
-                session,  # SessionRef provides levels + retained metadata.
-                stream,  # This session's instance of the like-named stream.
-            )
-
-    # === 3| Combine Every StreamContainer Independently ===========================
-    # Missing optional streams are naturally handled because a container contains
-    # only the sessions that actually produced that stream. No global strict set
-    # intersection is required.
-
-    data: StreamMap = {
-        name: container.combine(
-            dim=dim,  # Forward xarray alignment dimension.
-            session_coord=session_coord,  # Forward source-session identity name.
-        )
-        for name, container in containers.items()
-    }
-
-    # === 4| Store Intermediate/Final State for Inspection =========================
-
-    self.sessions = sessions  # Commit all runtime state together only after every stage succeeds.
-    self.containers = containers  # Allows debugging how one particular stream was assembled.
-    self.data = data  # Marks the DataStructure as successfully loaded for dict-like access.
+    # These assignments deliberately occur after every reader, configurator, and
+    # combination has succeeded, preserving the previous complete result on error.
+    self.sessions = sessions
+    self.containers = containers
+    self.data = data
 
     # === 5| Return the Final Combined StreamMap ===================================
 
@@ -310,46 +385,11 @@ def _datastructure_load(
 
 
 # ===============================================================================
-# 4| Guard Access that Requires a Completed ``load``
+# 3| Return the Names of Loaded Combined Streams
 # ===============================================================================
 
 
-def _datastructure_require_loaded(
-    self: "DataStructure",  # DataStructure whose loaded state is being checked.
-) -> None:  # Raises before load; otherwise returns nothing.
-    """
-    Raise a clear error when dict-like data access occurs before ``load``.
-
-    Parameters
-    ----------
-    self : DataStructure
-        Datastructure being checked.
-
-    Returns
-    -------
-    None
-        Returns silently when ``self.data`` contains a completed StreamMap.
-
-    Raises
-    ------
-    RuntimeError
-        If ``self.data`` is still None, meaning no successful full load has
-        populated the final combined result.
-    """
-
-    if self.data is None:  # Empty StreamMap is distinct from never-loaded None.
-        raise RuntimeError("call .load() before accessing data.")
-
-
-# ===============================================================================
-
-
-# ===============================================================================
-# 5| Return the Names of Loaded Combined Streams
-# ===============================================================================
-
-
-def _datastructure_keys(
+def _get_loaded_stream_keys(
     self: "DataStructure",  # Loaded DataStructure being inspected.
 ) -> KeysView[str]:  # Returns dict keys view over the loaded StreamMap.
     """
@@ -363,23 +403,30 @@ def _datastructure_keys(
     Returns
     -------
     KeysView[str]
-        Live keys view over ``self.data``, e.g. ``'trials'`` or
-        ``'dlc:position'`` names.
+        Live dictionary keys view over the current loaded mapping, preserving
+        final stream insertion order. A later ``load`` replaces ``self.data``;
+        an earlier view remains attached to the mapping from which it was created.
+
+    Raises
+    ------
+    RuntimeError
+        If no full load has completed since construction or the latest standalone
+        selection.
     """
 
-    self._require_loaded()  # Give a targeted error instead of ``NoneType`` attribute failures.
-    return self.data.keys()
+    data = _require_loaded_data(self.data)
+    return data.keys()
 
 
 # ===============================================================================
 
 
 # ===============================================================================
-# 6| Return One Loaded Combined Stream by Name
+# 4| Return One Loaded Combined Stream by Name
 # ===============================================================================
 
 
-def _datastructure_getitem(
+def _get_loaded_stream(
     self: "DataStructure",  # Loaded DataStructure being indexed.
     key: str,  # Stream name to retrieve from the final StreamMap.
 ) -> DataObject:  # Returns the combined DataObject stored under ``key``.
@@ -398,21 +445,29 @@ def _datastructure_getitem(
     -------
     DataObject
         Combined DataFrame / DataArray / Dataset stored under ``key``.
+
+    Raises
+    ------
+    RuntimeError
+        If no full load has completed since construction or the latest standalone
+        selection.
+    KeyError
+        If data is loaded but ``key`` is not a final stream name.
     """
 
-    self._require_loaded()  # Explicitly distinguish "not loaded" from a missing stream key.
-    return self.data[key]  # Ordinary dictionary KeyError remains appropriate for unknown stream names.
+    data = _require_loaded_data(self.data)
+    return data[key]  # Preserve the ordinary dictionary error for an unknown stream.
 
 
 # ===============================================================================
 
 
 # ===============================================================================
-# 7| Iterate over Loaded Stream Names
+# 5| Iterate over Loaded Stream Names
 # ===============================================================================
 
 
-def _datastructure_iter(
+def _iterate_loaded_stream_names(
     self: "DataStructure",  # Loaded DataStructure being iterated.
 ) -> Iterator[str]:  # Returns iterator over final StreamMap keys.
     """
@@ -426,22 +481,28 @@ def _datastructure_iter(
     Returns
     -------
     Iterator[str]
-        Iterator over stream-name keys.
+        Iterator over stream-name keys in final insertion order.
+
+    Raises
+    ------
+    RuntimeError
+        If no full load has completed since construction or the latest standalone
+        selection.
     """
 
-    self._require_loaded()
-    return iter(self.data)
+    data = _require_loaded_data(self.data)
+    return iter(data)
 
 
 # ===============================================================================
 
 
 # ===============================================================================
-# 8| Return the Number of Loaded Combined Streams
+# 6| Return the Number of Loaded Combined Streams
 # ===============================================================================
 
 
-def _datastructure_len(
+def _count_loaded_streams(
     self: "DataStructure",  # Loaded DataStructure whose stream count is requested.
 ) -> int:  # Returns number of entries in final StreamMap.
     """
@@ -456,10 +517,16 @@ def _datastructure_len(
     -------
     int
         Number of stream-name/DataObject entries in ``self.data``.
+
+    Raises
+    ------
+    RuntimeError
+        If no full load has completed since construction or the latest standalone
+        selection.
     """
 
-    self._require_loaded()
-    return len(self.data)
+    data = _require_loaded_data(self.data)
+    return len(data)
 
 
 # ===============================================================================
@@ -480,14 +547,15 @@ class DataStructure:
     Apply one ``StreamCatalog`` across a configured selection of session folders.
 
     A ``DataStructure`` stores both configuration and the most recent pipeline
-    result. Construction performs no experimental-data I/O. ``select`` populates
-    ``sessions`` only; ``load`` reruns selection, loads each session, constructs
-    cross-session ``StreamContainer`` objects, combines them, and stores the final
-    ``StreamMap`` in ``data``.
+    result. Construction performs no experimental-data I/O. ``select`` updates
+    the selected sessions and invalidates any older loaded result. ``load``
+    performs a fresh selection and commits sessions, containers, and combined data
+    only after the complete pipeline succeeds.
 
-    Method implementations are defined as documented top-level functions
-    immediately above this class. The class body then exposes those functions
-    under the normal public method names.
+    Construction is defined directly in the class because it establishes
+    configuration and runtime state. Processing helpers and the callable
+    implementations of the remaining operations are defined above, then bound
+    directly under their public names in the compact class body.
 
     Parameters
     ----------
@@ -513,14 +581,84 @@ class DataStructure:
         convention understood by ``select_sessions``.
     """
 
-    __init__ = _datastructure_init  # Configuration + empty runtime state.
-    select = _datastructure_select  # Selection-only public operation.
-    load = _datastructure_load  # Complete orchestration pipeline.
-    _require_loaded = _datastructure_require_loaded  # Internal guard shared by dict-like accessors.
-    keys = _datastructure_keys  # Dict-like loaded stream-name view.
-    __getitem__ = _datastructure_getitem  # Dict-like ``ds['stream_name']`` access.
-    __iter__ = _datastructure_iter  # Iteration over loaded stream names.
-    __len__ = _datastructure_len  # Number of loaded streams.
+    def __init__(
+        self,
+        root: str | Path,  # Root directory containing the experiment hierarchy.
+        catalog: StreamCatalog,  # Per-session loading and configuration recipe.
+        *,
+        depth: int = 0,  # Number of intermediate levels before session folders.
+        level_names: Sequence[str] | None = None,  # Optional names for hierarchy levels.
+        include: Sequence[str] | None = None,  # Optional session-folder allow-list.
+        exclude: Sequence[str] | None = None,  # Optional session-folder deny-list.
+        extractors: LabelExtractor | Sequence[LabelExtractor] | None = None,  # Optional metadata extractor(s).
+        **level_selectors: Any,  # Optional l{n}_selector hierarchy filters.
+    ) -> None:
+        """
+        Store configuration and initialise empty runtime state without doing I/O.
+
+        Parameters
+        ----------
+        self : DataStructure
+            Instance being initialised.
+        root : str | Path
+            Root directory from which session selection begins. It is normalised
+            to ``Path`` once so every later selection uses one filesystem type.
+        catalog : StreamCatalog
+            Per-session loading recipe applied independently to every selected
+            session path.
+        depth : int
+            Number of intermediate directory levels between ``root`` and session
+            folders. Passed unchanged to ``select_sessions``. Default 0.
+        level_names : Sequence[str] | None
+            Names assigned positionally to intermediate hierarchy levels. A
+            defensive tuple copy preserves order across repeated selections. None
+            requests the default ``level_{i}`` names from selection.
+        include : Sequence[str] | None
+            Session-folder allow-list forwarded to ``select_sessions``.
+        exclude : Sequence[str] | None
+            Session-folder deny-list forwarded as ``exclude_names``. It is
+            mutually exclusive with ``include`` when selection runs.
+        extractors : LabelExtractor | Sequence[LabelExtractor] | None
+            Session metadata extraction configuration forwarded unchanged to
+            ``select_sessions``.
+        **level_selectors : Any
+            Intermediate hierarchy selectors such as ``l0_selector`` and
+            ``l1_selector``. They are retained for every later selection.
+
+        Returns
+        -------
+        None
+            Configuration and empty ``sessions``, ``containers``, and ``data``
+            state are stored on ``self``.
+        """
+
+        # === 1| Normalise and Store Reusable Configuration =======================
+        # ``root`` and ``level_names`` receive stable representations here; the
+        # remaining objects are retained for repeated forwarding to selection.
+
+        self.root = Path(root)
+        self.catalog = catalog
+        self.depth = depth
+        self.level_names = tuple(level_names) if level_names is not None else ()
+        self.include = include
+        self.exclude = exclude
+        self.extractors = extractors
+        self.level_selectors = level_selectors
+
+        # === 2| Initialise Runtime State Separately from Configuration ============
+        # These attributes describe only the latest successful selection/load.
+        # ``None`` means there is no current loaded result; ``{}`` is valid data.
+
+        self.sessions: dict[str, SessionRef] = {}
+        self.containers: dict[str, StreamContainer] = {}
+        self.data: StreamMap | None = None
+
+    select = _select_datastructure_sessions  # Select sessions and invalidate older loaded state.
+    load = _load_datastructure_streams  # Run the complete pipeline and commit a successful result.
+    keys = _get_loaded_stream_keys  # Dictionary-style view of loaded stream names.
+    __getitem__ = _get_loaded_stream  # Retrieve one combined stream by name.
+    __iter__ = _iterate_loaded_stream_names  # Iterate loaded names in insertion order.
+    __len__ = _count_loaded_streams  # Count combined streams in the loaded result.
 
 
 # ===============================================================================

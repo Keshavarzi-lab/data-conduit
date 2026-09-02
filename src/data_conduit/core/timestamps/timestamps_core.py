@@ -42,8 +42,9 @@ from data_conduit.core.utils import (
 # Private Helper Functions
 ################################################################################
 
+
 #===============================================================================
-# 1| Find Columns (Case-Insensitive)
+# 1| Find Columns    (Case-Insensitive)
 #===============================================================================
 def _find_column(columns, name):
     """Return the actual column name matching `name` (case-insensitive), or None."""
@@ -90,7 +91,7 @@ def collect_timestamps(df: pd.DataFrame | xr.DataArray | None = None,
         A Series of processed timestamps, or None if the DataFrame is None.
     """
 
-    #=== i| Checks
+    #==== i| Checks
     if df is None:
         if verbose:
             print("No DataFrame provided. Returning None.")

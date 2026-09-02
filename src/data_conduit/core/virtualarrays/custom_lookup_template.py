@@ -13,7 +13,6 @@ from data_conduit.core.virtualarrays.virtual_arrays_core import construct_lookup
 
 
 
-
 ################################################################################
 # Lookup Accessor with Auto-Construction of Lookup Array
 ################################################################################

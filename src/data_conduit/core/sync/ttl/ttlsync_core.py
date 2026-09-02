@@ -14,6 +14,7 @@ Description:
 	4) convenience wrappers that bundle the end-to-end conversion flow
 
 	
+	
 Contents
 ----------
 - `build_pulse_table`: Pair rise/fall timestamps into a structured pulse table.

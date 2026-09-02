@@ -111,9 +111,9 @@ class SessionRef:
         objects, for example ``{'label': 'session_001', 'datetime': ...}``.
     """
 
-    path: Path  # Filesystem directory represented by this session reference.
-    levels: dict[str, Any]  # Hierarchy-derived values that should behave as data levels.
-    metadata: dict[str, Any]  # Other session information produced by extractors, not automatically treated as levels.
+    path: Path                                                                      # Filesystem directory represented by this session reference.
+    levels: dict[str, Any]                                                          # Hierarchy-derived values that should behave as data levels.
+    metadata: dict[str, Any]                                                        # Other session information produced by extractors, not automatically treated as levels.
 
 
 # ===============================================================================
@@ -131,10 +131,11 @@ class SessionRef:
 # ===============================================================================
 
 
+
 def _meta_from_path(
-    path_keys: tuple[str, ...],  # Intermediate folder names, one per level above the session.
-    level_names: Sequence[str] | None = None,  # The names of the metadata levels/intermediate positions.
-) -> dict[str, Any]:  # Returns a dictionary mapping level names to path keys.
+    path_keys: tuple[str, ...],                                                     # Intermediate folder names, one per level above the session.
+    level_names: Sequence[str] | None = None,                                       # The names of the metadata levels/intermediate positions.
+) -> dict[str, Any]:                                                                # Returns a dictionary mapping level names to path keys.
     """
     Convert a tuple of intermediate folder names into a named levels dictionary.
 
@@ -182,11 +183,11 @@ def _meta_from_path(
     # only for the remaining positions. This lets callers name the hierarchy as
     # precisely as they know it without requiring an exact-length sequence.
 
-    if level_names is None:  # When no names are supplied, generate default names for every level/path position.
+    if level_names is None:                                                         # When no names are supplied, generate default names for every level/path position.
         names = [f"level_{i}" for i in range(len(path_keys))]
     else:
-        names = list(level_names)  # Take the supplied names.
-        if len(names) < len(path_keys):  #   Only pads with default names when path contains more levels than supplied names.
+        names = list(level_names)                                                   # Take the supplied names.
+        if len(names) < len(path_keys):                                             #   Only pads with default names when path contains more levels than supplied names.
             names += [f"level_{i}" for i in range(len(names), len(path_keys))]
 
     # === 2| Pair Each Name with its Folder Name =================================
@@ -197,7 +198,7 @@ def _meta_from_path(
     # stages of the pipeline, it is possible that there may be more names
     # than levels, potentially when there are variable depths/numbers of
     # levels in the directory structure. In such cases, we want to avoid
-    return dict(zip(names, path_keys, strict=False))  # raising an error and simply ignore the extra names, hence strict=False.
+    return dict(zip(names, path_keys, strict=False))                                 # raising an error and simply ignore the extra names, hence strict=False.
 
 
 # ===============================================================================

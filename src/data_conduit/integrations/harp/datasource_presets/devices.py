@@ -9,6 +9,7 @@ Description:
     device/register layout, optionally validate expected content, and
     expose named DataArrays.
 
+    
 Contents:
     - Device
         Minimal HARP-style device wrapper around MonoSource.
