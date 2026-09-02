@@ -29,3 +29,4 @@ wheels/
 # Cookiecutter scaffold (already integrated)
 /data-conduit
 /datasets
+src/data_conduit/refactor_qc/SESSION_HANDOFF.md

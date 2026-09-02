@@ -31,7 +31,7 @@ from pathlib import Path
 
 # REPO_ROOT is resolved once in the package __init__; reuse it (and re-export it via __all__
 # below) so there is one definition of "where is the repo" for the package and the notebooks.
-from pose_trajectory import REPO_ROOT
+from Consider_Removal.Pose_Trajectory_Analysis.pose_trajectory import REPO_ROOT
 
 # === Paths ===================================================================
 # The workspace folder (this package's parent's parent: pose_trajectory/ -> the

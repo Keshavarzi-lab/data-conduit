@@ -49,7 +49,7 @@ from data_conduit.sessiongroups import DataStructureCatalog, DataStructureSpec
 from data_conduit.utils.utils_core import _concat_split_dataframes
 
 # Repo root, used to locate the default HARP device YAMLs that live there by convention.
-from pose_trajectory import REPO_ROOT
+from Consider_Removal.Pose_Trajectory_Analysis.pose_trajectory import REPO_ROOT
 
 
 def build_catalog(

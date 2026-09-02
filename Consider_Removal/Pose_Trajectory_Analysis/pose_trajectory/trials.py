@@ -44,7 +44,7 @@ import pandas as pd
 # the q_c_data_analysis tree on sys.path so we import it rather than copy it.
 from firstdata.behavioural_metrics.event_parsing import parse_trials
 
-from pose_trajectory.workspace import day_order
+from Consider_Removal.Pose_Trajectory_Analysis.pose_trajectory.workspace import day_order
 
 # Re-exported so notebooks can `from pose_trajectory.trials import parse_trials`.
 __all__ = ['parse_trials', 'segment_windows', 'build_summary_table']
