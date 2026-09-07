@@ -20,8 +20,9 @@ Use a Python 3.12 notebook kernel with this data-conduit checkout and movement
 0.17.0 (the version used for local validation). The loader rejects older movement
 versions; later versions have not been validated here. The existing project
 environment supplies the notebook/plotting dependencies. DLC HDF5 input also
-needs PyTables. These notebooks require access to `data_conduit.revised_qc` from
-this checkout; an older installation may not include it.
+needs PyTables. These notebooks use `data_conduit.refactor_qc` for the catalog,
+trial parsing and DLC alignment, matching the workflow tested on the data machine.
+The figure templates themselves still need real-session validation there.
 
 Start Jupyter within this checkout and open the data import demo first. Set
 `ROOT`, the exact `SESSION` folder name, and the hierarchy beneath the root.
@@ -33,6 +34,10 @@ Selection must resolve to exactly one session before readers run.
 and pose. The catalog loads VideoData as DLC's clock-alignment dependency.
 The figure loader requires trials and DLC; extra supported sources can be
 requested explicitly. It does not load raw nosepoke activations by default.
+The shared template adapts these source names to refactor_qc's catalog: its
+legacy `events` request produces parsed trials, while an additional reader
+retains the raw events for plot annotations. Both use the same ExperimentEvents
+reader and split-file concatenation. The existing trial reader is unchanged.
 
 Copy the same root, scope, keypoint and processing settings into each figure
 notebook's configuration cell. Inspect the printed keypoint names, confidence
