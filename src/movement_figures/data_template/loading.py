@@ -73,6 +73,26 @@ class SessionData:
     raw_pose: xr.Dataset
 
 
+@dataclass(frozen=True)
+class FigureData:
+    """Explicit shared inputs for the one-session figure functions.
+
+    ``position`` selects one animal and has dimensions ``(time, space,
+    keypoint)``; ``point`` selects one landmark and has ``(time, space)``.
+    Spatial values are pixels and time is the original acquisition clock in
+    seconds. ``raw_pose`` and ``pose`` retain unprocessed and processed copies.
+    The returned trial table is sorted by start time with zero-based row labels.
+    """
+
+    session_data: SessionData
+    raw_pose: xr.Dataset
+    pose: xr.Dataset
+    position: xr.DataArray
+    point: xr.DataArray
+    trials: pd.DataFrame
+    events: pd.DataFrame | None
+
+
 def build_config(
     root: str | Path,
     *,
@@ -337,3 +357,113 @@ def prepare_pose(
         )
     pose["position"] = position
     return pose
+
+
+def load_figure_data(
+    config: SessionConfig,
+    *,
+    individual: str = "individual_0",
+    tracking_keypoint: str = "body",
+    confidence_threshold: float | None = None,
+    max_gap_frames: int | None = None,
+    smoothing_window: int | None = None,
+) -> FigureData:
+    """Load and prepare the explicit data inputs consumed by figure functions.
+
+    Parameters
+    ----------
+    config
+        One-session selection built by ``build_config``. Source discovery,
+        trial parsing and DLC clock alignment use the existing loader.
+    individual, tracking_keypoint
+        Animal and landmark selected from the movement pose schema. All
+        landmarks remain available in ``position`` for head/body calculations.
+    confidence_threshold, max_gap_frames, smoothing_window
+        Passed unchanged to ``prepare_pose``. Processing takes place on the
+        continuous recording before any plot window or trial is selected.
+
+    Returns
+    -------
+    FigureData
+        Raw/processed pose, selected arrays, sorted trial rows and raw events.
+        This function does not create plots, display tables or reset time.
+    """
+    #=== 1| Load one session and process the continuous pose ========
+    session_data = load_session(config, individual=individual)
+    raw_pose = session_data.raw_pose
+    pose = prepare_pose(
+        raw_pose,
+        confidence_threshold=confidence_threshold,
+        max_gap_frames=max_gap_frames,
+        smoothing_window=smoothing_window,
+    )
+
+    #=== 2| Select the animal and tracked point without dropping other landmarks ========
+    position = pose.position.sel(individual=individual, drop=True)
+    if tracking_keypoint not in position.keypoint:
+        raise ValueError(
+            f"Unknown tracking_keypoint {tracking_keypoint!r}; "
+            f"choose from {position.keypoint.values.tolist()}."
+        )
+    point = position.sel(keypoint=tracking_keypoint, drop=True).copy(deep=True)
+    point.attrs["units"] = "px"
+
+    #=== 3| Return a stable trial table alongside the original timing and pose ========
+    trials = session_data.trials.sort_values("start_time").reset_index(drop=True)
+    if trials.empty:
+        raise ValueError("No parsed trials are available in this session.")
+    return FigureData(
+        session_data=session_data,
+        raw_pose=raw_pose,
+        pose=pose,
+        position=position,
+        point=point,
+        trials=trials,
+        events=session_data.events,
+    )
+
+
+def read_session_video_frame(
+    session_path: str | Path,
+    *,
+    video_subdir: str = "UndistortedVideoData",
+) -> tuple[np.ndarray, Path]:
+    """Read the first frame and return it with its video path.
+
+    Parameters
+    ----------
+    session_path
+        Exact selected session directory from the loader's session manifest.
+    video_subdir
+        Directory whose pixel coordinates match the DLC recording. Use
+        ``UndistortedVideoData`` for the undistorted tracking in these examples;
+        raw-video tracking should instead use ``VideoData``.
+
+    Returns
+    -------
+    frame, video_path
+        RGB image with shape ``(height, width, 3)`` and the source path. No
+        resizing, coordinate transformation or fallback image is applied.
+        Split recordings follow filename order, as in the existing DLC loader.
+    """
+    #=== 1| Resolve the first video chunk within the selected session ========
+    import imageio.v3 as iio
+
+    video_dir = Path(session_path) / video_subdir
+    video_files = sorted(
+        path for path in video_dir.glob("*")
+        if path.is_file() and path.suffix.lower() in {".avi", ".mp4", ".mov", ".mkv"}
+    )
+    if not video_files:
+        raise FileNotFoundError(
+            f"No video found in {video_dir}; choose the video_subdir used for DLC tracking."
+        )
+
+    #=== 2| Read frame zero and retain the original image geometry ========
+    video_path = video_files[0]
+    frame = iio.imread(video_path, index=0)
+    if frame.ndim == 2:
+        frame = np.repeat(frame[..., None], 3, axis=2)
+    if frame.ndim != 3 or frame.shape[2] not in (3, 4) or min(frame.shape[:2]) == 0:
+        raise ValueError(f"Video frame has an unsupported image shape: {frame.shape}.")
+    return frame[..., :3], video_path
