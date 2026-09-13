@@ -114,16 +114,18 @@ class TrialSpec:
         ``outbound_end_time`` columns for downstream generic slicing.
     """
 
-    closes_trial: str  # Event-text prefix that defines one trial-ending event.
-    session_start: str | None = None  # Optional first-trial start marker matched as a literal substring.
-    start_buffer: float = 0.0  # Seconds added after previous close before next trial begins.
-    fields: Callable[[pd.DataFrame, pd.Series], dict[str, Any]] = (  # Reads experiment-specific values directly from one trial window.
+    closes_trial: str                                                           # Event-text prefix that defines one trial-ending event.
+    session_start: str | None = None                                            # Optional first-trial start marker matched as a literal substring.
+    start_buffer: float = 0.0                                                   # Seconds added after previous close before next trial begins.
+    fields: Callable[[pd.DataFrame, pd.Series], dict[str, Any]] = (             # Reads experiment-specific values directly from one trial window.
         lambda window, closing_row: {}
     )
-    derived: Callable[[dict[str, Any]], dict[str, Any]] = (  # Computes additional values from the row assembled so far.
+
+    derived: Callable[[dict[str, Any]], dict[str, Any]] = (                     # Computes additional values from the row assembled so far.
         lambda row: {}
     )
-    segments: dict[str, tuple[str, str]] = field(default_factory=dict)  # Segment name -> source start/end column names.
+
+    segments: dict[str, tuple[str, str]] = field(default_factory=dict)          # Segment name -> source start/end column names.
 
 
 # ===============================================================================

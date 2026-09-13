@@ -202,7 +202,7 @@ def _get_target_zone_size(
 def qc_trial_spec(
         *,
         nosepoke_count: int = 18,
-        trial_start_buffer: float = 1.0,
+        trial_start_buffer: float = 0.0,
 ) -> TrialSpec:
     '''
     Build the Q_C ``TrialSpec`` for a given port count and inter-trial buffer.
@@ -213,7 +213,7 @@ def qc_trial_spec(
             Number of arena ports, used for the angle offset. Default 18.
         trial_start_buffer (float):
             Seconds inserted between one trial's end and the next trial's start.
-            Default 1.0, reproducing Q_C_Analysis_Workflow; pass 0.0 for
+            Default 0.0, reproducing Q_C_Analysis_Workflow; pass 0.0 for
             contiguous trials (what the Q_C Catalog uses).
     Returns:
         TrialSpec:
