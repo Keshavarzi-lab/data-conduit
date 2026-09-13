@@ -28,7 +28,8 @@ Description:
 Contents:
 --------------------------------
 - qc_trial_spec:     Build the Q_C TrialSpec for a port count and inter-trial buffer.
-- QC_TRIALS:         The Q_C TrialSpec with Q_C_Analysis_Workflow's defaults.
+- QC_TRIALS:         The Q_C TrialSpec with the catalog's zero-buffer default.
+- read_qc_events:    Read one stable event table and attach per-recording event IDs.
 - qc_trials_reader:  A ``path -> trial table`` Catalog reader for the Q_C task.
 '''
 
@@ -39,6 +40,7 @@ Contents:
 # Imports
 ################################################################################
 
+from collections.abc import Callable
 from pathlib import Path
 
 import numpy as np
@@ -213,8 +215,8 @@ def qc_trial_spec(
             Number of arena ports, used for the angle offset. Default 18.
         trial_start_buffer (float):
             Seconds inserted between one trial's end and the next trial's start.
-            Default 0.0, reproducing Q_C_Analysis_Workflow; pass 0.0 for
-            contiguous trials (what the Q_C Catalog uses).
+            Default 0.0 for contiguous trial bounds. The older
+            ``parse_events_to_trials`` wrapper separately defaults to 1.0.
     Returns:
         TrialSpec:
             The spec to hand to ``parse_trials`` alongside a session's events.
@@ -281,11 +283,11 @@ def qc_trial_spec(
 
 
 #===============================================================================
-# 2| QC_TRIALS (The Spec With Q_C_Analysis_Workflow's Defaults)
+# 2| QC_TRIALS (The Spec With the Catalog's Defaults)
 #===============================================================================
-# 18 arena ports and the 1-second inter-trial gap: the values the original
-# Q_C_Analysis_Workflow parser hardcoded. The Catalog builds its own spec when it
-# needs a different buffer.
+# 18 arena ports and no inter-trial gap, matching qc_trial_spec() above.
+# The compatibility parse_events_to_trials() wrapper retains its separate
+# 1-second default; passing a buffer there overrides this catalog convention.
 QC_TRIALS = qc_trial_spec()
 
 #===============================================================================
@@ -293,39 +295,129 @@ QC_TRIALS = qc_trial_spec()
 
 
 #===============================================================================
-# 3| qc_trials_reader (Trial Table As an Ordinary Catalog Reader)
+# 3| read_qc_events (One Stable Event Table With Per-Recording Event IDs)
 #===============================================================================
-def qc_trials_reader(
-        spec: TrialSpec = QC_TRIALS,
-):
-    '''
-    Return a ``path -> trial table`` reader for a Catalog.
+def read_qc_events(
+        path: str | Path,                                       # One selected recording directory.
+) -> pd.DataFrame:                                              # Time-indexed events plus an event_index column.
+    """
+    Read one recording's events and identify their order before parsing trials.
 
-    A trial table is a DataFrame, so it registers with
-    ``Catalog.add_reader('trials', qc_trials_reader())`` exactly like ``events``
-    or ``nosepoke`` -- no special handling. The reader owns its whole pipeline
-    (read this session's event log, parse it to trials), so the raw event log is
-    never carried into the combined output.
+    The existing split-file helper orders files by filename and stably sorts
+    event times within each file. Equal timestamps retain their original row
+    order. A clock rollback between files raises: globally sorting those files
+    would conceal a reset and associate unrelated parts of the recording.
 
+    ``event_index`` is a zero-based integer column assigned after that ordering.
+    It distinguishes equal-time events in later trial slicing. These IDs belong
+    to this recording and must travel with the events when rows are filtered;
+    do not renumber a selected subset. Session identity is added by DataStructure.
+
+    Parameters
     ----------
-    Parameters:
-        spec (TrialSpec):
-            The trial description to parse with. Default ``QC_TRIALS``; pass
-            ``qc_trial_spec(trial_start_buffer=0.0)`` for contiguous trials.
-    Returns:
-        Callable[[Path], pd.DataFrame]:
-            The reader, ready for ``Catalog.add_reader``.
-    '''
-    # Imported here so importing this module stays light and free of reader
-    # dependencies (the spec itself only needs pandas).
+    path : str | pathlib.Path
+        One recording directory passed to the existing ExperimentEvents reader.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One numeric Time-indexed event table with its original columns and a new
+        ``event_index`` column. The input must not already use that reserved name.
+
+    Raises
+    ------
+    TypeError, ValueError, KeyError
+        If the reader result is not a usable event table, timestamps are invalid,
+        files reveal a clock rollback, or ``event_index`` already exists.
+    """
+
+    # === 1| Read and Join the Recording's Event Files =============================
+    # The imports remain local so constructing a TrialSpec does not import any
+    # acquisition readers. Reject cross-file resets before assigning event IDs.
+
     from data_conduit.core.utils import _concat_split_dataframes
     from data_conduit.datasources.monosource import ExperimentEvents
 
-    def read_trials(path: Path) -> pd.DataFrame:
-        # Flatten first: a split session logs several CSVs, and the trial parser
-        # wants one continuous, time-ordered event frame.
-        events = _concat_split_dataframes(ExperimentEvents(experiment_directory_path=path).df)
-        return parse_trials(events, spec)
+    events = _concat_split_dataframes(
+        ExperimentEvents(experiment_directory_path=path).df,    # Existing raw CSV reader.
+        on_rollback='error',                                    # A reset cannot share this timebase.
+    )
+
+    # === 2| Validate the Time Index and Reserve the Event Identifier ==============
+    # Raw events may be requested without parsing, so validate these properties
+    # here as well as in the generic parser before returning an events stream.
+
+    if not isinstance(events, pd.DataFrame):
+        raise TypeError('ExperimentEvents must produce a pandas DataFrame.')
+    if 'Event' not in events.columns:
+        raise KeyError("ExperimentEvents must contain an 'Event' column.")
+    if not pd.api.types.is_numeric_dtype(events.index.dtype):
+        raise TypeError('ExperimentEvents must have a numeric time index.')
+    if not np.isfinite(events.index.to_numpy(dtype=float)).all():
+        raise ValueError('ExperimentEvents must contain only finite timestamps.')
+    if 'event_index' in events.columns:
+        raise ValueError("ExperimentEvents already contains the reserved 'event_index' column.")
+
+    # === 3| Assign Stable Row IDs Once for This Complete Recording ================
+    # A new column leaves Time unchanged. Parsing and raw-event output consume
+    # this same table when the catalog requests both streams.
+
+    events = events.copy()                                      # Keep the reader's own DataFrame untouched.
+    events['event_index'] = np.arange(len(events))              # IDs distinguish rows whose Time values tie.
+    return events
+
+#===============================================================================
+
+
+
+#===============================================================================
+# 4| qc_trials_reader (Trial Table As an Ordinary Catalog Reader)
+#===============================================================================
+def qc_trials_reader(
+        spec: TrialSpec = QC_TRIALS,                            # Description applied to each recording's events.
+) -> Callable[[Path], pd.DataFrame]:                            # Ordinary path-to-trial-table reader.
+    """
+    Return a ``path -> trial table`` reader for a Catalog.
+
+    A trial table is a DataFrame, so this standalone reader still registers with
+    ``Catalog.add_reader('trials', qc_trials_reader())``. It reads one recording's
+    events, assigns stable event IDs and parses them using the supplied spec.
+    ``build_qc_catalog`` instead reads events once and derives trials in a
+    configurator, allowing both outputs without a second disk read.
+
+    Parameters
+    ----------
+    spec : TrialSpec
+        Trial description passed unchanged to ``parse_trials``. The default
+        ``QC_TRIALS`` uses 18 ports and a zero inter-trial buffer.
+
+    Returns
+    -------
+    Callable[[pathlib.Path], pandas.DataFrame]
+        Reader returning only the parsed trial table for one recording.
+    """
+
+    def read_trials(
+            path: Path,                                         # Recording directory supplied by the Catalog.
+    ) -> pd.DataFrame:                                          # One row per accepted trial in this recording.
+        """
+        Read one recording and parse its events with the enclosing TrialSpec.
+
+        Parameters
+        ----------
+        path : pathlib.Path
+            Recording directory containing the ExperimentEvents files.
+
+        Returns
+        -------
+        pandas.DataFrame
+            Trials including the stable IDs of each included event window.
+        """
+
+        # === 1| Read Events Before Applying the Trial Description =================
+
+        events = read_qc_events(path)                           # Same ordering and IDs as catalog raw events.
+        return parse_trials(events, spec)                       # Keep experiment rules in the supplied spec.
 
     return read_trials
 
@@ -334,3 +426,342 @@ def qc_trials_reader(
 
 
 ################################################################################
+
+
+
+# '''
+# The Q_C nosepoke task as a TrialSpec.
+# =====================================
+
+# Description:
+#     Everything experiment-specific about a Q_C trial, expressed as data for the
+#     general parser in ``data_conduit.datastructures``. The event
+#     vocabulary ("Poke:", "Target zone triggered", ...), the arena port count and
+#     the TTT / TTP durations all live HERE, next to the experiment, rather than in
+#     the library.
+
+#     This is the Q_C-specific description passed to the generic
+#     ``data_conduit.datastructures.parse_trials`` function. Each "Poke:" event
+#     ends a trial, whose start is the previous poke plus ``trial_start_buffer``
+#     (or, for the first trial, the "Start trial logic" event).
+
+#     At a zero inter-trial buffer, the generic parser assigns a shared closing
+#     poke only to the trial it closes. The former Q_C parser included that event
+#     in the following trial's extraction window as well, so some legacy values
+#     can differ when the refactored parser is used.
+
+#     Two named path segments come out of the spec:
+#         outbound = trial start           -> Target zone triggered
+#         inbound  = Target zone triggered -> poke (trial end)
+#     The whole-trial window (start_time -> end_time) is always available and does
+#     not need declaring; see ``segment_bounds``.
+
+# Contents:
+# --------------------------------
+# - qc_trial_spec:     Build the Q_C TrialSpec for a port count and inter-trial buffer.
+# - QC_TRIALS:         The Q_C TrialSpec with Q_C_Analysis_Workflow's defaults.
+# - qc_trials_reader:  A ``path -> trial table`` Catalog reader for the Q_C task.
+# '''
+
+
+
+
+# ################################################################################
+# # Imports
+# ################################################################################
+
+# from pathlib import Path
+
+# import numpy as np
+# import pandas as pd
+
+# from data_conduit.datastructures import TrialSpec, first_matching, parse_trials
+
+# ################################################################################
+
+
+
+
+# ################################################################################
+# # Private Helpers (Q_C event vocabulary)
+# ################################################################################
+
+
+
+# #===============================================================================
+# # 1| Ports Out of a "Poke:" Event String
+# #===============================================================================
+# def _get_ports(
+#         poke_event: str,
+# ) -> tuple[int, int]:
+#     '''
+#     Return ``(chosen_port, correct_port)`` from a closing "Poke:" event string.
+
+#     The poke string looks like ``"Poke: {Success=True, ChosenPort=16,
+#     CorrectPort=16-}"``. A chosen port of -1 means the animal never poked.
+
+#     ----------
+#     Parameters:
+#         poke_event (str):
+#             The closing poke event string for a trial.
+#     Returns:
+#         tuple[int, int]:
+#             The chosen and correct port numbers.
+#     '''
+#     chosen_port = int(poke_event.split('ChosenPort=')[1].split(',')[0])
+#     correct_port = int(poke_event.split('CorrectPort=')[1].split('-')[0])
+#     return chosen_port, correct_port
+
+# #===============================================================================
+
+
+
+# #===============================================================================
+# # 2| Trial Outcome From the Poke Event String
+# #===============================================================================
+# def _get_outcome(
+#         poke_event: str,
+# ) -> str:
+#     '''
+#     Classify a trial from its closing "Poke:" event string.
+
+#     The mapping is: Success -> "Success"; a failed poke with no port chosen
+#     (ChosenPort=-1) -> "Miss"; any other failed poke -> "Failure".
+
+#     ----------
+#     Parameters:
+#         poke_event (str):
+#             The closing poke event string for a trial.
+#     Returns:
+#         str:
+#             One of "Success", "Miss", or "Failure".
+#     '''
+#     if 'Success=True' in poke_event:
+#         return 'Success'
+#     if 'Success=False' in poke_event and 'ChosenPort=-1' in poke_event:
+#         return 'Miss'
+#     if 'Success=False' in poke_event and 'ChosenPort=-1' not in poke_event:
+#         return 'Failure'
+#     # Anything else is an unexpected log shape; fail loudly rather than mislabel.
+#     raise ValueError(f'unexpected poke event format: {poke_event}')
+
+# #===============================================================================
+
+
+
+# #===============================================================================
+# # 3| Signed Angle Offset Between Chosen and Correct Ports
+# #===============================================================================
+# def _get_angle_offset(
+#         chosen_port: int,
+#         correct_port: int,
+#         nosepoke_count: int,
+# ) -> float:
+#     '''
+#     Return the signed angle (in [-180, 180]) between the chosen and correct ports.
+
+#     Ports are evenly spaced around the arena, so the offset is
+#     ``(chosen_port - correct_port) * (360 / nosepoke_count)`` wrapped into
+#     [-180, 180]. NaN when there was no poke (chosen port -1).
+
+#     ----------
+#     Parameters:
+#         chosen_port (int):
+#             The port the animal poked (-1 if none).
+#         correct_port (int):
+#             The rewarded port for the trial.
+#         nosepoke_count (int):
+#             Number of ports around the arena (sets the angular spacing).
+#     Returns:
+#         float:
+#             The signed angle offset in degrees, or NaN for a miss.
+#     '''
+#     # No poke -> no meaningful angle.
+#     if chosen_port == -1:
+#         return np.nan
+
+#     # Even spacing -> port difference times the per-port angle, wrapped to +/-180.
+#     angle_offset = (chosen_port - correct_port) * (360 / nosepoke_count)
+#     return ((angle_offset + 180) % 360) - 180
+
+# #===============================================================================
+
+
+
+# #===============================================================================
+# # 4| Target Zone Radius From a "Target zone available" Event
+# #===============================================================================
+# def _get_target_zone_size(
+#         zone_row: pd.Series,
+# ) -> float:
+#     '''
+#     Return the target-zone radius from a "Target zone available" event row.
+
+#     The event reads ``"Target zone available (X Y : 740 687 - Radius : 150)"``;
+#     the radius is parsed out. The zone size can vary trial to trial, so it is
+#     read per trial rather than once per session.
+
+#     ----------
+#     Parameters:
+#         zone_row (pd.Series):
+#             The matched event row (its ``Event`` text holds the radius).
+#     Returns:
+#         float:
+#             The radius in the same units as the log.
+#     '''
+#     # Split out the number after "Radius : " up to the closing parenthesis.
+#     return float(zone_row['Event'].split('Radius : ')[1].split(')')[0])
+
+# #===============================================================================
+
+
+
+# ################################################################################
+
+
+
+
+# ################################################################################
+# # Public API
+# ################################################################################
+
+
+
+# #===============================================================================
+# # 1| qc_trial_spec (The Q_C Trial Description)
+# #===============================================================================
+# def qc_trial_spec(
+#         *,
+#         nosepoke_count: int = 18,
+#         trial_start_buffer: float = 0.0,
+# ) -> TrialSpec:
+#     '''
+#     Build the Q_C ``TrialSpec`` for a given port count and inter-trial buffer.
+
+#     ----------
+#     Parameters:
+#         nosepoke_count (int):
+#             Number of arena ports, used for the angle offset. Default 18.
+#         trial_start_buffer (float):
+#             Seconds inserted between one trial's end and the next trial's start.
+#             Default 0.0, reproducing Q_C_Analysis_Workflow; pass 0.0 for
+#             contiguous trials (what the Q_C Catalog uses).
+#     Returns:
+#         TrialSpec:
+#             The spec to hand to ``parse_trials`` alongside a session's events.
+#     '''
+
+#     def qc_fields(window, closing):
+#         '''Per-trial values read out of one Q_C trial's events.'''
+#         # The outbound / inbound boundary: when the animal first triggered the
+#         # target zone. NaN on a trial where the zone was never reached.
+#         tz_triggered_time = first_matching(window, 'Target zone triggered')
+#         # When the zone was announced. Present even on a true miss, so it gives
+#         # an alternate outbound end (start -> zone available).
+#         tz_available_time = first_matching(window, 'Target zone available')
+
+#         # The ports come from the closing poke's structured event string.
+#         poke_event = closing['Event']
+#         chosen_port, correct_port = _get_ports(poke_event)
+
+#         return {
+#             'tz_triggered_time': tz_triggered_time,
+#             'tz_available_time': tz_available_time,
+#             'ChosenPort': chosen_port,
+#             'CorrectPort': correct_port,
+#             'outcome': _get_outcome(poke_event),
+#             # The LED is a presence test: a single "on" event anywhere in the
+#             # trial means it was lit for that trial.
+#             'LED': first_matching(
+#                 window, 'NosePokesLED ON', extract=lambda row: 'ON', default='OFF',
+#             ),
+#             'angle_offset': _get_angle_offset(chosen_port, correct_port, nosepoke_count),
+#             'target_zone_size': first_matching(
+#                 window, 'Target zone available', extract=_get_target_zone_size,
+#             ),
+#         }
+
+#     def qc_derived(row):
+#         '''Durations worked out from a Q_C trial's delimiting times.'''
+#         # Time to target is the OUTBOUND duration (start -> target zone
+#         # triggered); time to poke is the INBOUND duration (triggered -> poke).
+#         # Both are NaN if the zone never triggered. Together they sum to the
+#         # start -> poke duration.
+#         tz_triggered_time = row['tz_triggered_time']
+#         if pd.isna(tz_triggered_time):
+#             return {'TTT': np.nan, 'TTP': np.nan}
+#         return {
+#             'TTT': tz_triggered_time - row['start_time'],
+#             'TTP': row['end_time'] - tz_triggered_time,
+#         }
+
+#     return TrialSpec(
+#         closes_trial='Poke:',
+#         session_start='Start trial logic',
+#         start_buffer=trial_start_buffer,
+#         fields=qc_fields,
+#         derived=qc_derived,
+#         segments={
+#             'outbound': ('start_time', 'tz_triggered_time'),
+#             'inbound': ('tz_triggered_time', 'end_time'),
+#         },
+#     )
+
+# #===============================================================================
+
+
+
+# #===============================================================================
+# # 2| QC_TRIALS (The Spec With Q_C_Analysis_Workflow's Defaults)
+# #===============================================================================
+# # 18 arena ports and the 1-second inter-trial gap: the values the original
+# # Q_C_Analysis_Workflow parser hardcoded. The Catalog builds its own spec when it
+# # needs a different buffer.
+# QC_TRIALS = qc_trial_spec()
+
+# #===============================================================================
+
+
+
+# #===============================================================================
+# # 3| qc_trials_reader (Trial Table As an Ordinary Catalog Reader)
+# #===============================================================================
+# def qc_trials_reader(
+#         spec: TrialSpec = QC_TRIALS,
+# ):
+#     '''
+#     Return a ``path -> trial table`` reader for a Catalog.
+
+#     A trial table is a DataFrame, so it registers with
+#     ``Catalog.add_reader('trials', qc_trials_reader())`` exactly like ``events``
+#     or ``nosepoke`` -- no special handling. The reader owns its whole pipeline
+#     (read this session's event log, parse it to trials), so the raw event log is
+#     never carried into the combined output.
+
+#     ----------
+#     Parameters:
+#         spec (TrialSpec):
+#             The trial description to parse with. Default ``QC_TRIALS``; pass
+#             ``qc_trial_spec(trial_start_buffer=0.0)`` for contiguous trials.
+#     Returns:
+#         Callable[[Path], pd.DataFrame]:
+#             The reader, ready for ``Catalog.add_reader``.
+#     '''
+#     # Imported here so importing this module stays light and free of reader
+#     # dependencies (the spec itself only needs pandas).
+#     from data_conduit.core.utils import _concat_split_dataframes
+#     from data_conduit.datasources.monosource import ExperimentEvents
+
+#     def read_trials(path: Path) -> pd.DataFrame:
+#         # Flatten first: a split session logs several CSVs, and the trial parser
+#         # wants one continuous, time-ordered event frame.
+#         events = _concat_split_dataframes(ExperimentEvents(experiment_directory_path=path).df)
+#         return parse_trials(events, spec)
+
+#     return read_trials
+
+# #===============================================================================
+
+
+
+# ################################################################################

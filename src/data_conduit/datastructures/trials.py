@@ -916,6 +916,7 @@ def parse_trials(
 
 
 
+
 # """
 # Convert a session event log into a generic trial table: one row per trial.
 # ----------------------------------------------------------------------------
