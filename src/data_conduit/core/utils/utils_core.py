@@ -180,7 +180,9 @@ def _concat_split_dataframes(
     # this file are ordered. A within-file sort is safe (one continuous write); it
     # is only the CROSS-file global sort that we avoid (see the dict branch).
     if isinstance(df_or_dict, pd.DataFrame):
-        return df_or_dict.sort_index()
+        return df_or_dict.sort_index(
+                                    kind =  'stable'                                # Applies a stable sort to maintain relative order of elements with equal keys/same timestamp
+                                     )
 
     # A multi-file stream arrives as a dict keyed by file stem. Walk it in sorted
     # KEY (filename) order so the files join chronologically, flattening each value
