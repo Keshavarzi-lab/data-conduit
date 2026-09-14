@@ -1,3 +1,74 @@
+# Movement calls and their meaning
+
+The verified environment used movement 0.17.0. The notebooks expose the following calls next to the calculation they perform.
+
+| Location | Call | Input and interpretation |
+|---|---|---|
+| Kinematics calculation cell | `kin.compute_speed` | One recording's tracked point on acquired seconds; distance per second |
+| Kinematics calculation cell | `kin.compute_head_direction_vector` | Left/right ear positions and explicit camera view; head-forward vector |
+| Kinematics calculation cell | `compute_signed_angle_2d` | Successive head-forward vectors; signed changes divided by actual time differences for angular velocity |
+| Spatial calculation cell | `kin.compute_forward_vector_angle` | Head direction relative to the fixed external `REFERENCE_VECTOR` |
+| Spatial calculation cell | `kin.compute_head_direction_vector` | Head-forward vector for comparing against a target bearing |
+| Spatial calculation cell | `compute_signed_angle_2d` | Head-forward vector versus `ROI position - head centre`; the moving ROI's heading is never used |
+| Spatial plot function | `plot_occupancy` | Preselected x/y observations and explicit bins/range; rectangular occupancy cells |
+| Trajectory measurement function | `kin.compute_path_length` | Sum of distances between consecutive observed outbound positions |
+| Trajectory measurement function | `kin.compute_path_deviation` | Per-sample unsigned perpendicular deviation from the infinite line joining the observed inbound endpoints |
+| Trajectory grid function | `plot_centroid_trajectory` | An already selected observed path; the function does not choose trials |
+| Optional `prepare_pose` | `filter_by_confidence` | Keep positions with sufficiently high, nonmissing likelihood |
+| Optional `prepare_pose` | `interpolate_over_time` | Linear interpolation by sample order, limited by an explicit internal gap length in frames |
+| Optional `prepare_pose` | `rolling_filter` | Median over an explicit odd frame window, requiring all samples in that window |
+| Timeseries demo | `compute_speed` | Full-recording speed, sliced to trials only after calculation |
+
+## Geometry and units
+
+Head-direction results are radians. In image coordinates with positive y downwards, a positive geometric rotation appears clockwise. The external reference, camera view and left/right ear choices are explicit settings; they must match the acquisition geometry.
+
+For a fixed or moving ROI, the relevant vector points from the head centre (ear midpoint) to the ROI's position. A moving array must be time-aligned to the focal recording. Missing positions or a target exactly at the head centre do not define a valid bearing.
+
+The trajectory comparison uses outbound length as the provisional complexity proxy. Its y-value is the sample mean of `compute_path_deviation`, rather than displacement/length or an angular error. The target position can be shared by inbound/outbound geometric paths; occupancy partitions avoid counting it twice. Outer trial inclusion follows the selected row's flags.
+
+Apply the recording's pixel/centimetre calibration consistently to pose, ROIs and image extent. Length/deviation/speed then inherit the chosen spatial unit; head angles do not depend on a uniform scalar spatial scale. A scalar calibration does not correct lens distortion.
+
+## Selection and validation
+
+Processing and differentiation run independently on full recordings, followed by explicit trial/time selection. Selected trial rows retain recording identity. Plotting functions receive selected data and display parameters; they do not load sessions or decide trial ranges.
+
+Derivatives use acquired sample times and assume continuous sampling. Display gap handling only breaks drawn lines; it does not validate derivative estimates across recording pauses.
+
+The path measurements check missing coordinates, interval coverage, endpoint degeneracy and an optional maximum sample interval before calling movement. These exclusions remain visible in returned tables. No boundary position is fabricated between camera frames.
+
+
+
+
+
+
+
+=========================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------
 # Movement APIs and the code added around them
 
 The tables below describe the calls in these notebooks and shared helpers,

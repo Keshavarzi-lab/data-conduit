@@ -1,3 +1,60 @@
+# movement_figures
+
+These notebooks read the lab's recordings through the existing data-conduit `DataStructure`, select data before plotting, and call movement for measurements.
+
+Start with `data_template/demo.ipynb`. Set your recording root, hierarchy and directory selectors; preview `.select()`, then call `.load()`. Its outputs are ordinary pandas/xarray streams. No `FigureData`, `SessionData`, `build_config`, or `load_figure_data` interface is required.
+
+## Recording, trial and condition selection
+
+`build_datastructure` uses explicit stream names: `trials` returns the parsed trial table and `events` returns its raw event log. Both share one source read. DLC can load without events; it needs the corresponding video timestamps for alignment.
+
+Use `slice_stream(data, selectors={...}, where=...)` for direct selection. A session or trial table is not required. Selected trial rows can be passed to `slice_stream_for_trial`: each row supplies its recording, bounds and inclusion flags. Original trial numbers are retained independently within each recording. Parse the complete event log before filtering: event-ID ranges preserve tied-event boundaries, but cannot remember arbitrary rows removed before parsing and later restored.
+
+`assign`, `drop` and other native pandas/xarray operations handle adding or removing values. Selecting one stream does not silently mutate its companions; the trial-row slicing examples show the explicit connection to pose and events.
+
+The figure notebooks loop over multiple selected recordings and keep their raw clocks separate. Calibration, pose preparation and background images belong to each recording. Only the resulting trial measurements are combined for comparison.
+
+## Conversion and optional processing
+
+The existing `data_conduit.integrations.DLC.pose.pose_to_movement` converts aligned raw DLC arrays to movement's singular `time`, `keypoint`, `individual` dimensions. It validates shared coordinates and acquired seconds. Raw DLC arrays retain their original names.
+
+Camera timestamps retain acquisition order within each filename-ordered chunk. The catalog rejects invalid clocks before positional pose alignment; equal frame counts still assume corresponding source frames.
+
+`prepare_pose` optionally masks low confidence, interpolates short internal gaps, then applies a median filter. The function defaults disable every option. The figure settings retain an explicit 0.9 confidence threshold from the original examples, with interpolation/smoothing disabled; inspect tracking quality before accepting that threshold. The data demo disables all processing by default. Choices are documented beside the calls. Processing returns a copy and runs on each full recording before trial slicing. The interpolation limit and smoothing window are frame counts, not elapsed-time thresholds.
+
+## Figures
+
+| Notebook | Measurement and output |
+|---|---|
+| Kinematics | Direct movement speed and head-direction calculations, then wrapped traces of preselected intervals |
+| Spatial | Head direction relative to an external reference; bearings towards fixed or moving ROI positions; rectangular occupancy bins |
+| Trajectories | Outbound path length versus mean inbound movement path deviation, paired by recording and trial |
+| Timeseries template | Existing annotations drawn on actual movement speed for selected trials |
+
+Kinematics and the timeseries demo calculate derivatives from acquired sample times. These calculations can span acquisition pauses; breaks in the plotted line do not remove those estimates. Optional interpolation/smoothing uses frame counts and remains disabled by default.
+
+Pixel/centimetre display uses explicit measured calibration per recording. A scalar scale is isotropic: it is not a perspective or fisheye correction. Static/moving ROIs need actual positions in the same coordinate frame as tracking.
+
+The existing `refactor_qc` training-session/minimum-trial/LED rules can be enabled before plotting. Whole-recording ON exclusion in the figures is a separate, explicitly named option. The LED field denotes ON-event presence within a parsed trial; it does not reconstruct persistent hardware state.
+
+## Important interpretation limits
+
+- The inbound summary is the sample mean of unsigned perpendicular deviations from the infinite line through the observed inbound endpoints. It is not home-port angular error.
+- Missing or degenerate paths are reported rather than assigned plausible-looking measurements. Interpolation, if enabled, changes the positions used for those measurements.
+- Occupancy bins are rectangles. Empty cells are transparent; no circular clipping of the bin geometry is performed.
+- `read_session_video_frame` remains in `movement_figures.video`. The name `UndistortedVideoData` alone does not verify lens correction or agreement with pose coordinates.
+- Function and source-reader checks used movement 0.17.0 and separate development fixtures. The uploaded ZIPs contain code; these checks are not a run of your experimental recordings.
+
+For the manual repair, use the accompanying numbered edit guide. It compares the original uploads with these reference files and identifies edits that belong together. No installer or automatic notebook migration is included.
+
+
+
+
+==================================================
+
+
+
+================================================
 # Movement figure notebooks
 
 These notebooks load one recording, calculate movement measurements, and show how
