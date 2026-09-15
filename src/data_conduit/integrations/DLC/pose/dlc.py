@@ -603,6 +603,7 @@ def pose_to_movement(
 
     expected_position = (time_coord, 'keypoints', 'space')
     expected_confidence = (time_coord, 'keypoints')
+
     if sorted(position.dims) != sorted(expected_position):
         raise ValueError(f'position dimensions must be {expected_position}, in any order.')
     if sorted(confidence.dims) != sorted(expected_confidence):
@@ -625,6 +626,9 @@ def pose_to_movement(
     if list(position.space.values) != ['x', 'y']:
         raise ValueError('position.space must contain ["x", "y"] in that order.')
 
+    if time_coord not in position.coords:
+        raise ValueError(f'{time_coord} must have an explicit coordinate containing acquired seconds.')
+
     for name in (time_coord, 'keypoints'):
         if position.sizes[name] == 0 or not position.get_index(name).is_unique:
             raise ValueError(f'{name} must contain non-empty, unique coordinates.')
@@ -632,6 +636,7 @@ def pose_to_movement(
     time_dtype = position[time_coord].dtype
     if not (np.issubdtype(time_dtype, np.integer) or np.issubdtype(time_dtype, np.floating)):
         raise TypeError(f'{time_coord} must contain real numeric acquired seconds.')
+    
     times = position[time_coord].to_numpy()                   # Read the existing clock without constructing a new frame/FPS time axis.
     # Direct comparison also detects decreases in unsigned integers, whose
     # subtraction would wrap to a large positive number instead of a negative gap.

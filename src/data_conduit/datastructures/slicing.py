@@ -438,7 +438,8 @@ def slice_stream_for_trial(
     -------
     DataObject
         Stream subset containing only the selected trial row's source session and
-        requested segment interval. If a DataFrame has ``event_index`` and the row
+        requested segment interval. A missing trial or segment endpoint (including
+        None or NaN) produces an empty selection. If a DataFrame has ``event_index`` and the row
         has ``first_event_index`` / ``last_event_index``, those inclusive IDs
         reproduce the parser's exact whole-trial event window, including tied
         timestamps. Missing IDs in those columns mean an empty event window.
@@ -480,6 +481,11 @@ def slice_stream_for_trial(
     # silently adding the previous trial's endpoint back into the pose slice.
 
     bounds = {"start": trial_row[start_column], "end": trial_row[end_column]}
+    missing_bounds = any(pd.isna(value) for value in bounds.values())
+    if missing_bounds:
+        # Trial endpoints describe an observed interval. None here means an
+        # unavailable interval, whereas the direct slicer uses None for no bound.
+        bounds = {"start": np.nan, "end": np.nan}
     inclusive: dict[str, bool] = {}
 
     for bound in ("start", "end"):
@@ -514,12 +520,12 @@ def slice_stream_for_trial(
     if exact_events:
         first_event = trial_row["first_event_index"]
         last_event = trial_row["last_event_index"]
-        if pd.isna(first_event) or pd.isna(last_event):
+        if missing_bounds or pd.isna(first_event) or pd.isna(last_event):
             selectors["event_index"] = []                      # An empty extraction window must not fall back to its timestamps.
         else:
             selectors["event_index"] = slice(first_event, last_event)
 
-        if whole_trial:
+        if whole_trial or missing_bounds:
             bounds = {"start": None, "end": None}              # Numeric exclusive bounds would discard valid equal-time rows.
         else:
             for bound in ("start", "end"):

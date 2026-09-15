@@ -54,6 +54,8 @@ from collections.abc import Iterator, KeysView, Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
+from data_conduit.datasources.monosource.monosource_core import MonoSource
+
 from .catalog_core import StreamCatalog
 from .extractors import LabelExtractor
 from .selection import SessionRef, select_sessions
@@ -307,6 +309,8 @@ def _load_datastructure_streams(
     combines those containers independently, and commits the resulting runtime
     state only after every stage succeeds. A failure therefore leaves the most
     recent successful ``sessions``, ``containers``, and ``data`` intact.
+    After a successful load, print one summary of MonoSource classes whose
+    instances were created with verbose=False during this load.
 
     Parameters
     ----------
@@ -334,6 +338,9 @@ def _load_datastructure_streams(
     ValueError
         If the fresh selection contains no sessions.
     """
+
+    # Collect verbose-disabled classes afresh for this load.
+    MonoSource._verbose_disabled_warning_shown_for.clear()
 
     # === 1| Select the Session Directories =======================================
     # ``load`` always performs a fresh selection so changes to the filesystem or
@@ -377,6 +384,13 @@ def _load_datastructure_streams(
     self.data = data
 
     # === 5| Return the Final Combined StreamMap ===================================
+
+    if MonoSource._verbose_disabled_warning_shown_for:
+        print(
+            "Warning: verbose output disabled for "
+            + ", ".join(sorted(ms_class.__name__ for ms_class in MonoSource._verbose_disabled_warning_shown_for))
+            + "."
+        )
 
     return data
 
@@ -653,12 +667,13 @@ class DataStructure:
         self.containers: dict[str, StreamContainer] = {}
         self.data: StreamMap | None = None
 
-    select = _select_datastructure_sessions  # Select sessions and invalidate older loaded state.
-    load = _load_datastructure_streams  # Run the complete pipeline and commit a successful result.
-    keys = _get_loaded_stream_keys  # Dictionary-style view of loaded stream names.
-    __getitem__ = _get_loaded_stream  # Retrieve one combined stream by name.
-    __iter__ = _iterate_loaded_stream_names  # Iterate loaded names in insertion order.
-    __len__ = _count_loaded_streams  # Count combined streams in the loaded result.
+    select = _select_datastructure_sessions             # Select sessions and invalidate older loaded state.
+    load = _load_datastructure_streams                  # Run the complete pipeline and commit a successful result.
+    keys = _get_loaded_stream_keys                      # Dictionary-style view of loaded stream names.
+
+    __getitem__ = _get_loaded_stream                    # Retrieve one combined stream by name.
+    __iter__ = _iterate_loaded_stream_names             # Iterate loaded names in insertion order.
+    __len__ = _count_loaded_streams                     # Count combined streams in the loaded result.
 
 
 # ===============================================================================

@@ -247,7 +247,7 @@ class MonoSource:
         Named DataArrays built from monosource_data_arrays.
     '''
 
-    _verbose_disabled_warning_shown_for: set[type] = set()                          # 
+    _verbose_disabled_warning_shown_for: set[type] = set()  # Collected for the current DataStructure.load() summary.
 
     def __init__(
             self,
@@ -331,14 +331,8 @@ class MonoSource:
         self.verbose = verbose
         ms_class = self.__class__       # Store the class of the current instance for verbose warning checks
         
-        # Show warning if verbose is disabled for this class without repeating it for subclasses. 
-        # This avoids spamming the user with warnings if they have multiple monosource classes.
-        if not verbose and ms_class not in self._verbose_disabled_warning_shown_for:                
-            print(f'''
-                  Warning: verbose output disabled for {ms_class.__name__}. 
-                  If any files/paths are missing or invalid for the monosource_data_arrays you specified, 
-                  you may not see warnings about them. Set verbose=True to enable warnings.
-                  ''')
+        # Collect each class once; DataStructure.load() prints the combined warning.
+        if not verbose and ms_class not in self._verbose_disabled_warning_shown_for:
             self._verbose_disabled_warning_shown_for.add(ms_class)
         
      
@@ -364,5 +358,4 @@ class MonoSource:
                 monosource_data_arrays=monosource_data_arrays,
                 verbose= self.verbose,
             )
-
 

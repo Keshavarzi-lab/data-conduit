@@ -136,6 +136,7 @@ def _concat_split_dataframes(
         df_or_dict,
         *,
         on_rollback: str = 'warn',
+        sort_by_time: bool = True,
 ):
     '''
     Collapse a (possibly nested) dict of per-file DataFrames into one DataFrame.
@@ -151,8 +152,10 @@ def _concat_split_dataframes(
         The pieces are joined by FILENAME FIRST, then by the Time index WITHIN
         each file. The dict is walked in sorted key order (the keys are file
         stems whose zero-padded ISO timestamps make lexical order chronological),
-        each file's own rows are sorted by Time, and the files are concatenated
-        in that filename order. The combined frame is NOT sorted globally by Time.
+        each file's own rows are stably sorted by Time by default, and the files
+        are concatenated in that filename order. The combined frame is NOT
+        sorted globally by Time. With ``sort_by_time=False``, each file instead
+        keeps its acquired row order.
         That matters because a stream's clock can reset toward 0 between files in
         edge cases: a global time sort would hoist the later file's small
         timestamps in front of the earlier file and silently MASK the rollback,
@@ -171,18 +174,19 @@ def _concat_split_dataframes(
             increasing (the clock reset between files): ``'warn'`` (default) to
             warn, ``'error'`` to raise, or ``'ignore'`` to do neither (used when
             a later step performs its own rollback check).
+        sort_by_time (bool):
+            Whether to stably sort each file by Time. Default True preserves
+            event ordering when timestamps tie. False retains acquired row order,
+            as required when camera timestamps are paired with pose by position.
     Returns:
         pandas.DataFrame | object:
             One DataFrame for the DataFrame/dict cases, otherwise the input as-is.
     '''
 
-    # A single file: order its own rows by the Time index so the time logs WITHIN
-    # this file are ordered. A within-file sort is safe (one continuous write); it
-    # is only the CROSS-file global sort that we avoid (see the dict branch).
+    # Stable time sorting keeps tied event rows in their original order. Camera
+    # timestamps must retain acquired order to match pose frames by position.
     if isinstance(df_or_dict, pd.DataFrame):
-        return df_or_dict.sort_index(
-                                    kind =  'stable'                                # Applies a stable sort to maintain relative order of elements with equal keys/same timestamp
-                                     )
+        return df_or_dict.sort_index(kind='stable') if sort_by_time else df_or_dict
 
     # A multi-file stream arrives as a dict keyed by file stem. Walk it in sorted
     # KEY (filename) order so the files join chronologically, flattening each value
@@ -190,7 +194,7 @@ def _concat_split_dataframes(
     # order with NO global time sort.
     if isinstance(df_or_dict, dict):
         frames = [
-            _concat_split_dataframes(value, on_rollback=on_rollback)
+            _concat_split_dataframes(value, on_rollback=on_rollback, sort_by_time=sort_by_time)
             for _, value in sorted(df_or_dict.items(), key=lambda kv: kv[0])
         ]
         combined = pd.concat(frames)

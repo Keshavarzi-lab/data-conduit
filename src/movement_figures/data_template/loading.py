@@ -56,7 +56,7 @@ def build_datastructure(
                                                     # Explicit output names; raw events are opt-in.
     include: Sequence[str] | None = None,            # Keep these session folder names; None keeps all.
     exclude: Sequence[str] | None = None,            # Alternatively omit these session folder names.
-    raw_events: bool = False,                        # Convenience alias for adding "events" to the requested sources.
+    raw_events: bool = True,                        # Convenience alias for adding "events" to the requested sources.
     device_yaml: str | Path = "./device.yml",        # Lab Nosepoke board register definitions.
     soundcard_yaml: str | Path = "./soundcard.yml",  # Lab SoundCard register definitions.
     nosepoke_count: int = 18,                        # Port count used by the existing Q_C parser.
