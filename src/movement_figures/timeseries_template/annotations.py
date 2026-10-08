@@ -273,9 +273,17 @@ def draw_annotations(
     return AnnotationResult(artists, list(unique.values()), annotations.notes)
 
 
-def annotate_qc_timeseries(ax, trials, events=None, *, window=None, time_offset=0.0,
-                           region_styles=None, event_styles=None, outcome_styles=None,
-                           legend=True) -> AnnotationResult:
+def annotate_qc_timeseries(ax, 
+                           trials, 
+                           events=None, 
+                           *, 
+                           window=None, 
+                           time_offset=0.0,
+                           region_styles=None, 
+                           event_styles=None, 
+                           outcome_styles=None,
+                           legend=True
+                           ) -> AnnotationResult:
     """Build the Q_C template and draw it; see qc_annotations and draw_annotations."""
     annotations = qc_annotations(trials, events, region_styles=region_styles,
                                  event_styles=event_styles, outcome_styles=outcome_styles)
